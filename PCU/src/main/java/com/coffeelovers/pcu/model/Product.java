@@ -21,7 +21,7 @@ public class Product {
 	@Column(name= "variableCosts")
 	private double variableCosts;
 	
-	@Column(name= "pic")
+	@Column(name= "Picture")
 	private long pic;
 	
 	@Column(name= "size")
