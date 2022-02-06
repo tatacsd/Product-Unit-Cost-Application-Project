@@ -8,39 +8,36 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="products")
+@Table(name="product")
 public class Product {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long productID;
 	
-	@Column(name= "materialsID")
+	@Column(name= "MaterialsID")
 	private long materialsID;
 	
-	@Column(name= "variableCosts")
+	@Column(name= "VariableCosts")
 	private double variableCosts;
 	
 	@Column(name= "Picture")
-	private long pic;
+	private long picture;
 	
-	@Column(name= "size")
+	@Column(name= "Size")
 	private String size;
 	
 	public Product() {
 		
 	}
 
-	// Personalized
-	public Product(long materialsID, double variableCosts, long pic, String size) {
+	public Product(long materialsID, double variableCosts, long picture, String size) {
 		this.materialsID = materialsID;
 		this.variableCosts = variableCosts;
-		this.pic = pic;
+		this.picture = picture;
 		this.size = size;
 	}
 	
-	
-// Generate Setters and getters
 
 	public long getProductID() {
 		return productID;
@@ -66,12 +63,12 @@ public class Product {
 		this.variableCosts = variableCosts;
 	}
 
-	public long getPic() {
-		return pic;
+	public long getPicure() {
+		return picture;
 	}
 
-	public void setPic(long pic) {
-		this.pic = pic;
+	public void setPicture(long picture) {
+		this.picture = picture;
 	}
 
 	public String getSize() {
@@ -81,6 +78,4 @@ public class Product {
 	public void setSize(String size) {
 		this.size = size;
 	}
-	
-	
 }

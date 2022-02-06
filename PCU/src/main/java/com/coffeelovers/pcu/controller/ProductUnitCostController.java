@@ -16,32 +16,24 @@ import com.coffeelovers.pcu.model.Product;
 import com.coffeelovers.pcu.model.ProductRepository;
 
 @CrossOrigin(origins = "http://localhost:8081")
-@RestController // requests
+@RestController
 @RequestMapping("/api")
 public class ProductUnitCostController {
-	
-	// Get a repository reference
+
 	@Autowired
 	ProductRepository productRepository;
-	
-	// End point for products
+
 	@GetMapping("/products")
 	public ResponseEntity<List<Product>> getAllProduct(@RequestParam(required=false)Long materialID){
 		try {
-			// Create a list of Products to return as a response
 			List<Product> products = new ArrayList<Product>();
-			// if there is no param return all
 			if(materialID == null) {
 				productRepository.findAll().forEach(products::add);
 			} else {
-				// Get all products with the material id
 				productRepository.findByMaterialsID(materialID).forEach(products::add);
 			}
-			// return the list of products
 			return new ResponseEntity<>(products, HttpStatus.OK);
-			
-		}catch(Exception e) {
-			// Return the error as a response
+		} catch(Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
