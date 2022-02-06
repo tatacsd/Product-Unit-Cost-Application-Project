@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.coffeelovers.pcu.model.Product;
-import com.coffeelovers.pcu.model.ProductRepository;
+import com.coffeelovers.pcu.model.*;
+
 
 @CrossOrigin(origins = "http://localhost:8081")
 @RestController
@@ -23,8 +23,65 @@ public class ProductUnitCostController {
 
 	@Autowired
 	ProductRepository productRepository;
+	ActorRepository actorRepository;
+	SupplierRepository supplierRepository;
+	
+	
+	@GetMapping("/suppliers")
+	public ResponseEntity<List<Supplier>> GetAllSupplier(){
+		
+		List<Supplier> suppliers = new ArrayList<>();
+		
+		try {
+			supplierRepository.findAll().forEach(suppliers::add);
+			return new ResponseEntity<>(suppliers,HttpStatus.OK);
+		}catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+	}
+
+	@GetMapping("/suppliers/{id}")
+	public ResponseEntity<Supplier> getSupplierByID(@PathVariable("id") long supplierID){
+		Optional<Supplier> supplierData = supplierRepository.findById(supplierID);
+		
+		if(supplierData.isPresent()) {
+			return new ResponseEntity<>(supplierData.get(), HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}		
+	}
+	
+	@GetMapping("/actors")
+	public ResponseEntity<List<Actor>> GetAllActors(){
+		
+		List<Actor> actorArray = new ArrayList<Actor>();
+		
+		try {
+			
+			actorRepository.findAll().forEach(actorArray::add);
+			return new ResponseEntity<>(actorArray,HttpStatus.OK);
+			
+		}catch (Exception e) {
+			return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+	}
+
+	@GetMapping("/actors/{id}")
+	public ResponseEntity<Actor> GetActorById(@PathVariable("id") long actorID){
+		
+		Optional<Actor> actorData = actorRepository.findById(actorID);
+		if(actorData.isPresent())
+			return new ResponseEntity<>(actorData.get(),HttpStatus.OK);
+		else
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+				
+	}
 
 	@GetMapping("/products")
+	
 	public ResponseEntity<List<Product>> getAllProduct(){
 		try {
 			List<Product> products = new ArrayList<Product>();
@@ -45,5 +102,7 @@ public class ProductUnitCostController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}		
 	}
+
+
 
 }
