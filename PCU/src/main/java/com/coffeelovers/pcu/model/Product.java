@@ -15,16 +15,16 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long productID;
 	
-	@Column(name= "MaterialsID")
+	@Column(name= "materialsID")
 	private long materialsID;
 	
-	@Column(name= "VariableCosts")
+	@Column(name= "variableCosts")
 	private double variableCosts;
 	
-	@Column(name= "Picture")
+	@Column(name= "picture")
 	private long picture;
 	
-	@Column(name= "Size")
+	@Column(name= "size")
 	private String size;
 	
 	public Product() {
