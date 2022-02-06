@@ -22,7 +22,7 @@ public class Product {
 	private double variableCosts;
 	
 	@Column(name= "picture")
-	private long picture;
+	private String picture;
 	
 	@Column(name= "size")
 	private String size;
@@ -31,7 +31,7 @@ public class Product {
 		
 	}
 
-	public Product(long materialsID, double variableCosts, long picture, String size) {
+	public Product(long materialsID, double variableCosts, String picture, String size) {
 		this.materialsID = materialsID;
 		this.variableCosts = variableCosts;
 		this.picture = picture;
@@ -63,11 +63,11 @@ public class Product {
 		this.variableCosts = variableCosts;
 	}
 
-	public long getPicure() {
+	public String getPicure() {
 		return picture;
 	}
 
-	public void setPicture(long picture) {
+	public void setPicture(String picture) {
 		this.picture = picture;
 	}
 

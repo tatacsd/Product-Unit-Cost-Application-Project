@@ -18,9 +18,9 @@ public class PcuApplication {
 	@Bean
 	ApplicationRunner init(ProductRepository productRepository) {
 		return args -> {
-			productRepository.save(new Product(123, 23, 1, "M"));
-			productRepository.save(new Product(124, 10, 1, "S"));
-			productRepository.save(new Product(125, 0.1, 1, "L"));
+			productRepository.save(new Product(123, 23, "https", "M"));
+			productRepository.save(new Product(124, 10, "https", "S"));
+			productRepository.save(new Product(125, 0.1, "https", "L"));
 			productRepository.findAll().forEach(System.out::println);
 		};
 	}
