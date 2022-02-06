@@ -5,10 +5,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class PcuApplication {
-//TESTING GIT
+
 	public static void main(String[] args) {
 		SpringApplication.run(PcuApplication.class, args);
-		//anything test
+		
 	}
 
 }
