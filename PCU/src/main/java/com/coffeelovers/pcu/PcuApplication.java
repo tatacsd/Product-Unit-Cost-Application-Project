@@ -1,7 +1,5 @@
 package com.coffeelovers.pcu;
 
-import javax.persistence.Column;
-
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -22,7 +20,7 @@ public class PcuApplication {
 	}
 
 	@Bean
-	ApplicationRunner init(ProductRepository productRepository, SupplierRepository supplierRepository,ActorRepository actorRepository) {
+	ApplicationRunner init(ProductRepository productRepository, SupplierRepository supplierRepository, ActorRepository actorRepository) {
 		return args -> {
 			
 			
@@ -41,9 +39,6 @@ public class PcuApplication {
 			productRepository.save(new Product(125, 0.1, "https", "L"));
 			productRepository.findAll().forEach(System.out::println);
 			
-
-
-
 		};
 	}
 	
