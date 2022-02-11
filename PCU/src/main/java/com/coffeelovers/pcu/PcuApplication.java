@@ -11,6 +11,7 @@ import com.coffeelovers.pcu.model.Actor;
 import com.coffeelovers.pcu.model.ActorRepository;
 import com.coffeelovers.pcu.model.Product;
 import com.coffeelovers.pcu.model.ProductRepository;
+import com.coffeelovers.pcu.model.RawMaterialRepository;
 import com.coffeelovers.pcu.model.Supplier;
 import com.coffeelovers.pcu.model.SupplierRepository;
 
@@ -22,7 +23,7 @@ public class PcuApplication {
 	}
 
 	@Bean
-	ApplicationRunner init(ProductRepository productRepository, SupplierRepository supplierRepository,ActorRepository actorRepository) {
+	ApplicationRunner init(ProductRepository productRepository, SupplierRepository supplierRepository,ActorRepository actorRepository,RawMaterialRepository rawMaterialRepository) {
 		return args -> {
 			
 			
