@@ -27,6 +27,7 @@ public class VariableCosts {
 	public VariableCosts() {}
 
 	public VariableCosts(String description, double value, String dateTime) {
+		super();
 		this.description = description;
 		this.value = value;
 		this.dateTime = dateTime;

@@ -36,9 +36,9 @@ public class PcuApplication {
 			supplierRepository.save(new Supplier("Father", "son", 6045050,"Shanan@gmail.com", "USA"));
 			supplierRepository.findAll().forEach(System.out::println);
 			
-			productRepository.save(new Product(123, 23, "https", "M"));
-			productRepository.save(new Product(124, 10, "https", "S"));
-			productRepository.save(new Product(125, 0.1, "https", "L"));
+			productRepository.save(new Product( 23, "https", "M"));
+			productRepository.save(new Product( 10, "https", "S"));
+			productRepository.save(new Product(0.1, "https", "L"));
 			productRepository.findAll().forEach(System.out::println);
 			
 			variableCostsRepository.save(new VariableCosts("Electricity", 100, "2/11/2020"));
