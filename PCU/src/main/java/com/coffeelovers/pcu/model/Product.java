@@ -31,7 +31,7 @@ public class Product {
 		
 	}
 
-	public Product(double variableCosts, String picture, String size) {s
+	public Product(double variableCosts, String picture, String size) {
 		this.variableCosts = variableCosts;
 		this.picture = picture;
 		this.size = size;

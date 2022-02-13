@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "variableCosts")
+@Table(name = "variable_costs")
 public class VariableCosts {
 	
 	@Id
