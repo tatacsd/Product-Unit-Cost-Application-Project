@@ -9,6 +9,7 @@ import com.coffeelovers.pcu.model.Actor;
 import com.coffeelovers.pcu.model.ActorRepository;
 import com.coffeelovers.pcu.model.Product;
 import com.coffeelovers.pcu.model.ProductRepository;
+import com.coffeelovers.pcu.model.RawMaterialRepository;
 import com.coffeelovers.pcu.model.Supplier;
 import com.coffeelovers.pcu.model.SupplierRepository;
 import com.coffeelovers.pcu.model.VariableCosts;
@@ -22,8 +23,7 @@ public class PcuApplication {
 	}
 
 	@Bean
-	ApplicationRunner init(ProductRepository productRepository, SupplierRepository supplierRepository, ActorRepository actorRepository, VariableCostsRepository variableCostsRepository) {
-		return args -> {
+	ApplicationRunner init(ProductRepository productRepository, SupplierRepository supplierRepository, ActorRepository actorRepository, VariableCostsRepository variableCostsRepository, RawMaterialRepository rawMaterialRepository) {		return args -> {
 			
 			
 			actorRepository.save(new Actor("Zara", "kids clothing", 6047788,"Zara@gmail.com", "www.zara.com","2225","Canada"));
