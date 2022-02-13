@@ -25,6 +25,7 @@ public class ProductUnitCostController {
 	ProductRepository productRepository;
 	ActorRepository actorRepository;
 	SupplierRepository supplierRepository;
+	VariableCostsRepository variableCostsRepository;
 	
 	
 	@GetMapping("/suppliers")
@@ -81,7 +82,6 @@ public class ProductUnitCostController {
 	}
 
 	@GetMapping("/products")
-	
 	public ResponseEntity<List<Product>> getAllProduct(){
 		try {
 			List<Product> products = new ArrayList<Product>();
@@ -103,6 +103,16 @@ public class ProductUnitCostController {
 		}		
 	}
 
+	@GetMapping("/variableCosts")
+		public ResponseEntity<List<VariableCosts>> getAllVariableCosts(){
+			try {
+				List<VariableCosts> variableCosts = new ArrayList<VariableCosts>();
+					variableCostsRepository.findAll().forEach(variableCosts::add);
+					return new ResponseEntity<>(variableCosts, HttpStatus.OK);
+			} catch (Exception e) {
+				return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+		}
 
 
 }

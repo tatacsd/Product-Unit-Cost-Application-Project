@@ -1,7 +1,5 @@
 package com.coffeelovers.pcu;
 
-import javax.persistence.Column;
-
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,6 +11,8 @@ import com.coffeelovers.pcu.model.Product;
 import com.coffeelovers.pcu.model.ProductRepository;
 import com.coffeelovers.pcu.model.Supplier;
 import com.coffeelovers.pcu.model.SupplierRepository;
+import com.coffeelovers.pcu.model.VariableCosts;
+import com.coffeelovers.pcu.model.VariableCostsRepository;
 
 @SpringBootApplication
 public class PcuApplication {
@@ -22,7 +22,7 @@ public class PcuApplication {
 	}
 
 	@Bean
-	ApplicationRunner init(ProductRepository productRepository, SupplierRepository supplierRepository,ActorRepository actorRepository) {
+	ApplicationRunner init(ProductRepository productRepository, SupplierRepository supplierRepository, ActorRepository actorRepository, VariableCostsRepository variableCostsRepository) {
 		return args -> {
 			
 			
@@ -36,14 +36,15 @@ public class PcuApplication {
 			supplierRepository.save(new Supplier("Father", "son", 6045050,"Shanan@gmail.com", "USA"));
 			supplierRepository.findAll().forEach(System.out::println);
 			
-			productRepository.save(new Product(123, 23, "https", "M"));
-			productRepository.save(new Product(124, 10, "https", "S"));
-			productRepository.save(new Product(125, 0.1, "https", "L"));
+			productRepository.save(new Product( 23, "https", "M"));
+			productRepository.save(new Product( 10, "https", "S"));
+			productRepository.save(new Product(0.1, "https", "L"));
 			productRepository.findAll().forEach(System.out::println);
 			
-
-
-
+			variableCostsRepository.save(new VariableCosts("Electricity", 100, "2/11/2020"));
+			variableCostsRepository.save(new VariableCosts("Gas",200,"2/05/2020"));
+			variableCostsRepository.save(new VariableCosts("Water",500,"2/07/2020"));
+			
 		};
 	}
 	
