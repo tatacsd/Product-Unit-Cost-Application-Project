@@ -14,7 +14,7 @@ import javax.persistence.Table;
  * this class  represents the supplier's raw materials
  */
 @Entity
-@Table(name = "rawMaterial")
+@Table(name = "raw_material")
 public class RawMaterial {
 	
 	@Id
