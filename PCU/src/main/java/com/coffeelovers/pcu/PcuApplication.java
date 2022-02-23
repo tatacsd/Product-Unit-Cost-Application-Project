@@ -7,12 +7,16 @@ import org.springframework.context.annotation.Bean;
 
 import com.coffeelovers.pcu.model.Actor;
 import com.coffeelovers.pcu.model.ActorRepository;
+import com.coffeelovers.pcu.model.Invoice;
+import com.coffeelovers.pcu.model.InvoiceRepository;
+//import com.coffeelovers.pcu.model.InvoiceRepository;
 import com.coffeelovers.pcu.model.Product;
 import com.coffeelovers.pcu.model.ProductRepository;
 import com.coffeelovers.pcu.model.Supplier;
 import com.coffeelovers.pcu.model.SupplierRepository;
 import com.coffeelovers.pcu.model.VariableCosts;
 import com.coffeelovers.pcu.model.VariableCostsRepository;
+import java.util.*;
 
 @SpringBootApplication
 public class PcuApplication {
@@ -22,7 +26,8 @@ public class PcuApplication {
 	}
 
 	@Bean
-	ApplicationRunner init(ProductRepository productRepository, SupplierRepository supplierRepository, ActorRepository actorRepository, VariableCostsRepository variableCostsRepository) {
+	ApplicationRunner init(ProductRepository productRepository, SupplierRepository supplierRepository
+			, ActorRepository actorRepository, VariableCostsRepository variableCostsRepository, InvoiceRepository invoiceRepository) {
 		return args -> {
 			
 			
@@ -35,6 +40,13 @@ public class PcuApplication {
 			supplierRepository.save(new Supplier("Chelsy", "Chelsy", 6043366,"Chelsy@gmail.com", "India"));
 			supplierRepository.save(new Supplier("Father", "son", 6045050,"Shanan@gmail.com", "USA"));
 			supplierRepository.findAll().forEach(System.out::println);
+			
+			invoiceRepository.save(new Invoice("12",1,22,"2/11/2020"));
+			invoiceRepository.save(new Invoice("12", 1,22,"2/11/2020"));
+			invoiceRepository.save(new Invoice("12", 1,22,"2/11/2020"));
+			invoiceRepository.findAll().forEach(System.out::println);
+
+			
 			
 			productRepository.save(new Product( 23, "https", "M"));
 			productRepository.save(new Product( 10, "https", "S"));
