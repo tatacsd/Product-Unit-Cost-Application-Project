@@ -101,7 +101,7 @@ public class ProductUnitCostController {
 	}
 
 	@GetMapping("/variableCosts")
-		public ResponseEntity<List<VariableCosts>> getAllVariableCosts(){
+	public ResponseEntity<List<VariableCosts>> getAllVariableCosts(){
 			try {
 				List<VariableCosts> variableCosts = new ArrayList<VariableCosts>();
 					variableCostsRepository.findAll().forEach(variableCosts::add);
