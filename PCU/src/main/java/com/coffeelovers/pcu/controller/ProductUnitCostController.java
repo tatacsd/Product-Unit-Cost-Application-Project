@@ -25,14 +25,15 @@ public class ProductUnitCostController {
 	ProductRepository productRepository;
 	ActorRepository actorRepository;
 	SupplierRepository supplierRepository;
+	RawMaterialRepository rawMaterialRepository;
 	VariableCostsRepository variableCostsRepository;
+
 	
 	
 	@GetMapping("/suppliers")
 	public ResponseEntity<List<Supplier>> GetAllSupplier(){
 		
-		List<Supplier> suppliers = new ArrayList<>();
-		
+		List<Supplier> suppliers = new ArrayList<>();	
 		try {
 			supplierRepository.findAll().forEach(suppliers::add);
 			return new ResponseEntity<>(suppliers,HttpStatus.OK);
@@ -44,8 +45,8 @@ public class ProductUnitCostController {
 
 	@GetMapping("/suppliers/{id}")
 	public ResponseEntity<Supplier> getSupplierByID(@PathVariable("id") long supplierID){
-		Optional<Supplier> supplierData = supplierRepository.findById(supplierID);
 		
+		Optional<Supplier> supplierData = supplierRepository.findById(supplierID);
 		if(supplierData.isPresent()) {
 			return new ResponseEntity<>(supplierData.get(), HttpStatus.OK);
 		} else {
@@ -56,17 +57,14 @@ public class ProductUnitCostController {
 	@GetMapping("/actors")
 	public ResponseEntity<List<Actor>> GetAllActors(){
 		
-		List<Actor> actorArray = new ArrayList<Actor>();
-		
-		try {
-			
+		List<Actor> actorArray = new ArrayList<Actor>();		
+		try {			
 			actorRepository.findAll().forEach(actorArray::add);
 			return new ResponseEntity<>(actorArray,HttpStatus.OK);
 			
 		}catch (Exception e) {
 			return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-		
+		}		
 	}
 
 	@GetMapping("/actors/{id}")
@@ -76,13 +74,12 @@ public class ProductUnitCostController {
 		if(actorData.isPresent())
 			return new ResponseEntity<>(actorData.get(),HttpStatus.OK);
 		else
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
-				
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);	
 	}
 
 	@GetMapping("/products")
 	public ResponseEntity<List<Product>> getAllProduct(){
+		
 		try {
 			List<Product> products = new ArrayList<Product>();
 				productRepository.findAll().forEach(products::add);
@@ -94,8 +91,8 @@ public class ProductUnitCostController {
 	
 	@GetMapping("/products/{id}")
 	public ResponseEntity<Product> getProductByID(@PathVariable("id") long productID){
-		Optional<Product> productData = productRepository.findById(productID);
 		
+		Optional<Product> productData = productRepository.findById(productID);		
 		if(productData.isPresent()) {
 			return new ResponseEntity<>(productData.get(), HttpStatus.OK);
 		} else {
@@ -114,5 +111,26 @@ public class ProductUnitCostController {
 			}
 		}
 
-
+@GetMapping("/rawMaterial")
+	public ResponseEntity<List<RawMaterial>> getAllRawMaterial(){
+		
+		try {
+			List<RawMaterial> rawMaterial = new ArrayList<RawMaterial>();
+				rawMaterialRepository.findAll().forEach(rawMaterial::add);
+				return new ResponseEntity<>(rawMaterial, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@GetMapping("/rawMaterial/{id}")
+	public ResponseEntity<RawMaterial> getRawMaterialByID(@PathVariable("id") long rawMaterialID){
+		
+		Optional<RawMaterial> rawMaterialData = rawMaterialRepository.findById(rawMaterialID);		
+		if(rawMaterialData.isPresent()) {
+			return new ResponseEntity<>(rawMaterialData.get(), HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}		
+	}
 }

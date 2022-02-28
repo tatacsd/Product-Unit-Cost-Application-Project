@@ -12,6 +12,7 @@ import com.coffeelovers.pcu.model.InvoiceRepository;
 //import com.coffeelovers.pcu.model.InvoiceRepository;
 import com.coffeelovers.pcu.model.Product;
 import com.coffeelovers.pcu.model.ProductRepository;
+import com.coffeelovers.pcu.model.RawMaterialRepository;
 import com.coffeelovers.pcu.model.Supplier;
 import com.coffeelovers.pcu.model.SupplierRepository;
 import com.coffeelovers.pcu.model.VariableCosts;
@@ -29,6 +30,7 @@ public class PcuApplication {
 	ApplicationRunner init(ProductRepository productRepository, SupplierRepository supplierRepository
 			, ActorRepository actorRepository, VariableCostsRepository variableCostsRepository, InvoiceRepository invoiceRepository) {
 		return args -> {
+
 			
 			
 			actorRepository.save(new Actor("Zara", "kids clothing", 6047788,"Zara@gmail.com", "www.zara.com","2225","Canada"));
