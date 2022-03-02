@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.coffeelovers.pcu.model.*;
 
-
 @CrossOrigin(origins = "http://localhost:8081")
 @RestController
 @RequestMapping("/api")
 public class ProductUnitCostController {
 
+	/* Variables ----------------------------------------------------------------------------- */
 	@Autowired
 	ProductRepository productRepository;
 	ActorRepository actorRepository;
@@ -28,8 +28,7 @@ public class ProductUnitCostController {
 	RawMaterialRepository rawMaterialRepository;
 	VariableCostsRepository variableCostsRepository;
 
-	
-	
+	/* Endpoints (APIs) ---------------------------------------------------------------------- */
 	@GetMapping("/suppliers")
 	public ResponseEntity<List<Supplier>> GetAllSupplier(){
 		
@@ -111,7 +110,7 @@ public class ProductUnitCostController {
 			}
 		}
 
-@GetMapping("/rawMaterial")
+	@GetMapping("/rawMaterial")
 	public ResponseEntity<List<RawMaterial>> getAllRawMaterial(){
 		
 		try {

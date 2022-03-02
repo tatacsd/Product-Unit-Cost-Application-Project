@@ -9,48 +9,49 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /***
- * this class  represents the actors (factories) variables costs (water, energy, etc.)
+ * this class  represents the actors (factories) fixed costs (rent, etc.)
  */
 @Entity
-@Table(name = "variable_costs")
-public class VariableCosts {
-	
+@Table(name = "fixed_costs")
+public class FixedCosts {
+
 	/* Variables ----------------------------------------------------------------------------- */
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long variableCostId;
+	private long fixedCost;
 	
 	@Column(name = "description")
 	private String description;
 	
-	@Column(name="value")
+	@Column(name = "value")
 	private double value;
 	
-	@Column(name="date")
+	@Column(name = "date")
 	private LocalDate dateTime;
 	
 	/* Constructors --------------------------------------------------------------------------- */
-	public VariableCosts() {}
-
-	public VariableCosts(String description, double value, LocalDate dateTime) {
+	public FixedCosts () {}
+	
+	public FixedCosts(long fixedCost, String description, double value, LocalDate dateTime) {
+		this.fixedCost = fixedCost;
 		this.description = description;
 		this.value = value;
 		this.dateTime = dateTime;
 	}
 	
-	public VariableCosts(String description, double value) {
+	public FixedCosts(long fixedCost, String description, double value) {
+		this.fixedCost = fixedCost;
 		this.description = description;
 		this.value = value;
 		this.dateTime = LocalDate.now();
 	}
-
 	/* Getters and Setters -------------------------------------------------------------------- */
-	public long getVariableCostId() {
-		return variableCostId;
+	public long getFixedCost() {
+		return fixedCost;
 	}
 
-	public void setVariableCostId(long variableCostId) {
-		this.variableCostId = variableCostId;
+	public void setFixedCost(long fixedCost) {
+		this.fixedCost = fixedCost;
 	}
 
 	public String getDescription() {
@@ -77,3 +78,4 @@ public class VariableCosts {
 		this.dateTime = dateTime;
 	}
 }
+

@@ -9,14 +9,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
 /***
- * this class  represents the supplier's raw materials
+ * this class represents the supplier's raw materials
  */
 @Entity
 @Table(name = "raw_material")
 public class RawMaterial {
 	
+	/* Variables ----------------------------------------------------------------------------- */
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long rawMaterialID;
@@ -36,16 +36,17 @@ public class RawMaterial {
 	@Column(name = "notes")
 	private String noteString;
 	
+	/* Constructors --------------------------------------------------------------------------- */
 	public RawMaterial() {}
 	
-	public RawMaterial(long rawMaterialID, long invoiceNumber, long invoiceID, long supplierID, String noteString) {
-		this.rawMaterialID = rawMaterialID;
+	public RawMaterial(long invoiceNumber, long invoiceID, long supplierID, String noteString) {
 		this.invoiceNumber = invoiceNumber;
 		this.invoiceID = invoiceID;
 		this.supplierID = supplierID;
 		this.noteString = noteString;
 	}
 
+	/* Getters and Setters -------------------------------------------------------------------- */
 	public long getRawMaterialID() {
 		return rawMaterialID;
 	}
