@@ -13,12 +13,12 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "fixed_costs")
-public class FixedCosts {
+public class FixedCost {
 
 	/* Variables ----------------------------------------------------------------------------- */
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long fixedCost;
+	private long fixedCostID;
 	
 	@Column(name = "description")
 	private String description;
@@ -30,28 +30,26 @@ public class FixedCosts {
 	private LocalDate dateTime;
 	
 	/* Constructors --------------------------------------------------------------------------- */
-	public FixedCosts () {}
+	public FixedCost () {}
 	
-	public FixedCosts(long fixedCost, String description, double value, LocalDate dateTime) {
-		this.fixedCost = fixedCost;
+	public FixedCost(String description, double value, String dateTime) {
 		this.description = description;
 		this.value = value;
-		this.dateTime = dateTime;
+		this.dateTime = LocalDate.parse(dateTime);
 	}
 	
-	public FixedCosts(long fixedCost, String description, double value) {
-		this.fixedCost = fixedCost;
+	public FixedCost(String description, double value) {
 		this.description = description;
 		this.value = value;
 		this.dateTime = LocalDate.now();
 	}
 	/* Getters and Setters -------------------------------------------------------------------- */
-	public long getFixedCost() {
-		return fixedCost;
+	public long getFixedCostID() {
+		return fixedCostID;
 	}
 
-	public void setFixedCost(long fixedCost) {
-		this.fixedCost = fixedCost;
+	public void setFixedCostID(long fixedCostID) {
+		this.fixedCostID = fixedCostID;
 	}
 
 	public String getDescription() {
@@ -74,8 +72,8 @@ public class FixedCosts {
 		return dateTime;
 	}
 
-	public void setDateTime(LocalDate dateTime) {
-		this.dateTime = dateTime;
+	public void setDateTime(String dateTime) {
+		this.dateTime = LocalDate.parse(dateTime);
 	}
 }
 

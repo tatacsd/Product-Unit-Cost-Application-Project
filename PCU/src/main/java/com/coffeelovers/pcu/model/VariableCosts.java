@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /***
- * this class  represents the actors (factories) variables costs (water, energy, etc.)
+ * this class  represents the actors (factories) variables costs (water, eletricity, gas, etc.)
  */
 @Entity
 @Table(name = "variable_costs")
@@ -23,19 +23,19 @@ public class VariableCosts {
 	@Column(name = "description")
 	private String description;
 	
-	@Column(name="value")
+	@Column(name = "value")
 	private double value;
 	
-	@Column(name="date")
+	@Column(name = "date")
 	private LocalDate dateTime;
 	
 	/* Constructors --------------------------------------------------------------------------- */
 	public VariableCosts() {}
 
-	public VariableCosts(String description, double value, LocalDate dateTime) {
+	public VariableCosts(String description, double value, String dateTime) {
 		this.description = description;
 		this.value = value;
-		this.dateTime = dateTime;
+		this.dateTime = LocalDate.parse(dateTime);
 	}
 	
 	public VariableCosts(String description, double value) {
@@ -73,7 +73,7 @@ public class VariableCosts {
 		return dateTime;
 	}
 
-	public void setDateTime(LocalDate dateTime) {
-		this.dateTime = dateTime;
+	public void setDateTime(String dateTime) {
+		this.dateTime = LocalDate.parse(dateTime);
 	}
 }

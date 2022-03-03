@@ -1,7 +1,6 @@
 package com.coffeelovers.pcu.model;
 
-import java.util.Calendar;
-
+import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,7 +30,7 @@ public class RawMaterial {
 	private long supplierID;
 	
 	@Column(name = "dateTime")
-	private Calendar dateTime;
+	private LocalDate dateTime;
 	
 	@Column(name = "notes")
 	private String noteString;
@@ -44,6 +43,15 @@ public class RawMaterial {
 		this.invoiceID = invoiceID;
 		this.supplierID = supplierID;
 		this.noteString = noteString;
+		this.dateTime = LocalDate.now();
+	}
+	
+	public RawMaterial(long invoiceNumber, long invoiceID, long supplierID, String noteString, String dateTime) {
+		this.invoiceNumber = invoiceNumber;
+		this.invoiceID = invoiceID;
+		this.supplierID = supplierID;
+		this.noteString = noteString;
+		this.dateTime = LocalDate.parse(dateTime);
 	}
 
 	/* Getters and Setters -------------------------------------------------------------------- */
@@ -79,12 +87,12 @@ public class RawMaterial {
 		this.supplierID = supplierID;
 	}
 
-	public Calendar getDateTime() {
+	public LocalDate getDateTime() {
 		return dateTime;
 	}
 
-	public void setDateTime() {
-		this.dateTime = Calendar.getInstance();
+	public void setDateTime(String dateTime) {
+		this.dateTime = LocalDate.parse(dateTime);
 	}
 
 	public String getNoteString() {
