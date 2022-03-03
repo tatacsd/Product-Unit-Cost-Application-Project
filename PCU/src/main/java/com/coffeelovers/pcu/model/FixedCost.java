@@ -76,4 +76,3 @@ public class FixedCost {
 		this.dateTime = LocalDate.parse(dateTime);
 	}
 }
-

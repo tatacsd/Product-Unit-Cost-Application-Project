@@ -12,13 +12,13 @@ import javax.persistence.Table;
  * this class  represents the actors (factories) variables costs (water, eletricity, gas, etc.)
  */
 @Entity
-@Table(name = "variable_costs")
-public class VariableCosts {
+@Table(name = "variable_cost")
+public class VariableCost {
 	
 	/* Variables ----------------------------------------------------------------------------- */
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long variableCostId;
+	private long variableCostID;
 	
 	@Column(name = "description")
 	private String description;
@@ -30,15 +30,15 @@ public class VariableCosts {
 	private LocalDate dateTime;
 	
 	/* Constructors --------------------------------------------------------------------------- */
-	public VariableCosts() {}
+	public VariableCost() {}
 
-	public VariableCosts(String description, double value, String dateTime) {
+	public VariableCost(String description, double value, String dateTime) {
 		this.description = description;
 		this.value = value;
 		this.dateTime = LocalDate.parse(dateTime);
 	}
 	
-	public VariableCosts(String description, double value) {
+	public VariableCost(String description, double value) {
 		this.description = description;
 		this.value = value;
 		this.dateTime = LocalDate.now();
@@ -46,11 +46,11 @@ public class VariableCosts {
 
 	/* Getters and Setters -------------------------------------------------------------------- */
 	public long getVariableCostId() {
-		return variableCostId;
+		return variableCostID;
 	}
 
 	public void setVariableCostId(long variableCostId) {
-		this.variableCostId = variableCostId;
+		this.variableCostID = variableCostId;
 	}
 
 	public String getDescription() {

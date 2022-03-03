@@ -16,7 +16,7 @@ import com.coffeelovers.pcu.model.RawMaterial;
 import com.coffeelovers.pcu.model.RawMaterialRepository;
 import com.coffeelovers.pcu.model.Supplier;
 import com.coffeelovers.pcu.model.SupplierRepository;
-import com.coffeelovers.pcu.model.VariableCosts;
+import com.coffeelovers.pcu.model.VariableCost;
 import com.coffeelovers.pcu.model.VariableCostsRepository;
 
 @SpringBootApplication
@@ -57,9 +57,9 @@ public class PcuApplication {
 			productRepository.save(new Product(0.1, "https", "L"));
 			productRepository.findAll().forEach(System.out::println);
 			
-			variableCostsRepository.save(new VariableCosts("Electricity", 100, "2020-11-02"));
-			variableCostsRepository.save(new VariableCosts("Gas",200,"2020-05-02"));
-			variableCostsRepository.save(new VariableCosts("Water",500,"2020-07-02"));
+			variableCostsRepository.save(new VariableCost("Electricity", 100, "2020-11-02"));
+			variableCostsRepository.save(new VariableCost("Gas",200,"2020-05-02"));
+			variableCostsRepository.save(new VariableCost("Water",500,"2020-07-02"));
 			variableCostsRepository.findAll().forEach(System.out::println);
 			
 			fixedCostRepository.save(new FixedCost("rent",5000,"2020-08-01"));
