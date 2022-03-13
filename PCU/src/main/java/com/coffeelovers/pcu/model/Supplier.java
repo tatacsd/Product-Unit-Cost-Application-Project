@@ -7,14 +7,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
 /***
- * this class  represents the suppliers that belong to actors (Companies)
+ * this class  represents the suppliers that belong to actors (factories)
  */
 @Entity
 @Table(name = "supplier")
 public class Supplier {
 
+	/* Variables ----------------------------------------------------------------------------- */
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long supplierID;
@@ -34,10 +34,8 @@ public class Supplier {
 	@Column(name = "address")
 	private String address;
 
-	public Supplier() {
-		
-	}
-
+	/* Constructors --------------------------------------------------------------------------- */
+	public Supplier() {}
 
 	public Supplier(String firstName, String lastName, long phone, String email, String address) {
 		this.firstName = firstName;
@@ -47,66 +45,52 @@ public class Supplier {
 		this.address = address;
 	}
 
-
+	/* Getters and Setters -------------------------------------------------------------------- */
 	public long getSupplierID() {
 		return supplierID;
 	}
-
 
 	public void setSupplierID(long supplierID) {
 		this.supplierID = supplierID;
 	}
 
-
 	public String getFirstName() {
 		return firstName;
 	}
-
 
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
 
-
 	public String getLastName() {
 		return lastName;
 	}
-
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
 
-
 	public long getPhone() {
 		return phone;
 	}
-
 
 	public void setPhone(long phone) {
 		this.phone = phone;
 	}
 
-
 	public String getEmail() {
 		return email;
 	}
-
 
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
-
 	public String getAddress() {
 		return address;
 	}
 
-
 	public void setAddress(String address) {
 		this.address = address;
 	}
-
-	
-	
 }

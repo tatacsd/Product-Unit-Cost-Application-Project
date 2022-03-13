@@ -1,7 +1,6 @@
 package com.coffeelovers.pcu.model;
 
-import java.util.Calendar;
-
+import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,14 +8,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
 /***
- * this class  represents the supplier's raw materials
+ * this class represents the supplier's raw materials
  */
 @Entity
 @Table(name = "raw_material")
 public class RawMaterial {
 	
+	/* Variables ----------------------------------------------------------------------------- */
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long rawMaterialID;
@@ -31,21 +30,31 @@ public class RawMaterial {
 	private long supplierID;
 	
 	@Column(name = "dateTime")
-	private Calendar dateTime;
+	private LocalDate dateTime;
 	
 	@Column(name = "notes")
 	private String noteString;
 	
+	/* Constructors --------------------------------------------------------------------------- */
 	public RawMaterial() {}
 	
-	public RawMaterial(long rawMaterialID, long invoiceNumber, long invoiceID, long supplierID, String noteString) {
-		this.rawMaterialID = rawMaterialID;
+	public RawMaterial(long invoiceNumber, long invoiceID, long supplierID, String noteString) {
 		this.invoiceNumber = invoiceNumber;
 		this.invoiceID = invoiceID;
 		this.supplierID = supplierID;
 		this.noteString = noteString;
+		this.dateTime = LocalDate.now();
+	}
+	
+	public RawMaterial(long invoiceNumber, long invoiceID, long supplierID, String noteString, String dateTime) {
+		this.invoiceNumber = invoiceNumber;
+		this.invoiceID = invoiceID;
+		this.supplierID = supplierID;
+		this.noteString = noteString;
+		this.dateTime = LocalDate.parse(dateTime);
 	}
 
+	/* Getters and Setters -------------------------------------------------------------------- */
 	public long getRawMaterialID() {
 		return rawMaterialID;
 	}
@@ -78,12 +87,12 @@ public class RawMaterial {
 		this.supplierID = supplierID;
 	}
 
-	public Calendar getDateTime() {
+	public LocalDate getDateTime() {
 		return dateTime;
 	}
 
-	public void setDateTime() {
-		this.dateTime = Calendar.getInstance();
+	public void setDateTime(String dateTime) {
+		this.dateTime = LocalDate.parse(dateTime);
 	}
 
 	public String getNoteString() {

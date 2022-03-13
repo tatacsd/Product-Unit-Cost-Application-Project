@@ -15,26 +15,27 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.coffeelovers.pcu.model.*;
 
-
 @CrossOrigin(origins = "http://localhost:8081")
 @RestController
 @RequestMapping("/api")
 public class ProductUnitCostController {
 
+	/* Variables ----------------------------------------------------------------------------- */
 	@Autowired
 	ProductRepository productRepository;
 	ActorRepository actorRepository;
 	SupplierRepository supplierRepository;
 	RawMaterialRepository rawMaterialRepository;
-	VariableCostsRepository variableCostsRepository;
+	VariableCostsRepository variableCostRepository;
+	FixedCostRepository fixedCostRepository;
 
-	
-	
+	/* Endpoints (APIs) ---------------------------------------------------------------------- */
 	@GetMapping("/suppliers")
 	public ResponseEntity<List<Supplier>> GetAllSupplier(){
 		
-		List<Supplier> suppliers = new ArrayList<>();	
+			
 		try {
+			List<Supplier> suppliers = new ArrayList<>();
 			supplierRepository.findAll().forEach(suppliers::add);
 			return new ResponseEntity<>(suppliers,HttpStatus.OK);
 		}catch (Exception e) {
@@ -57,11 +58,11 @@ public class ProductUnitCostController {
 	@GetMapping("/actors")
 	public ResponseEntity<List<Actor>> GetAllActors(){
 		
-		List<Actor> actorArray = new ArrayList<Actor>();		
-		try {			
+				
+		try {		
+			List<Actor> actorArray = new ArrayList<>();
 			actorRepository.findAll().forEach(actorArray::add);
 			return new ResponseEntity<>(actorArray,HttpStatus.OK);
-			
 		}catch (Exception e) {
 			return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
 		}		
@@ -81,9 +82,9 @@ public class ProductUnitCostController {
 	public ResponseEntity<List<Product>> getAllProduct(){
 		
 		try {
-			List<Product> products = new ArrayList<Product>();
-				productRepository.findAll().forEach(products::add);
-				return new ResponseEntity<>(products, HttpStatus.OK);
+			List<Product> products = new ArrayList<>();
+			productRepository.findAll().forEach(products::add);
+			return new ResponseEntity<>(products, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -101,21 +102,34 @@ public class ProductUnitCostController {
 	}
 
 	@GetMapping("/variableCosts")
-	public ResponseEntity<List<VariableCosts>> getAllVariableCosts(){
-			try {
-				List<VariableCosts> variableCosts = new ArrayList<VariableCosts>();
-					variableCostsRepository.findAll().forEach(variableCosts::add);
+	public ResponseEntity<List<VariableCost>> getAllVariableCosts(){
+			
+		try {
+			List<VariableCost> variableCosts = new ArrayList<>();
+			variableCostRepository.findAll().forEach(variableCosts::add);
 					return new ResponseEntity<>(variableCosts, HttpStatus.OK);
 			} catch (Exception e) {
 				return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 		}
+	
+	@GetMapping("/fixedCost")
+	public ResponseEntity<List<FixedCost>> getAllFixedCost(){
+		
+		try {
+			List<FixedCost> fixedCosts = new ArrayList<>();
+			fixedCostRepository.findAll().forEach(fixedCosts::add);
+			return new ResponseEntity<>(fixedCosts, HttpStatus.OK);
+			} catch (Exception e) {
+				return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+		}
 
-@GetMapping("/rawMaterial")
+	@GetMapping("/rawMaterial")
 	public ResponseEntity<List<RawMaterial>> getAllRawMaterial(){
 		
 		try {
-			List<RawMaterial> rawMaterial = new ArrayList<RawMaterial>();
+			List<RawMaterial> rawMaterial = new ArrayList<>();
 				rawMaterialRepository.findAll().forEach(rawMaterial::add);
 				return new ResponseEntity<>(rawMaterial, HttpStatus.OK);
 		} catch (Exception e) {

@@ -7,10 +7,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/***
+ * this class  represents the actors (factories) products portfolio
+ */
 @Entity
 @Table(name="product")
 public class Product {
 	
+	/* Variables ----------------------------------------------------------------------------- */
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long productID;
@@ -27,9 +31,8 @@ public class Product {
 	@Column(name= "size")
 	private String size;
 	
-	public Product() {
-		
-	}
+	/* Constructors --------------------------------------------------------------------------- */
+	public Product() {}
 
 	public Product(double variableCosts, String picture, String size) {
 		this.variableCosts = variableCosts;
@@ -37,7 +40,7 @@ public class Product {
 		this.size = size;
 	}
 	
-
+	/* Getters and Setters -------------------------------------------------------------------- */
 	public long getProductID() {
 		return productID;
 	}

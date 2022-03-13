@@ -7,7 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
 /***
  * this class  represents the factories that use the system
  */
@@ -15,6 +14,7 @@ import javax.persistence.Table;
 @Table(name = "actors")
 public class Actor {
 
+	/* Variables ----------------------------------------------------------------------------- */
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long actorId;
@@ -40,9 +40,8 @@ public class Actor {
 	@Column(name = "address")
 	private String address;
 
-	public Actor() {
-		
-	}
+	/* Constructors --------------------------------------------------------------------------- */
+	public Actor() {}
 	
 	/***
 	 * 
@@ -54,8 +53,8 @@ public class Actor {
 	 * @param password
 	 * @param address
 	 */
-	public Actor(String brand, String activity, long phone, String webside, String email, String password,
-			String address) {
+	public Actor(String brand, String activity, long phone, String webside, String email, 
+			String password, String address) {
 		this.brand = brand;
 		this.activity = activity;
 		this.phone = phone;
@@ -65,7 +64,7 @@ public class Actor {
 		this.address = address;
 	}
 
-
+	/* Getters and Setters -------------------------------------------------------------------- */
 	public long getActorId() {
 		return actorId;
 	}
@@ -130,14 +129,10 @@ public class Actor {
 		this.address = address;
 	}
 
+	/* Methods ------------------------------------------------------------------------------ */
 	@Override
 	public String toString() {
 		return "Actor [actorId=" + actorId + ", brand=" + brand + ", activity=" + activity + ", phone=" + phone
 				+ ", webside=" + webside + ", email=" + email + ", password=" + password + ", address=" + address + "]";
 	}
-
-	
-	
-	
-	
 }
