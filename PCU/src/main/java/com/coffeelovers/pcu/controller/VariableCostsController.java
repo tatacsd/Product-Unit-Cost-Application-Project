@@ -64,17 +64,14 @@ public class VariableCostsController {
 				VariableCost _variableCost = variableCostData.get();
 				_variableCost.setVariableCostId(variableCost.getVariableCostId());
 				
-				if(variableCost.getDateTime() != null) {
+				if(variableCost.getDateTime() != null) 
 					_variableCost.setDateTime(variableCost.getDateTime());
-				}
 				
-				if(variableCost.getDescription() != null) {
+				if(variableCost.getDescription() != null) 
 					_variableCost.setDescription(variableCost.getDescription());
-				}
 				
-				if(variableCost.getValue() != 0) {
+				if(variableCost.getValue() != 0) 
 					_variableCost.setValue(variableCost.getValue());
-				}
 												
 				return new ResponseEntity<>(variableCostsRepository.save(_variableCost), HttpStatus.OK);				
 			}else {
