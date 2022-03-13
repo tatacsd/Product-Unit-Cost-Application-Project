@@ -113,7 +113,6 @@ public class ActorController {
 		}
 	}
 
-	// Add new Actor to the database requestBody required
 	@PostMapping("/actors")
 	public ResponseEntity<Actor> createActor(@RequestBody Actor actor){
 		try {
