@@ -4,5 +4,5 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface VariableCostsRepository extends JpaRepository<VariableCost, Long> {
-	List<VariableCost> findByVariableCostId(Long variableCostId);
+	List<VariableCost> findByVariableCostID(Long variableCostID);
 }
