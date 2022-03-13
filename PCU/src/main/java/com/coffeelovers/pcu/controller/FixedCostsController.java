@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -93,10 +94,19 @@ public class FixedCostsController {
 	}
 	
 	@DeleteMapping("/fixedCosts/{id}")
-	public ResponseEntity<HttpStatus> deleteById(@PathVariable("id") long id){
+	public ResponseEntity<HttpStatus> deleteById(@PathVariable("id") long id) {
 		try {
 			fixedCostRepository.deleteById(id);
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);	
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@PostMapping("/fixedCosts")
+	public ResponseEntity<FixedCost> createFixedCosts(@RequestBody FixedCost fixedCosts){
+		try {
+			return new ResponseEntity<>(fixedCostRepository.save(fixedCosts), HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
