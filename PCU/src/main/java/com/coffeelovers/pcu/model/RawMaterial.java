@@ -15,7 +15,6 @@ import javax.persistence.Table;
 @Table(name = "raw_material")
 public class RawMaterial {
 	
-	/* Variables ----------------------------------------------------------------------------- */
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long rawMaterialID;
@@ -35,9 +34,15 @@ public class RawMaterial {
 	@Column(name = "notes")
 	private String noteString;
 	
-	/* Constructors --------------------------------------------------------------------------- */
 	public RawMaterial() {}
 	
+	/***
+	 * 
+	 * @param invoiceNumber
+	 * @param invoiceID
+	 * @param supplierID
+	 * @param noteString
+	 */
 	public RawMaterial(long invoiceNumber, long invoiceID, long supplierID, String noteString) {
 		this.invoiceNumber = invoiceNumber;
 		this.invoiceID = invoiceID;
@@ -45,7 +50,14 @@ public class RawMaterial {
 		this.noteString = noteString;
 		this.dateTime = LocalDate.now();
 	}
-	
+	/***
+	 * 
+	 * @param invoiceNumber
+	 * @param invoiceID
+	 * @param supplierID
+	 * @param noteString
+	 * @param dateTime
+	 */
 	public RawMaterial(long invoiceNumber, long invoiceID, long supplierID, String noteString, String dateTime) {
 		this.invoiceNumber = invoiceNumber;
 		this.invoiceID = invoiceID;
@@ -54,7 +66,6 @@ public class RawMaterial {
 		this.dateTime = LocalDate.parse(dateTime);
 	}
 
-	/* Getters and Setters -------------------------------------------------------------------- */
 	public long getRawMaterialID() {
 		return rawMaterialID;
 	}
@@ -93,6 +104,10 @@ public class RawMaterial {
 
 	public void setDateTime(String dateTime) {
 		this.dateTime = LocalDate.parse(dateTime);
+	}
+	
+	public void setDateTime(LocalDate dateTime) {
+		this.dateTime = dateTime;
 	}
 
 	public String getNoteString() {
