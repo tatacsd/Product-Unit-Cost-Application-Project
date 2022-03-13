@@ -14,7 +14,6 @@ import javax.persistence.Table;
 @Table(name = "actors")
 public class Actor {
 
-	/* Variables ----------------------------------------------------------------------------- */
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long actorId;
@@ -40,7 +39,6 @@ public class Actor {
 	@Column(name = "address")
 	private String address;
 
-	/* Constructors --------------------------------------------------------------------------- */
 	public Actor() {}
 	
 	/***
@@ -64,7 +62,6 @@ public class Actor {
 		this.address = address;
 	}
 
-	/* Getters and Setters -------------------------------------------------------------------- */
 	public long getActorId() {
 		return actorId;
 	}
