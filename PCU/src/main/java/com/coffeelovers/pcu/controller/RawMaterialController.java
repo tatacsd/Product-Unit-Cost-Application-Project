@@ -31,7 +31,7 @@ public class RawMaterialController {
 	public ResponseEntity<List<RawMaterial>> getAllRawMaterial(){
 		
 		try {
-			List<RawMaterial> rawMaterial = new ArrayList<RawMaterial>();
+			List<RawMaterial> rawMaterial = new ArrayList<>();
 				rawMaterialRepository.findAll().forEach(rawMaterial::add);
 				return new ResponseEntity<>(rawMaterial, HttpStatus.OK);
 		} catch (Exception e) {
@@ -50,5 +50,47 @@ public class RawMaterialController {
 		}		
 	}
 	
-
+	@PutMapping("/rawMaterial/{id}")
+	public ResponseEntity<RawMaterial> updateActor(@PathVariable("id") long id, @RequestBody RawMaterial rawMaterial){
+		try {
+			Optional<RawMaterial> rawMaterialData = rawMaterialRepository.findById(id);
+			if(rawMaterialData.isPresent()) {
+				// get the book and set it
+				RawMaterial _rawMaterial = rawMaterialData.get();
+				_rawMaterial.setDateTime(rawMaterial.getDateTime());
+				
+				return new ResponseEntity<>(rawMaterialRepository.save(_rawMaterial), HttpStatus.OK);				
+			}else {
+				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@DeleteMapping("/actors")
+	public ResponseEntity<HttpStatus> deleteAllActors(){
+		try {
+			rawMaterialRepository.deleteAll();
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@DeleteMapping("/actors/{id}")
+	public ResponseEntity<HttpStatus> deleteById(@PathVariable("id") long id){
+		try {
+			rawMaterialRepository.deleteById(id);
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 }

@@ -14,7 +14,6 @@ import javax.persistence.Table;
 @Table(name="product")
 public class Product {
 	
-	/* Variables ----------------------------------------------------------------------------- */
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long productID;
@@ -31,16 +30,20 @@ public class Product {
 	@Column(name= "size")
 	private String size;
 	
-	/* Constructors --------------------------------------------------------------------------- */
 	public Product() {}
 
+	/***
+	 * 
+	 * @param variableCosts
+	 * @param picture
+	 * @param size
+	 */
 	public Product(double variableCosts, String picture, String size) {
 		this.variableCosts = variableCosts;
 		this.picture = picture;
 		this.size = size;
 	}
 	
-	/* Getters and Setters -------------------------------------------------------------------- */
 	public long getProductID() {
 		return productID;
 	}

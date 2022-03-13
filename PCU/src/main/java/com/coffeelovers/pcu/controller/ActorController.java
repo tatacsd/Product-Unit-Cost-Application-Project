@@ -55,7 +55,6 @@ public class ActorController {
 		try {
 			Optional<Actor> actorData = actorRepository.findById(id);
 			if(actorData.isPresent()) {
-				// get the book and set it
 				Actor _actor = actorData.get();
 				_actor.setActorId(actor.getActorId());
 				_actor.setBrand(actor.getBrand());

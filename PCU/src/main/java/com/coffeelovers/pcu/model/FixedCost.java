@@ -15,7 +15,6 @@ import javax.persistence.Table;
 @Table(name = "fixed_costs")
 public class FixedCost {
 
-	/* Variables ----------------------------------------------------------------------------- */
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long fixedCostID;
@@ -29,21 +28,31 @@ public class FixedCost {
 	@Column(name = "date")
 	private LocalDate dateTime;
 	
-	/* Constructors --------------------------------------------------------------------------- */
 	public FixedCost () {}
 	
+	/***
+	 * 
+	 * @param description
+	 * @param value
+	 * @param dateTime
+	 */
 	public FixedCost(String description, double value, String dateTime) {
 		this.description = description;
 		this.value = value;
 		this.dateTime = LocalDate.parse(dateTime);
 	}
 	
+	/***
+	 * 
+	 * @param description
+	 * @param value
+	 */
 	public FixedCost(String description, double value) {
 		this.description = description;
 		this.value = value;
 		this.dateTime = LocalDate.now();
 	}
-	/* Getters and Setters -------------------------------------------------------------------- */
+	
 	public long getFixedCostID() {
 		return fixedCostID;
 	}
