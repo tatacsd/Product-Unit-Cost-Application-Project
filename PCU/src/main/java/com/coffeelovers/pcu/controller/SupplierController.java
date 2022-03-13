@@ -61,12 +61,27 @@ public class SupplierController {
 			Optional<Supplier> supplierData = supplierRepository.findById(id);
 			if(supplierData.isPresent()) {
 				Supplier _supplier = supplierData.get();
-				_supplier.setAddress(supplier.getAddress());
-				_supplier.setEmail(supplier.getEmail());
-				_supplier.setFirstName(supplier.getFirstName());
-				_supplier.setLastName(supplier.getLastName());
-				_supplier.setPhone(supplier.getPhone());
 				_supplier.setSupplierID(supplier.getSupplierID());
+				
+				if(supplier.getAddress() != null) {
+					_supplier.setAddress(supplier.getAddress());
+				}
+				
+				if(supplier.getEmail() != null) {
+					_supplier.setEmail(supplier.getEmail());
+				}
+				
+				if(supplier.getFirstName() != null) {
+					_supplier.setFirstName(supplier.getFirstName());
+				}
+				
+				if(supplier.getLastName() != null) {
+					_supplier.setLastName(supplier.getLastName());
+				}
+				
+				if(supplier.getPhone() != 0) {
+					_supplier.setPhone(supplier.getPhone());
+				}
 				
 				return new ResponseEntity<>(supplierRepository.save(_supplier), HttpStatus.OK);				
 			}else {

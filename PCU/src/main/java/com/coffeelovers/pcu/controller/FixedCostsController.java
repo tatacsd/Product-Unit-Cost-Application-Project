@@ -59,10 +59,20 @@ public class FixedCostsController {
 			Optional<FixedCost> fixedCostsData = fixedCostRepository.findById(id);
 			if(fixedCostsData.isPresent()) {
 				FixedCost _fixedCosts = fixedCostsData.get();
-				_fixedCosts.setDateTime(fixedCosts.getDateTime());
-				_fixedCosts.setDescription(fixedCosts.getDescription());
 				_fixedCosts.setFixedCostID(fixedCosts.getFixedCostID());
-				_fixedCosts.setValue(fixedCosts.getValue());			
+				
+				if(fixedCosts.getDescription() != null) {
+					_fixedCosts.setDescription(fixedCosts.getDescription());
+				}	
+				
+				if(fixedCosts.getDateTime() != null) {
+					_fixedCosts.setDateTime(fixedCosts.getDateTime());
+				}
+				
+				if(fixedCosts.getDescription() != null) {
+					_fixedCosts.setValue(fixedCosts.getValue());	
+				}		
+					
 				return new ResponseEntity<>(fixedCostRepository.save(_fixedCosts), HttpStatus.OK);				
 			}else {
 				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);

@@ -68,12 +68,12 @@ public class Product {
 		this.variableCosts = variableCosts;
 	}
 
-	public String getPicure() {
-		return picture;
-	}
-
 	public void setPicture(String picture) {
 		this.picture = picture;
+	}
+	
+	public String getPicture() {
+		return picture;
 	}
 
 	public String getSize() {

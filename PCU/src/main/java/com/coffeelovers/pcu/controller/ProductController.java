@@ -59,12 +59,24 @@ public class ProductController {
 			Optional<Product> productData = productRepository.findById(id);
 			if(productData.isPresent()) {
 				Product _product = productData.get();
-				_product.setMaterialsID(product.getMaterialsID());
-				_product.setPicture(product.getPicure());
 				_product.setProductID(product.getProductID());
-				_product.setSize(product.getSize());
-				_product.setVariableCosts(product.getVariableCosts());
-								
+				
+				if(product.getMaterialsID() != 0) {
+					_product.setMaterialsID(product.getMaterialsID());
+				}
+				
+				if(product.getPicture() != null) {
+					_product.setPicture(product.getPicture());
+				}
+				
+				if(product.getSize() != null) {
+					_product.setSize(product.getSize());
+				}
+				
+				if(product.getVariableCosts() != 0) {
+					_product.setVariableCosts(product.getVariableCosts());
+				}
+
 				return new ResponseEntity<>(productRepository.save(_product), HttpStatus.OK);				
 			}else {
 				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);

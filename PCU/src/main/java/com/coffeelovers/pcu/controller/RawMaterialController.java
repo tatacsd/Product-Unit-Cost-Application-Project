@@ -58,7 +58,26 @@ public class RawMaterialController {
 			Optional<RawMaterial> rawMaterialData = rawMaterialRepository.findById(id);
 			if(rawMaterialData.isPresent()) {
 				RawMaterial _rawMaterial = rawMaterialData.get();
-				_rawMaterial.setDateTime(rawMaterial.getDateTime());
+				_rawMaterial.setRawMaterialID(rawMaterial.getRawMaterialID());
+				if(rawMaterial.getDateTime() != null) {
+					_rawMaterial.setDateTime(rawMaterial.getDateTime());
+				}
+				
+				if(rawMaterial.getInvoiceID() != 0) {
+					_rawMaterial.setInvoiceID(rawMaterial.getInvoiceID());
+				}
+				
+				if(rawMaterial.getInvoiceNumber() != 0) {
+					_rawMaterial.setInvoiceNumber(rawMaterial.getInvoiceNumber());
+				}
+				
+				if(rawMaterial.getNoteString() != null) {
+					_rawMaterial.setNoteString(rawMaterial.getNoteString());
+				}
+				
+				if(rawMaterial.getSupplierID() != 0) {
+					_rawMaterial.setSupplierID(rawMaterial.getSupplierID());
+				}
 				
 				return new ResponseEntity<>(rawMaterialRepository.save(_rawMaterial), HttpStatus.OK);				
 			}else {
@@ -75,7 +94,6 @@ public class RawMaterialController {
 		try {
 			rawMaterialRepository.deleteAll();
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-			
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}

@@ -61,13 +61,28 @@ public class ActorController {
 			if(actorData.isPresent()) {
 				Actor _actor = actorData.get();
 				_actor.setActorId(actor.getActorId());
-				_actor.setBrand(actor.getBrand());
-				_actor.setActivity(actor.getActivity());
-				_actor.setPhone(actor.getPhone());
-				_actor.setWebside(actor.getWebside());
-				_actor.setEmail(actor.getEmail());
-				_actor.setPassword(actor.getPassword());
-				_actor.setAddress(actor.getAddress());
+				if(actor.getBrand() != null) {
+					_actor.setBrand(actor.getBrand());
+				}			
+				if(actor.getActivity() != null) {
+					_actor.setActivity(actor.getActivity());
+				}	
+				if(actor.getPhone() != 0) {
+					_actor.setPhone(actor.getPhone());
+				}	
+				if(actor.getWebside() != null) {
+					_actor.setWebside(actor.getWebside());
+				}	
+				if(actor.getEmail() != null) {
+					_actor.setEmail(actor.getEmail());
+				}	
+				if(actor.getPassword() != null) {
+					_actor.setPassword(actor.getPassword());
+				}	
+				if(actor.getAddress() != null) {
+					_actor.setAddress(actor.getAddress());
+				}	
+						
 				return new ResponseEntity<>(actorRepository.save(_actor), HttpStatus.OK);				
 			}else {
 				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
