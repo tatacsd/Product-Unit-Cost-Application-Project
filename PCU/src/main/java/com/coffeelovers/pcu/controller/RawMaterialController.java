@@ -28,8 +28,7 @@ public class RawMaterialController {
 	RawMaterialRepository rawMaterialRepository;
 	
 	@GetMapping("/rawMaterials")
-	public ResponseEntity<List<RawMaterial>> getAllRawMaterial(){
-		
+	public ResponseEntity<List<RawMaterial>> getAllRawMaterial(){	
 		try {
 			List<RawMaterial> rawMaterial = new ArrayList<>();
 				rawMaterialRepository.findAll().forEach(rawMaterial::add);
@@ -41,12 +40,15 @@ public class RawMaterialController {
 	
 	@GetMapping("/rawMaterials/{id}")
 	public ResponseEntity<RawMaterial> getRawMaterialByID(@PathVariable("id") long rawMaterialID){
-		
 		Optional<RawMaterial> rawMaterialData = rawMaterialRepository.findById(rawMaterialID);		
-		if(rawMaterialData.isPresent()) {
-			return new ResponseEntity<>(rawMaterialData.get(), HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		try {
+			if(rawMaterialData.isPresent()) {
+				return new ResponseEntity<>(rawMaterialData.get(), HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}		
 	}
 	

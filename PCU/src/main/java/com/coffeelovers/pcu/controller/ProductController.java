@@ -28,8 +28,7 @@ public class ProductController {
 	ProductRepository productRepository;
 	
 	@GetMapping("/products")
-	public ResponseEntity<List<Product>> getAllProduct(){
-		
+	public ResponseEntity<List<Product>> getAllProduct(){	
 		try {
 			List<Product> products = new ArrayList<Product>();
 				productRepository.findAll().forEach(products::add);
@@ -40,14 +39,17 @@ public class ProductController {
 	}
 	
 	@GetMapping("/products/{id}")
-	public ResponseEntity<Product> getProductByID(@PathVariable("id") long productID){
-		
+	public ResponseEntity<Product> getProductByID(@PathVariable("id") long productID){	
 		Optional<Product> productData = productRepository.findById(productID);		
-		if(productData.isPresent()) {
-			return new ResponseEntity<>(productData.get(), HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}		
+		try {
+			if(productData.isPresent()) {
+				return new ResponseEntity<>(productData.get(), HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}	
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}	
 	}
 	
 	@PutMapping("/products/{id}")

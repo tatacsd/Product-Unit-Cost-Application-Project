@@ -29,7 +29,6 @@ public class ActorController {
 
 	@GetMapping("/actors")
 	public ResponseEntity<List<Actor>> GetAllActors(){
-		
 		List<Actor> actorArray = new ArrayList<Actor>();		
 		try {			
 			actorRepository.findAll().forEach(actorArray::add);
@@ -42,12 +41,15 @@ public class ActorController {
 
 	@GetMapping("/actors/{id}")
 	public ResponseEntity<Actor> GetActorById(@PathVariable("id") long actorID){
-		
 		Optional<Actor> actorData = actorRepository.findById(actorID);
-		if(actorData.isPresent())
-			return new ResponseEntity<>(actorData.get(),HttpStatus.OK);
-		else
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);	
+		try {
+			if(actorData.isPresent())
+				return new ResponseEntity<>(actorData.get(),HttpStatus.OK);
+			else
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 	
 	@PutMapping("/actors/{id}")
