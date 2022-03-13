@@ -22,28 +22,29 @@ import com.coffeelovers.pcu.model.*;
 @CrossOrigin(origins = "http://localhost:8081")
 @RestController
 @RequestMapping("/api")
-public class ActorController {
+public class FixCostsController {
 	
 	@Autowired
-	ActorRepository actorRepository;
+	FixedCostRepository fixedCostRepository;
 
-	@GetMapping("/actors")
-	public ResponseEntity<List<Actor>> getAllActors(){	
+	@GetMapping("/fixedCosts")
+	public ResponseEntity<List<FixedCost>> getAllFixedCosts(){	
 		try {			
-			List<Actor> actorArray = new ArrayList<Actor>();	
-			actorRepository.findAll().forEach(actorArray::add);
-			return new ResponseEntity<>(actorArray,HttpStatus.OK);
+			List<FixedCost> fixedCostsArray = new ArrayList<FixedCost>();	
+			fixedCostRepository.findAll().forEach(fixedCostsArray::add);
+			return new ResponseEntity<>(fixedCostsArray,HttpStatus.OK);
+			
 		}catch (Exception e) {
 			return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
 		}		
 	}
 
-	@GetMapping("/actors/{id}")
-	public ResponseEntity<Actor> getActorById(@PathVariable("id") long actorID){
+	@GetMapping("/fixedCosts/{id}")
+	public ResponseEntity<FixedCost> getFixedCostsById(@PathVariable("id") long fixedCostsID){
 		try {
-			Optional<Actor> actorData = actorRepository.findById(actorID);
-			if(actorData.isPresent())
-				return new ResponseEntity<>(actorData.get(),HttpStatus.OK);
+			Optional<FixedCost> fixedCostsData = fixedCostRepository.findById(fixedCostsID);
+			if(fixedCostsData.isPresent())
+				return new ResponseEntity<>(fixedCostsData.get(),HttpStatus.OK);
 			else
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		} catch (Exception e) {
@@ -51,44 +52,40 @@ public class ActorController {
 		}
 	}
 	
-	@PutMapping("/actors/{id}")
-	public ResponseEntity<Actor> updateActor(@PathVariable("id") long id, @RequestBody Actor actor){
+	@PutMapping("/fixedCosts/{id}")
+	public ResponseEntity<FixedCost> updatFixedCosts(@PathVariable("id") long id, @RequestBody FixedCost fixedCosts){
 		try {
-			Optional<Actor> actorData = actorRepository.findById(id);
-			if(actorData.isPresent()) {
-				Actor _actor = actorData.get();
-				_actor.setActorId(actor.getActorId());
-				_actor.setBrand(actor.getBrand());
-				_actor.setActivity(actor.getActivity());
-				_actor.setPhone(actor.getPhone());
-				_actor.setWebside(actor.getWebside());
-				_actor.setEmail(actor.getEmail());
-				_actor.setPassword(actor.getPassword());
-				_actor.setAddress(actor.getAddress());
-				return new ResponseEntity<>(actorRepository.save(_actor), HttpStatus.OK);				
+			Optional<FixedCost> fixedCostsData = fixedCostRepository.findById(id);
+			if(fixedCostsData.isPresent()) {
+				FixedCost _fixedCosts = fixedCostsData.get();
+				_fixedCosts.setDateTime(fixedCosts.getDateTime());
+				_fixedCosts.setDescription(fixedCosts.getDescription());
+				_fixedCosts.setFixedCostID(fixedCosts.getFixedCostID());
+				_fixedCosts.setValue(fixedCosts.getValue());			
+				return new ResponseEntity<>(fixedCostRepository.save(_fixedCosts), HttpStatus.OK);				
 			}else {
 				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-			}
+			}	
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
-	@DeleteMapping("/actors")
-	public ResponseEntity<HttpStatus> deleteAllActors(){
+	@DeleteMapping("/fixedCosts")
+	public ResponseEntity<HttpStatus> deleteAllFixedCosts(){
 		try {
-			actorRepository.deleteAll();
+			fixedCostRepository.deleteAll();
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
-	@DeleteMapping("/actors/{id}")
+	@DeleteMapping("/fixedCosts/{id}")
 	public ResponseEntity<HttpStatus> deleteById(@PathVariable("id") long id){
 		try {
-			actorRepository.deleteById(id);
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			fixedCostRepository.deleteById(id);
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);	
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}

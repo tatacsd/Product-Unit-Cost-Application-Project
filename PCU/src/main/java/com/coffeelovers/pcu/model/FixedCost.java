@@ -84,4 +84,8 @@ public class FixedCost {
 	public void setDateTime(String dateTime) {
 		this.dateTime = LocalDate.parse(dateTime);
 	}
+
+	public void setDateTime(LocalDate dateTime) {
+		this.dateTime = dateTime;		
+	}
 }
