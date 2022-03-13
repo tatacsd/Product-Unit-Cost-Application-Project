@@ -126,7 +126,6 @@ public class Actor {
 		this.address = address;
 	}
 
-	/* Methods ------------------------------------------------------------------------------ */
 	@Override
 	public String toString() {
 		return "Actor [actorId=" + actorId + ", brand=" + brand + ", activity=" + activity + ", phone=" + phone
