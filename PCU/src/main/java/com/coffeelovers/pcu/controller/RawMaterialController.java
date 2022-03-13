@@ -68,10 +68,6 @@ public class RawMaterialController {
 					_rawMaterial.setInvoiceID(rawMaterial.getInvoiceID());
 				}
 				
-				if(rawMaterial.getInvoiceNumber() != 0) {
-					_rawMaterial.setInvoiceNumber(rawMaterial.getInvoiceNumber());
-				}
-				
 				if(rawMaterial.getNoteString() != null) {
 					_rawMaterial.setNoteString(rawMaterial.getNoteString());
 				}

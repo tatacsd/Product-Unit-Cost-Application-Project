@@ -18,9 +18,6 @@ public class RawMaterial {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long rawMaterialID;
-
-	@Column(name = "invoiceNumber")
-	private long invoiceNumber;
 	
 	@Column(name = "InvoiceID")
 	private long invoiceID;
@@ -38,13 +35,11 @@ public class RawMaterial {
 	
 	/***
 	 * 
-	 * @param invoiceNumber
 	 * @param invoiceID
 	 * @param supplierID
 	 * @param noteString
 	 */
-	public RawMaterial(long invoiceNumber, long invoiceID, long supplierID, String noteString) {
-		this.invoiceNumber = invoiceNumber;
+	public RawMaterial(long invoiceID, long supplierID, String noteString) {
 		this.invoiceID = invoiceID;
 		this.supplierID = supplierID;
 		this.noteString = noteString;
@@ -58,8 +53,7 @@ public class RawMaterial {
 	 * @param noteString
 	 * @param dateTime
 	 */
-	public RawMaterial(long invoiceNumber, long invoiceID, long supplierID, String noteString, String dateTime) {
-		this.invoiceNumber = invoiceNumber;
+	public RawMaterial(long invoiceID, long supplierID, String noteString, String dateTime) {
 		this.invoiceID = invoiceID;
 		this.supplierID = supplierID;
 		this.noteString = noteString;
@@ -72,14 +66,6 @@ public class RawMaterial {
 
 	public void setRawMaterialID(long materialID) {
 		this.rawMaterialID = materialID;
-	}
-
-	public long getInvoiceNumber() {
-		return invoiceNumber;
-	}
-
-	public void setInvoiceNumber(long invoiceNumber) {
-		this.invoiceNumber = invoiceNumber;
 	}
 
 	public long getInvoiceID() {
