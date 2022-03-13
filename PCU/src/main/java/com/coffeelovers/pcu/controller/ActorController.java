@@ -117,7 +117,7 @@ public class ActorController {
 	@PostMapping("/actors")
 	public ResponseEntity<Actor> createActor(@RequestBody Actor actor){
 		try {
-			return new ResponseEntity<>(actorRepository.save(actor), HttpStatus.OK);
+			return new ResponseEntity<>(actorRepository.save(actor), HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}

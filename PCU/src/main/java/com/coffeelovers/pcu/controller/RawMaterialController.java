@@ -114,7 +114,7 @@ public class RawMaterialController {
 	@PostMapping("/rawMaterials")
 	public ResponseEntity<RawMaterial> createRawMaterial(@RequestBody RawMaterial rawMaterial){
 		try {
-			return new ResponseEntity<>(rawMaterialRepository.save(rawMaterial), HttpStatus.OK);
+			return new ResponseEntity<>(rawMaterialRepository.save(rawMaterial), HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}

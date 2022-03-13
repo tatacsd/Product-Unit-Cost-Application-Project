@@ -113,7 +113,7 @@ public class ProductController {
 	@PostMapping("/products")
 	public ResponseEntity<Product> createProduct(@RequestBody Product product){
 		try {
-			return new ResponseEntity<>(productRepository.save(product), HttpStatus.OK);
+			return new ResponseEntity<>(productRepository.save(product), HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
