@@ -51,11 +51,10 @@ public class RawMaterialController {
 	}
 	
 	@PutMapping("/rawMaterial/{id}")
-	public ResponseEntity<RawMaterial> updateActor(@PathVariable("id") long id, @RequestBody RawMaterial rawMaterial){
+	public ResponseEntity<RawMaterial> updateRawMaterial(@PathVariable("id") long id, @RequestBody RawMaterial rawMaterial){
 		try {
 			Optional<RawMaterial> rawMaterialData = rawMaterialRepository.findById(id);
 			if(rawMaterialData.isPresent()) {
-				// get the book and set it
 				RawMaterial _rawMaterial = rawMaterialData.get();
 				_rawMaterial.setDateTime(rawMaterial.getDateTime());
 				
@@ -65,19 +64,17 @@ public class RawMaterialController {
 			}
 			
 		} catch (Exception e) {
-			// TODO: handle exception
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
 	@DeleteMapping("/actors")
-	public ResponseEntity<HttpStatus> deleteAllActors(){
+	public ResponseEntity<HttpStatus> deleteAll(){
 		try {
 			rawMaterialRepository.deleteAll();
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			
 		} catch (Exception e) {
-			// TODO: handle exception
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -89,7 +86,6 @@ public class RawMaterialController {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			
 		} catch (Exception e) {
-			// TODO: handle exception
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}

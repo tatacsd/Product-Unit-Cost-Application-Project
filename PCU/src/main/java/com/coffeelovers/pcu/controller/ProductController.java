@@ -55,7 +55,6 @@ public class ProductController {
 		try {
 			Optional<Product> productData = productRepository.findById(id);
 			if(productData.isPresent()) {
-				// get the book and set it
 				Product _product = productData.get();
 				_product.setMaterialsID(product.getMaterialsID());
 				_product.setPicture(product.getPicure());
@@ -69,7 +68,6 @@ public class ProductController {
 			}
 			
 		} catch (Exception e) {
-			// TODO: handle exception
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -81,7 +79,6 @@ public class ProductController {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			
 		} catch (Exception e) {
-			// TODO: handle exception
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -93,7 +90,6 @@ public class ProductController {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			
 		} catch (Exception e) {
-			// TODO: handle exception
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
