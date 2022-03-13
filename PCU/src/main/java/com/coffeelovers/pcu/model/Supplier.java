@@ -14,7 +14,6 @@ import javax.persistence.Table;
 @Table(name = "supplier")
 public class Supplier {
 
-	/* Variables ----------------------------------------------------------------------------- */
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long supplierID;
@@ -34,9 +33,16 @@ public class Supplier {
 	@Column(name = "address")
 	private String address;
 
-	/* Constructors --------------------------------------------------------------------------- */
 	public Supplier() {}
 
+	/***
+	 * 
+	 * @param firstName
+	 * @param lastName
+	 * @param phone
+	 * @param email
+	 * @param address
+	 */
 	public Supplier(String firstName, String lastName, long phone, String email, String address) {
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -44,8 +50,7 @@ public class Supplier {
 		this.email = email;
 		this.address = address;
 	}
-
-	/* Getters and Setters -------------------------------------------------------------------- */
+	
 	public long getSupplierID() {
 		return supplierID;
 	}
@@ -61,7 +66,6 @@ public class Supplier {
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
-
 	public String getLastName() {
 		return lastName;
 	}

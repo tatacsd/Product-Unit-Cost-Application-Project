@@ -27,9 +27,15 @@ public class PcuApplication {
 	}
 
 	@Bean
-	ApplicationRunner init(ProductRepository productRepository, SupplierRepository supplierRepository, 
-			ActorRepository actorRepository, VariableCostsRepository variableCostsRepository, InvoiceRepository invoiceRepository,
-			RawMaterialRepository rawMaterialRepository, FixedCostRepository fixedCostRepository) {
+	ApplicationRunner init(
+			ProductRepository productRepository, 
+			SupplierRepository supplierRepository, 
+			ActorRepository actorRepository, 
+			VariableCostsRepository variableCostsRepository, 
+			InvoiceRepository invoiceRepository,
+			RawMaterialRepository rawMaterialRepository, 
+			FixedCostRepository fixedCostRepository
+			) {
 		return args -> {
 
 			actorRepository.save(new Actor("Zara", "kids clothing", 6047788,"Zara@gmail.com", "www.zara.com","2225","Canada"));
@@ -63,8 +69,8 @@ public class PcuApplication {
 			variableCostsRepository.findAll().forEach(System.out::println);
 			
 			fixedCostRepository.save(new FixedCost("rent",5000,"2020-08-01"));
+			fixedCostRepository.save(new FixedCost("payrolls",15000,"2020-08-22"));
 			fixedCostRepository.findAll().forEach(System.out::println);
 		};
-	}
-	
+	}	
 }

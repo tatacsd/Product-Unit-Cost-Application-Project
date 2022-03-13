@@ -14,8 +14,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "variable_cost")
 public class VariableCost {
-	
-	/* Variables ----------------------------------------------------------------------------- */
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long variableCostID;
@@ -29,22 +28,31 @@ public class VariableCost {
 	@Column(name = "date")
 	private LocalDate dateTime;
 	
-	/* Constructors --------------------------------------------------------------------------- */
 	public VariableCost() {}
 
+	/***
+	 * 
+	 * @param description
+	 * @param value
+	 * @param dateTime
+	 */
 	public VariableCost(String description, double value, String dateTime) {
 		this.description = description;
 		this.value = value;
 		this.dateTime = LocalDate.parse(dateTime);
 	}
 	
+	/***
+	 * 
+	 * @param description
+	 * @param value
+	 */
 	public VariableCost(String description, double value) {
 		this.description = description;
 		this.value = value;
 		this.dateTime = LocalDate.now();
 	}
 
-	/* Getters and Setters -------------------------------------------------------------------- */
 	public long getVariableCostId() {
 		return variableCostID;
 	}
@@ -75,5 +83,9 @@ public class VariableCost {
 
 	public void setDateTime(String dateTime) {
 		this.dateTime = LocalDate.parse(dateTime);
+	}
+
+	public void setDateTime(LocalDate dateTime) {
+		this.dateTime = dateTime;
 	}
 }

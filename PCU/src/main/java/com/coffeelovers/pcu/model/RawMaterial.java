@@ -25,7 +25,6 @@ public class RawMaterial {
 	
 	@Column(name = "InvoiceID")
 	private long invoiceID;
-	
 	@Column(name = "supplierID")
 	private long supplierID;
 	
@@ -38,6 +37,13 @@ public class RawMaterial {
 	/* Constructors --------------------------------------------------------------------------- */
 	public RawMaterial() {}
 	
+	/***
+	 * 
+	 * @param invoiceNumber
+	 * @param invoiceID
+	 * @param supplierID
+	 * @param noteString
+	 */
 	public RawMaterial(long invoiceNumber, long invoiceID, long supplierID, String noteString) {
 		this.invoiceNumber = invoiceNumber;
 		this.invoiceID = invoiceID;
@@ -45,7 +51,15 @@ public class RawMaterial {
 		this.noteString = noteString;
 		this.dateTime = LocalDate.now();
 	}
-	
+
+	/***
+	 * 
+	 * @param invoiceNumber
+	 * @param invoiceID
+	 * @param supplierID
+	 * @param noteString
+	 * @param dateTime
+	 */
 	public RawMaterial(long invoiceNumber, long invoiceID, long supplierID, String noteString, String dateTime) {
 		this.invoiceNumber = invoiceNumber;
 		this.invoiceID = invoiceID;
@@ -53,7 +67,7 @@ public class RawMaterial {
 		this.noteString = noteString;
 		this.dateTime = LocalDate.parse(dateTime);
 	}
-
+	
 	/* Getters and Setters -------------------------------------------------------------------- */
 	public long getRawMaterialID() {
 		return rawMaterialID;
@@ -93,6 +107,10 @@ public class RawMaterial {
 
 	public void setDateTime(String dateTime) {
 		this.dateTime = LocalDate.parse(dateTime);
+	}
+	
+	public void setDateTime(LocalDate dateTime) {
+		this.dateTime = dateTime;
 	}
 
 	public String getNoteString() {

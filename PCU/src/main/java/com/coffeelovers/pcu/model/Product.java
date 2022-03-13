@@ -30,16 +30,20 @@ public class Product {
 	
 	@Column(name= "size")
 	private String size;
-	
 	/* Constructors --------------------------------------------------------------------------- */
 	public Product() {}
 
+	/***
+	 * 
+	 * @param variableCosts
+	 * @param picture
+	 * @param size
+	 */
 	public Product(double variableCosts, String picture, String size) {
 		this.variableCosts = variableCosts;
 		this.picture = picture;
 		this.size = size;
 	}
-	
 	/* Getters and Setters -------------------------------------------------------------------- */
 	public long getProductID() {
 		return productID;
@@ -56,7 +60,7 @@ public class Product {
 	public void setMaterialsID(long materialsID) {
 		this.materialsID = materialsID;
 	}
-
+	
 	public double getVariableCosts() {
 		return variableCosts;
 	}
@@ -65,10 +69,10 @@ public class Product {
 		this.variableCosts = variableCosts;
 	}
 
-	public String getPicure() {
+	public String getPicture() {
 		return picture;
 	}
-
+	
 	public void setPicture(String picture) {
 		this.picture = picture;
 	}

@@ -8,8 +8,7 @@ import javax.persistence.*;
 @Entity
 @Table(name ="invoices")
 public class Invoice {
-	
-	/* Variables ----------------------------------------------------------------------------- */
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
@@ -26,9 +25,15 @@ public class Invoice {
 	@Column(name = "invoiceDate")
 	private String invoiceDate;
 
-	/* Constructors --------------------------------------------------------------------------- */
 	public Invoice() {}
 	
+	/***
+	 * 
+	 * @param invoiceNumber
+	 * @param supplierID
+	 * @param invoiceValue
+	 * @param invoiceDate
+	 */
 	public Invoice(String invoiceNumber, long supplierID, double invoiceValue, String invoiceDate) {
 		this.invoiceNumber = invoiceNumber;
 		this.supplierID = supplierID;
@@ -36,7 +41,6 @@ public class Invoice {
 		this.invoiceDate = invoiceDate;
 	}
 
-	/* Getters and Setters -------------------------------------------------------------------- */
 	public long getId() {
 		return id;
 	}
@@ -77,7 +81,6 @@ public class Invoice {
 		this.invoiceDate = invoiceDate;
 	}
 
-	/* Methods ------------------------------------------------------------------------------ */
 	@Override
 	public String toString() {
 		return "Invoice [id=" + id + ", invoiceNumber=" + invoiceNumber + ", supplierID=" + supplierID
