@@ -28,9 +28,9 @@ public class ActorController {
 	ActorRepository actorRepository;
 
 	@GetMapping("/actors")
-	public ResponseEntity<List<Actor>> GetAllActors(){
-		List<Actor> actorArray = new ArrayList<Actor>();		
+	public ResponseEntity<List<Actor>> GetAllActors(){	
 		try {			
+			List<Actor> actorArray = new ArrayList<Actor>();	
 			actorRepository.findAll().forEach(actorArray::add);
 			return new ResponseEntity<>(actorArray,HttpStatus.OK);
 			
@@ -41,8 +41,8 @@ public class ActorController {
 
 	@GetMapping("/actors/{id}")
 	public ResponseEntity<Actor> GetActorById(@PathVariable("id") long actorID){
-		Optional<Actor> actorData = actorRepository.findById(actorID);
 		try {
+			Optional<Actor> actorData = actorRepository.findById(actorID);
 			if(actorData.isPresent())
 				return new ResponseEntity<>(actorData.get(),HttpStatus.OK);
 			else

@@ -39,9 +39,9 @@ public class RawMaterialController {
 	}
 	
 	@GetMapping("/rawMaterials/{id}")
-	public ResponseEntity<RawMaterial> getRawMaterialByID(@PathVariable("id") long rawMaterialID){
-		Optional<RawMaterial> rawMaterialData = rawMaterialRepository.findById(rawMaterialID);		
+	public ResponseEntity<RawMaterial> getRawMaterialByID(@PathVariable("id") long rawMaterialID){	
 		try {
+			Optional<RawMaterial> rawMaterialData = rawMaterialRepository.findById(rawMaterialID);	
 			if(rawMaterialData.isPresent()) {
 				return new ResponseEntity<>(rawMaterialData.get(), HttpStatus.OK);
 			} else {
@@ -71,7 +71,7 @@ public class RawMaterialController {
 	}
 	
 	@DeleteMapping("/rawMaterials")
-	public ResponseEntity<HttpStatus> deleteAll(){
+	public ResponseEntity<HttpStatus> deleteAllRawMaterial(){
 		try {
 			rawMaterialRepository.deleteAll();
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);

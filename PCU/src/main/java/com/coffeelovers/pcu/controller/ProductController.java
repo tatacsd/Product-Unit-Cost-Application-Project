@@ -40,8 +40,8 @@ public class ProductController {
 	
 	@GetMapping("/products/{id}")
 	public ResponseEntity<Product> getProductByID(@PathVariable("id") long productID){	
-		Optional<Product> productData = productRepository.findById(productID);		
 		try {
+			Optional<Product> productData = productRepository.findById(productID);		
 			if(productData.isPresent()) {
 				return new ResponseEntity<>(productData.get(), HttpStatus.OK);
 			} else {

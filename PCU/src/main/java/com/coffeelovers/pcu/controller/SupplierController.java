@@ -29,8 +29,8 @@ public class SupplierController {
 	
 	@GetMapping("/suppliers")
 	public ResponseEntity<List<Supplier>> GetAllSupplier(){
-		List<Supplier> suppliers = new ArrayList<>();	
 		try {
+			List<Supplier> suppliers = new ArrayList<>();	
 			supplierRepository.findAll().forEach(suppliers::add);
 			return new ResponseEntity<>(suppliers,HttpStatus.OK);
 		}catch (Exception e) {
@@ -41,8 +41,8 @@ public class SupplierController {
 
 	@GetMapping("/suppliers/{id}")
 	public ResponseEntity<Supplier> getSupplierByID(@PathVariable("id") long supplierID){
-		Optional<Supplier> supplierData = supplierRepository.findById(supplierID);
 		try {
+			Optional<Supplier> supplierData = supplierRepository.findById(supplierID);
 			if(supplierData.isPresent()) {
 				return new ResponseEntity<>(supplierData.get(), HttpStatus.OK);
 			} else {
@@ -96,5 +96,4 @@ public class SupplierController {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-
 }
