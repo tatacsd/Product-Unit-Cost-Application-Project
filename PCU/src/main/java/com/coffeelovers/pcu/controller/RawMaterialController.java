@@ -27,7 +27,7 @@ public class RawMaterialController {
 	@Autowired
 	RawMaterialRepository rawMaterialRepository;
 	
-	@GetMapping("/rawMaterial")
+	@GetMapping("/rawMaterials")
 	public ResponseEntity<List<RawMaterial>> getAllRawMaterial(){
 		
 		try {
@@ -39,7 +39,7 @@ public class RawMaterialController {
 		}
 	}
 	
-	@GetMapping("/rawMaterial/{id}")
+	@GetMapping("/rawMaterials/{id}")
 	public ResponseEntity<RawMaterial> getRawMaterialByID(@PathVariable("id") long rawMaterialID){
 		
 		Optional<RawMaterial> rawMaterialData = rawMaterialRepository.findById(rawMaterialID);		
@@ -50,7 +50,7 @@ public class RawMaterialController {
 		}		
 	}
 	
-	@PutMapping("/rawMaterial/{id}")
+	@PutMapping("/rawMaterials/{id}")
 	public ResponseEntity<RawMaterial> updateRawMaterial(@PathVariable("id") long id, @RequestBody RawMaterial rawMaterial){
 		try {
 			Optional<RawMaterial> rawMaterialData = rawMaterialRepository.findById(id);
@@ -68,7 +68,7 @@ public class RawMaterialController {
 		}
 	}
 	
-	@DeleteMapping("/actors")
+	@DeleteMapping("/rawMaterials")
 	public ResponseEntity<HttpStatus> deleteAll(){
 		try {
 			rawMaterialRepository.deleteAll();
@@ -79,7 +79,7 @@ public class RawMaterialController {
 		}
 	}
 	
-	@DeleteMapping("/actors/{id}")
+	@DeleteMapping("/rawMaterials/{id}")
 	public ResponseEntity<HttpStatus> deleteById(@PathVariable("id") long id){
 		try {
 			rawMaterialRepository.deleteById(id);
