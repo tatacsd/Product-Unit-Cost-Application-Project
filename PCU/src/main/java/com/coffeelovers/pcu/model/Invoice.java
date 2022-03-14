@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 @Table(name ="invoices")
 public class Invoice {
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;

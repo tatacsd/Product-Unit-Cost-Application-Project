@@ -50,6 +50,7 @@ public class Supplier {
 		this.email = email;
 		this.address = address;
 	}
+
 	
 	public long getSupplierID() {
 		return supplierID;
@@ -66,6 +67,7 @@ public class Supplier {
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
+
 	public String getLastName() {
 		return lastName;
 	}

@@ -6,8 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import com.coffeelovers.pcu.model.Actor;
 import com.coffeelovers.pcu.model.ActorRepository;
-import com.coffeelovers.pcu.model.FixedCost;
-import com.coffeelovers.pcu.model.FixedCostRepository;
+
 import com.coffeelovers.pcu.model.Invoice;
 import com.coffeelovers.pcu.model.InvoiceRepository;
 import com.coffeelovers.pcu.model.Product;
@@ -33,8 +32,7 @@ public class PcuApplication {
 			ActorRepository actorRepository, 
 			VariableCostsRepository variableCostsRepository, 
 			InvoiceRepository invoiceRepository,
-			RawMaterialRepository rawMaterialRepository, 
-			FixedCostRepository fixedCostRepository
+			RawMaterialRepository rawMaterialRepository
 			) {
 		return args -> {
 
@@ -54,8 +52,8 @@ public class PcuApplication {
 			invoiceRepository.save(new Invoice("13", 1,22,"3/11/2020"));
 			invoiceRepository.findAll().forEach(System.out::println);
 
-			rawMaterialRepository.save(new RawMaterial(12,1,1,"Cotton"));
-			rawMaterialRepository.save(new RawMaterial(12,1,1,"Leather","2021-03-28"));
+			rawMaterialRepository.save(new RawMaterial(1,1,"Cotton"));
+			rawMaterialRepository.save(new RawMaterial(1,1,"Leather","2021-03-28"));
 			rawMaterialRepository.findAll().forEach(System.out::println);
 			
 			productRepository.save(new Product( 23, "https", "M"));
@@ -67,10 +65,7 @@ public class PcuApplication {
 			variableCostsRepository.save(new VariableCost("Gas",200,"2020-05-02"));
 			variableCostsRepository.save(new VariableCost("Water",500,"2020-07-02"));
 			variableCostsRepository.findAll().forEach(System.out::println);
-			
-			fixedCostRepository.save(new FixedCost("rent",5000,"2020-08-01"));
-			fixedCostRepository.save(new FixedCost("payrolls",15000,"2020-08-22"));
-			fixedCostRepository.findAll().forEach(System.out::println);
 		};
-	}	
+	}
+	
 }

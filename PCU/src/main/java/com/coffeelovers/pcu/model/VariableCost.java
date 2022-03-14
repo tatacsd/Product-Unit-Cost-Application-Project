@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "variable_cost")
 public class VariableCost {
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long variableCostID;

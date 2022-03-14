@@ -38,8 +38,8 @@ public class Actor {
 	
 	@Column(name = "address")
 	private String address;
-	
-	public Actor() {}	
+
+	public Actor() {}
 	
 	/***
 	 * 

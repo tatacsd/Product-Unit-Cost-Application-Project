@@ -15,16 +15,13 @@ import javax.persistence.Table;
 @Table(name = "raw_material")
 public class RawMaterial {
 	
-	/* Variables ----------------------------------------------------------------------------- */
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long rawMaterialID;
-
-	@Column(name = "invoiceNumber")
-	private long invoiceNumber;
 	
 	@Column(name = "InvoiceID")
 	private long invoiceID;
+	
 	@Column(name = "supplierID")
 	private long supplierID;
 	
@@ -34,24 +31,20 @@ public class RawMaterial {
 	@Column(name = "notes")
 	private String noteString;
 	
-	/* Constructors --------------------------------------------------------------------------- */
 	public RawMaterial() {}
 	
 	/***
 	 * 
-	 * @param invoiceNumber
 	 * @param invoiceID
 	 * @param supplierID
 	 * @param noteString
 	 */
-	public RawMaterial(long invoiceNumber, long invoiceID, long supplierID, String noteString) {
-		this.invoiceNumber = invoiceNumber;
+	public RawMaterial(long invoiceID, long supplierID, String noteString) {
 		this.invoiceID = invoiceID;
 		this.supplierID = supplierID;
 		this.noteString = noteString;
 		this.dateTime = LocalDate.now();
 	}
-
 	/***
 	 * 
 	 * @param invoiceNumber
@@ -60,29 +53,19 @@ public class RawMaterial {
 	 * @param noteString
 	 * @param dateTime
 	 */
-	public RawMaterial(long invoiceNumber, long invoiceID, long supplierID, String noteString, String dateTime) {
-		this.invoiceNumber = invoiceNumber;
+	public RawMaterial(long invoiceID, long supplierID, String noteString, String dateTime) {
 		this.invoiceID = invoiceID;
 		this.supplierID = supplierID;
 		this.noteString = noteString;
 		this.dateTime = LocalDate.parse(dateTime);
 	}
-	
-	/* Getters and Setters -------------------------------------------------------------------- */
+
 	public long getRawMaterialID() {
 		return rawMaterialID;
 	}
 
 	public void setRawMaterialID(long materialID) {
 		this.rawMaterialID = materialID;
-	}
-
-	public long getInvoiceNumber() {
-		return invoiceNumber;
-	}
-
-	public void setInvoiceNumber(long invoiceNumber) {
-		this.invoiceNumber = invoiceNumber;
 	}
 
 	public long getInvoiceID() {

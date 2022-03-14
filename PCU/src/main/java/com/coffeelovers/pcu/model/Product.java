@@ -14,7 +14,6 @@ import javax.persistence.Table;
 @Table(name="product")
 public class Product {
 	
-	/* Variables ----------------------------------------------------------------------------- */
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long productID;
@@ -30,7 +29,7 @@ public class Product {
 	
 	@Column(name= "size")
 	private String size;
-	/* Constructors --------------------------------------------------------------------------- */
+	
 	public Product() {}
 
 	/***
@@ -44,7 +43,7 @@ public class Product {
 		this.picture = picture;
 		this.size = size;
 	}
-	/* Getters and Setters -------------------------------------------------------------------- */
+	
 	public long getProductID() {
 		return productID;
 	}
@@ -60,7 +59,7 @@ public class Product {
 	public void setMaterialsID(long materialsID) {
 		this.materialsID = materialsID;
 	}
-	
+
 	public double getVariableCosts() {
 		return variableCosts;
 	}
@@ -69,12 +68,12 @@ public class Product {
 		this.variableCosts = variableCosts;
 	}
 
-	public String getPicture() {
-		return picture;
-	}
-	
 	public void setPicture(String picture) {
 		this.picture = picture;
+	}
+	
+	public String getPicture() {
+		return picture;
 	}
 
 	public String getSize() {
