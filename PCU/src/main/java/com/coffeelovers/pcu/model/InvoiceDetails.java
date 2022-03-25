@@ -12,12 +12,12 @@ import javax.persistence.Table;
  * this class represents the supplier's raw materials
  */
 @Entity
-@Table(name = "raw_material")
-public class RawMaterial {
+@Table(name = "invoice_details")
+public class InvoiceDetails {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long rawMaterialID;
+	private long invoiceDetailsID;
 	
 	@Column(name = "InvoiceID")
 	private long invoiceID;
@@ -31,15 +31,14 @@ public class RawMaterial {
 	@Column(name = "notes")
 	private String noteString;
 	
-	public RawMaterial() {}
-	
+	public InvoiceDetails() {}
 	/***
 	 * 
 	 * @param invoiceID
 	 * @param supplierID
 	 * @param noteString
 	 */
-	public RawMaterial(long invoiceID, long supplierID, String noteString) {
+	public InvoiceDetails(long invoiceID, long supplierID, String noteString) {
 		this.invoiceID = invoiceID;
 		this.supplierID = supplierID;
 		this.noteString = noteString;
@@ -53,7 +52,7 @@ public class RawMaterial {
 	 * @param noteString
 	 * @param dateTime
 	 */
-	public RawMaterial(long invoiceID, long supplierID, String noteString, String dateTime) {
+	public InvoiceDetails(long invoiceID, long supplierID, String noteString, String dateTime) {
 		this.invoiceID = invoiceID;
 		this.supplierID = supplierID;
 		this.noteString = noteString;
@@ -61,11 +60,11 @@ public class RawMaterial {
 	}
 
 	public long getRawMaterialID() {
-		return rawMaterialID;
+		return invoiceDetailsID;
 	}
 
 	public void setRawMaterialID(long materialID) {
-		this.rawMaterialID = materialID;
+		this.invoiceDetailsID = materialID;
 	}
 
 	public long getInvoiceID() {

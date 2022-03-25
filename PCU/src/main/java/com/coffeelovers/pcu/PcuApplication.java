@@ -11,8 +11,8 @@ import com.coffeelovers.pcu.model.Invoice;
 import com.coffeelovers.pcu.model.InvoiceRepository;
 import com.coffeelovers.pcu.model.Product;
 import com.coffeelovers.pcu.model.ProductRepository;
-import com.coffeelovers.pcu.model.RawMaterial;
-import com.coffeelovers.pcu.model.RawMaterialRepository;
+import com.coffeelovers.pcu.model.InvoiceDetails;
+import com.coffeelovers.pcu.model.InvoiceDetailsRepository;
 import com.coffeelovers.pcu.model.Supplier;
 import com.coffeelovers.pcu.model.SupplierRepository;
 import com.coffeelovers.pcu.model.VariableCost;
@@ -32,7 +32,7 @@ public class PcuApplication {
 			ActorRepository actorRepository, 
 			VariableCostsRepository variableCostsRepository, 
 			InvoiceRepository invoiceRepository,
-			RawMaterialRepository rawMaterialRepository
+			InvoiceDetailsRepository rawMaterialRepository
 			) {
 		return args -> {
 
@@ -52,8 +52,8 @@ public class PcuApplication {
 			invoiceRepository.save(new Invoice("13", 1,22,"3/11/2020"));
 			invoiceRepository.findAll().forEach(System.out::println);
 
-			rawMaterialRepository.save(new RawMaterial(1,1,"Cotton"));
-			rawMaterialRepository.save(new RawMaterial(1,1,"Leather","2021-03-28"));
+			rawMaterialRepository.save(new InvoiceDetails(1,1,"Cotton"));
+			rawMaterialRepository.save(new InvoiceDetails(1,1,"Leather","2021-03-28"));
 			rawMaterialRepository.findAll().forEach(System.out::println);
 			
 			productRepository.save(new Product( 23, "https", "M"));
