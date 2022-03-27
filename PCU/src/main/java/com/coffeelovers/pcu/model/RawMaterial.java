@@ -1,106 +1,83 @@
 package com.coffeelovers.pcu.model;
 
-import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /***
- * this class represents the supplier's raw materials
+ * this class  represents the factories that use the system
  */
 @Entity
 @Table(name = "raw_material")
 public class RawMaterial {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long rawMaterialID;
+	private long Id;
 	
-	@Column(name = "InvoiceID")
-	private long invoiceID;
+	@Column(name = "name")
+	private String name;
 	
-	@Column(name = "supplierID")
-	private long supplierID;
-	
-	@Column(name = "dateTime")
-	private LocalDate dateTime;
-	
-	@Column(name = "notes")
-	private String noteString;
-	
-	public RawMaterial() {}
-	
+	@JsonIgnore
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinTable(name = "product_raw_material", joinColumns = {
+	@JoinColumn(name = "raw_material_id", referencedColumnName = "Id") }, inverseJoinColumns = {
+			@JoinColumn(name = "productID", referencedColumnName = "productID") })
+	private Set<Product> product = new HashSet<>();
+		
 	/***
 	 * 
-	 * @param invoiceID
-	 * @param supplierID
-	 * @param noteString
+	 * @param name
 	 */
-	public RawMaterial(long invoiceID, long supplierID, String noteString) {
-		this.invoiceID = invoiceID;
-		this.supplierID = supplierID;
-		this.noteString = noteString;
-		this.dateTime = LocalDate.now();
-	}
-	/***
-	 * 
-	 * @param invoiceNumber
-	 * @param invoiceID
-	 * @param supplierID
-	 * @param noteString
-	 * @param dateTime
-	 */
-	public RawMaterial(long invoiceID, long supplierID, String noteString, String dateTime) {
-		this.invoiceID = invoiceID;
-		this.supplierID = supplierID;
-		this.noteString = noteString;
-		this.dateTime = LocalDate.parse(dateTime);
-	}
-
-	public long getRawMaterialID() {
-		return rawMaterialID;
-	}
-
-	public void setRawMaterialID(long materialID) {
-		this.rawMaterialID = materialID;
-	}
-
-	public long getInvoiceID() {
-		return invoiceID;
-	}
-
-	public void setInvoiceID(long invoiceID) {
-		this.invoiceID = invoiceID;
-	}
-
-	public long getSupplierID() {
-		return supplierID;
-	}
-
-	public void setSupplierID(long supplierID) {
-		this.supplierID = supplierID;
-	}
-
-	public LocalDate getDateTime() {
-		return dateTime;
-	}
-
-	public void setDateTime(String dateTime) {
-		this.dateTime = LocalDate.parse(dateTime);
+	public RawMaterial( String name) {
+		this.name = name;
 	}
 	
-	public void setDateTime(LocalDate dateTime) {
-		this.dateTime = dateTime;
+	public RawMaterial() {
+
 	}
 
-	public String getNoteString() {
-		return noteString;
+	public long getId() {
+		return Id;
 	}
 
-	public void setNoteString(String noteString) {
-		this.noteString = noteString;
+	public void setId(long id) {
+		Id = id;
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+
+	public Set<Product> getProduct() {
+		return product;
+	}
+
+	public void setProduct(Set<Product> product) {
+		this.product = product;
+	}
+
+
+	
+	
+
 }

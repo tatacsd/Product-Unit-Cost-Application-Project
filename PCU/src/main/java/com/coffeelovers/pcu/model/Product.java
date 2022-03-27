@@ -1,10 +1,16 @@
 package com.coffeelovers.pcu.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 /***
@@ -18,11 +24,11 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long productID;
 	
-	@Column(name= "materialsID")
-	private long materialsID;
+	@Column(name= "code")
+	private String code;
 	
-	@Column(name= "variableCosts")
-	private double variableCosts;
+	@Column(name= "discription")
+	private String discription;
 	
 	@Column(name= "picture")
 	private String picture;
@@ -30,20 +36,33 @@ public class Product {
 	@Column(name= "size")
 	private String size;
 	
+	//----
+	
+	@ManyToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	private Set<VariableCost> variableCosts = new HashSet<>();
+	
+	@ManyToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	private Set<RawMaterial> rawMaterials = new HashSet<>();
+	//---
+	
+	
+	
 	public Product() {}
 
 	/***
 	 * 
-	 * @param variableCosts
+	 * @param code
+	 * @param discription
 	 * @param picture
 	 * @param size
 	 */
-	public Product(double variableCosts, String picture, String size) {
-		this.variableCosts = variableCosts;
+	public Product(String code, String discription, String picture, String size) {
+		this.code = code;
+		this.discription = discription;
 		this.picture = picture;
 		this.size = size;
 	}
-	
+
 	public long getProductID() {
 		return productID;
 	}
@@ -52,28 +71,28 @@ public class Product {
 		this.productID = productID;
 	}
 
-	public long getMaterialsID() {
-		return materialsID;
+	public String getCode() {
+		return code;
 	}
 
-	public void setMaterialsID(long materialsID) {
-		this.materialsID = materialsID;
+	public void setCode(String code) {
+		this.code = code;
 	}
 
-	public double getVariableCosts() {
-		return variableCosts;
+	public String getDiscription() {
+		return discription;
 	}
 
-	public void setVariableCosts(double variableCosts) {
-		this.variableCosts = variableCosts;
+	public void setDiscription(String discription) {
+		this.discription = discription;
+	}
+
+	public String getPicture() {
+		return picture;
 	}
 
 	public void setPicture(String picture) {
 		this.picture = picture;
-	}
-	
-	public String getPicture() {
-		return picture;
 	}
 
 	public String getSize() {
@@ -83,4 +102,45 @@ public class Product {
 	public void setSize(String size) {
 		this.size = size;
 	}
+
+	public Set<VariableCost> getVariableCosts() {
+		return variableCosts;
+	}
+
+	public void setVariableCosts(Set<VariableCost> variableCosts) {
+		this.variableCosts = variableCosts;
+	}
+	
+	
+	public Set<RawMaterial> getRawMaterials() {
+		return rawMaterials;
+	}
+
+	public void setRawMaterials(Set<RawMaterial> rawMaterials) {
+		this.rawMaterials = rawMaterials;
+	}
+
+	public void addVaraibleCost(VariableCost variableCost) {
+		this.variableCosts.add(variableCost);
+		variableCost.getProduct().add(this);
+	}
+	
+	public void addRawMaterials(RawMaterial rawMaterial) {
+		this.rawMaterials.add(rawMaterial);
+		rawMaterial.getProduct().add(this);
+	}
+
+	
+	
+	
+	
+	
+
+	
+
+	
+
+	
+	
+	
 }
