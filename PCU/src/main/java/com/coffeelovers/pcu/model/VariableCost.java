@@ -1,12 +1,10 @@
 package com.coffeelovers.pcu.model;
 
 import java.time.LocalDate;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.util.*;
+import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /***
  * this class  represents the actors (factories) variables costs (water, eletricity, gas, etc.)
@@ -28,6 +26,14 @@ public class VariableCost {
 	@Column(name = "date")
 	private LocalDate dateTime;
 	
+	@JsonIgnore
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinTable(name = "product_variable_cost", joinColumns = {
+	@JoinColumn(name = "variableCostID", referencedColumnName = "variableCostID") }, inverseJoinColumns = {
+			@JoinColumn(name = "productID", referencedColumnName = "productID") })
+	private Set<Product> product = new HashSet<>();
+		
+
 	public VariableCost() {}
 
 	/***
@@ -88,4 +94,19 @@ public class VariableCost {
 	public void setDateTime(LocalDate dateTime) {
 		this.dateTime = dateTime;
 	}
+
+	public Set<Product> getProduct() {
+		return product;
+	}
+
+	public void setProduct(Set<Product> product) {
+		this.product = product;
+	}
+
+
+
+
+	
+	
+	
 }

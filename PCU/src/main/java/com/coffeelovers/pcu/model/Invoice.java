@@ -1,5 +1,9 @@
 package com.coffeelovers.pcu.model;
 
+import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.*;
 
 /***
@@ -11,7 +15,7 @@ public class Invoice {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+	private long invliceId;
 	
 	@Column(name = "invoiceNumber")
 	private String invoiceNumber;
@@ -23,8 +27,12 @@ public class Invoice {
 	private double invoiceValue;
 	
 	@Column(name = "invoiceDate")
-	private String invoiceDate;
+	private LocalDate invoiceDate;
 
+	
+	@OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Set<InvoiceDetails> InvoiceDetails = new HashSet<>();
+	
 	public Invoice() {}
 	
 	/***
@@ -32,21 +40,22 @@ public class Invoice {
 	 * @param invoiceNumber
 	 * @param supplierID
 	 * @param invoiceValue
-	 * @param invoiceDate
 	 */
-	public Invoice(String invoiceNumber, long supplierID, double invoiceValue, String invoiceDate) {
+	public Invoice(String invoiceNumber, long supplierID, double invoiceValue) {
 		this.invoiceNumber = invoiceNumber;
 		this.supplierID = supplierID;
 		this.invoiceValue = invoiceValue;
-		this.invoiceDate = invoiceDate;
+		this.invoiceDate = LocalDate.now();
 	}
 
-	public long getId() {
-		return id;
+
+	
+	public long getInvliceId() {
+		return invliceId;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setInvliceId(long invliceId) {
+		this.invliceId = invliceId;
 	}
 
 	public String getInvoiceNumber() {
@@ -73,17 +82,29 @@ public class Invoice {
 		this.invoiceValue = invoiceValue;
 	}
 
-	public String getInvoiceDate() {
+	public LocalDate getInvoiceDate() {
 		return invoiceDate;
 	}
 
-	public void setInvoiceDate(String invoiceDate) {
+	public void setInvoiceDate(LocalDate invoiceDate) {
 		this.invoiceDate = invoiceDate;
 	}
 
-	@Override
-	public String toString() {
-		return "Invoice [id=" + id + ", invoiceNumber=" + invoiceNumber + ", supplierID=" + supplierID
-				+ ", invoiceValue=" + invoiceValue + ", invoiceDate=" + invoiceDate + "]";
+	public Set<InvoiceDetails> getInvoiceDetails() {
+		return InvoiceDetails;
 	}
+
+	public void setInvoiceDetails(Set<InvoiceDetails> invoiceDetails) {
+		InvoiceDetails = invoiceDetails;
+	}
+
+	public void addInvoiceDetails(InvoiceDetails invoiceDetails) {
+		this.InvoiceDetails.add(invoiceDetails);
+		invoiceDetails.setInvoice(this);
+	}
+	
+	
+
+
+
 }

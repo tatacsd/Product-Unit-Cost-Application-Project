@@ -61,9 +61,7 @@ public class ProductController {
 			if(productData.isPresent()) {
 				Product _product = productData.get();
 				_product.setProductID(product.getProductID());
-				
-				if(product.getMaterialsID() != 0) 
-					_product.setMaterialsID(product.getMaterialsID());
+
 							
 				if(product.getPicture() != null) 
 					_product.setPicture(product.getPicture());
@@ -71,8 +69,7 @@ public class ProductController {
 				if(product.getSize() != null) 
 					_product.setSize(product.getSize());
 								
-				if(product.getVariableCosts() != 0) 
-					_product.setVariableCosts(product.getVariableCosts());
+
 				
 				return new ResponseEntity<>(productRepository.save(_product), HttpStatus.OK);				
 			}else {
