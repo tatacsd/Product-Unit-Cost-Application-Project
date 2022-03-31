@@ -44,7 +44,7 @@ export default {
                 if(response.data.password == this.form.password){
                     // save user brand and id in local storage
                     localStorage.setItem('user', JSON.stringify(response.data));
-                    this.$router.push('/');
+                    this.$router.push('/dashboard');
                 }     
         })
         .catch(
