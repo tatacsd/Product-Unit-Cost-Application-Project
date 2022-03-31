@@ -11,17 +11,17 @@
                 <div class="signup-triangle"></div>
                 <h2 class="signup-header">Signup</h2>
                 <form class="signup-container" v-on:submit.prevent="submitForm">
-                    <p><input type="text" placeholder="Brand" v-model="form.name" required></p>
+                    <p><input type="text" placeholder="Brand" v-model="form.brand" required></p>
                     <p>
-                        <select v-model="form.activity">
+                        <select v-model="form.activity" required>
                             <option value="" disabled selected>Select Activity</option>
-                            <option value="1">Textil Sport</option>
-                            <option value="2">Textil Sport</option>
+                            <option value="textil sport">Textil Sport</option>
+                            <option value="textil formal">Textil Formal</option>
                         </select>
                     </p>
                     <!-- <p><input type="text" placeholder="Activity" v-model="form.activity" required></p> -->
                     <p><input type="number" placeholder="Phone" v-model="form.phone" required></p>
-                    <p><input type="text" placeholder="Website" v-model="form.website" required></p>
+                    <p><input type="text" placeholder="Website" v-model="form.webside" required></p>
                     <p><input type="email" placeholder="Email" v-model="form.email" required></p>
                     <p><input type="password" placeholder="Password" v-model="form.password" required></p>
                     <p><input type="text" placeholder="Address" v-model="form.address" required></p>
@@ -38,15 +38,16 @@
 </template>
 
 <script>
-// import axios from 'axios';
+import http from "../http-common";
+
 export default {
     data() {
         return {
             form: {
-                name: '',
+                brand: '',
                 activity: '',
                 phone: '',
-                website: '',
+                webside: '',
                 email: '',
                 password: '',
                 address: ''
@@ -56,17 +57,21 @@ export default {
     // on form submit send data to server
     methods:{
         submitForm(){
-            // axios.post('/contact', this.form)
-            //      .then((res) => {
-            //          //Perform Success Action
-            //      })
-            //      .catch((error) => {
-            //          // error.response.status Check status code
-            //      }).finally(() => {
-            //          //Perform action in always
-            //      });
-            console.log(this.form);
-        }
+            http.post("/actors", this.form)
+                .then(
+                    () => {
+                        // add a alert msg
+                        alert("Successfully created account");
+                        // redirect to login page
+                        this.$router.push('/login');
+                        
+                })
+                .catch(
+                    error => {
+                        console.log(error);
+                    }
+                );
+        },
     }
     
 }
