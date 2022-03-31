@@ -1,8 +1,9 @@
 <template>
+<div>
   <header class="header">
       <a href="#home" class="logo">PCU</a>
       <div class="header-right">
-        <a href="#home">Sign up</a>
+        <a href="" @click="$router.push('/signup')">Sign up</a>
       </div>
   </header>
 <!-- template for login from https://codepen.io/miroot/pen/AYJGJO -->
@@ -15,6 +16,11 @@
         <p><input type="submit" value="Log in"></p>
       </form>
     </div>
+  </div>
+  <!-- footer -->
+  <footer class="footer">
+      <p>Created by <a href="https://github.com/tatacsd/PCU" target="_blank">CoffeLovers</a> 🛸 </p>
+  </footer>
 </template>
 
 <script>
@@ -74,6 +80,10 @@ body {
   margin: 16px auto;
   font-size: 16px;
   text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 /* Reset top and bottom margins from certain elements */
@@ -144,4 +154,24 @@ body {
 .login input[type="submit"]:focus {
   border-color: #05a;
 }
+
+/* Footer */
+.footer {
+  background: #ffdc14;
+  color: #000;
+  font-weight: bold;
+  text-align: center;
+  padding: 20px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer a {
+  text-decoration: none;
+  color: #000;
+  font-weight: bold;
+}
+
 </style>
