@@ -20,7 +20,7 @@
                         </select>
                     </p>
                     <!-- <p><input type="text" placeholder="Activity" v-model="form.activity" required></p> -->
-                    <p><input type="number" placeholder="Phone" v-model="form.phone" required></p>
+                    <p><input type="text" placeholder="Phone" v-model="form.phone" required></p>
                     <p><input type="text" placeholder="Website" v-model="form.webside" required></p>
                     <p><input type="email" placeholder="Email" v-model="form.email" required></p>
                     <p><input type="password" placeholder="Password" v-model="form.password" required></p>
@@ -56,23 +56,22 @@ export default {
     },
     // on form submit send data to server
     methods:{
-        submitForm(){
-            http.post("/actors", this.form)
-                .then(
-                    () => {
-                        // add a alert msg
-                        alert("Successfully created account");
-                        // redirect to login page
-                        this.$router.push('/login');
-                        
-                })
-                .catch(
-                    error => {
-                        console.log(error);
-                    }
-                );
-        },
-    }
+      submitForm(){
+        http.post("/actors", this.form)
+          .then(
+              (response) => {
+                  // add a alert msg
+                  alert("Successfully created account!\nPlease to login save the user id:" + response.data.actorId);
+                  // redirect to login page
+                  this.$router.push('/login');         
+          })
+          .catch(
+              error => {
+                  console.log(error);
+              }
+          );
+      },
+  }
     
 }
 </script>

@@ -10,9 +10,9 @@
     <div class="login">
       <div class="login-triangle"></div>
       <h2 class="login-header">Log in</h2>
-      <form class="login-container">
-        <p><input type="email" placeholder="Email"></p>
-        <p><input type="password" placeholder="Password"></p>
+      <form class="login-container" v-on:submit.prevent="submitForm">
+        <p><input type="text" placeholder="Email" v-model="form.email" required></p>
+        <p><input type="password" placeholder="Password" v-model="form.password" required></p>
         <p><input type="submit" value="Log in"></p>
       </form>
     </div>
@@ -24,8 +24,36 @@
 </template>
 
 <script>
+import http from "../http-common";
 export default {
-    
+  data() {
+    return {
+      form: {
+        email: '',
+        password: ''
+      }
+    }
+  },
+  // on form submit send data to server
+  methods:{
+    submitForm(){
+      http.get("/actors/" + this.form.email)
+        .then(
+            (response) => {
+                // check  if password is correct
+                if(response.data.password == this.form.password){
+                    // save user brand and id in local storage
+                    localStorage.setItem('user', JSON.stringify(response.data));
+                    this.$router.push('/');
+                }     
+        })
+        .catch(
+            error => {
+                console.log(error);
+            }
+        );
+    },
+  }    
 }
 </script>
 
