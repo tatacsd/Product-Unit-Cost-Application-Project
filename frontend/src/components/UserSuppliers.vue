@@ -60,7 +60,7 @@
 
         <!-- Footer -->
          <footer class="footer">
-            <p>Created by <a href="https://github.com/tatacsd/PCU" target="_blank">CoffeLovers</a> 🛸 </p>
+            <p>Created by <a href="https://github.com/tatacsd/PCU" target="_blank">CoffeLovers</a>☕</p>
             <div class="attributions">
                 <p><a href="https://www.flaticon.com/free-icons/bin" title="bin icons">Bin icons created by Kiranshastry - Flaticon</a> | </p>
                 <p><a href="https://www.flaticon.com/free-icons/edit" title="edit icons">Edit icons created by Kiranshastry - Flaticon</a> |</p>
@@ -159,12 +159,13 @@ h1 {
 .container {
   /* in the center vertically and hotizontally of the page*/
     margin: 0 auto;
-    width: 90%;
+    width: 100%;
     
 }
 
 .table{
   display: table;
+  
 }
 
 .row-header{
@@ -204,6 +205,14 @@ h1 {
 .attributions p {
     font-size: 0.6rem;
     display: inline-block;
+}
+
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
 }
 
 </style>

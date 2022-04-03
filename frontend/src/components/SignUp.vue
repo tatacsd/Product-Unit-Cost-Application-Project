@@ -32,7 +32,7 @@
         </body>
         <!-- footer -->
         <footer class="footer">
-            <p>Created by <a href="https://github.com/tatacsd/PCU" target="_blank">CoffeLovers</a> 🛸 </p>
+            <p>Created by <a href="https://github.com/tatacsd/PCU" target="_blank">CoffeLovers</a>☕</p>
         </footer>
     </div>
 </template>
@@ -77,6 +77,14 @@ export default {
 </script>
 
 <style scoped>
+
+.signup {
+  width: 600px;
+  margin: 16px auto;
+  font-size: 16px;
+  text-align: center;
+  
+}
 
 /* Reset top and bottom margins from certain elements */
 .signup-header,

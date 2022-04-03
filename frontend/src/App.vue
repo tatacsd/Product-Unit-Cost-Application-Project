@@ -80,10 +80,8 @@ body {
   font-weight: bold;
   text-align: center;
   padding: 20px;
-  position: absolute;
-  left: 0;
-  bottom: 0;
   width: 100%;
+  
 }
 
 .footer a {
