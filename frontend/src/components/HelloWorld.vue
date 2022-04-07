@@ -32,20 +32,73 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
+.hello{
+ background-color: #f2f2f2;
+ height: 100vh;
+ 
 }
-ul {
-  list-style-type: none;
-  padding: 0;
+template{
+  background-color: #f2f2f2;
+  
 }
-li {
-  display: inline-block;
-  margin: 0 10px;
+.footer {
+   position:absolute;
+   bottom:0;
+   width:100%;
+   height:20px;   /* Height of the footer */
+   background:rgb(177, 172, 172);
 }
-a {
-  color: #42b983;
+.body{
+  display: flex;
+  background-color: beige;
+  text-align: center;
+  margin-top:150px;
+  margin-left: 5%;
+  margin-right: 5%;
+  width: 90%;
+  height: 500px;
+  padding: 10px;
+  justify-content: space-around;
+  align-items: center;
+}
+.body p{
+  font-size: 20px;
+}
+.image{
+  padding-left:0px;
+  float: left;
+  width: 40%;
+}
+.header {
+  overflow: hidden;
+  background-color: #ffdc14;
+  padding: 20px 10px;
+}
+.header a {
+  float: left;
+  color: black;
+  text-align: center;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px; 
+  line-height: 25px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+.header a.logo {
+  font-size: 25px;
+  font-weight: bold;
+}
+.header a:hover {
+  background-color: #000;
+  color: white;
+}
+.header a.active {
+  background-color: dodgerblue;
+  color: white;
+}
+.header-right {
+  float: right;
 }
 </style>
