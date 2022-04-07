@@ -1,26 +1,28 @@
 <template>
- <router-view />
+  <router-view />
 </template>
 
 <script>
 export default {
-  name: 'App',
-}
+  name: "App",
+};
 </script>
 
 <style>
-*, *:before, *:after {
-	margin: 0;
-	padding: 0;
+*,
+*:before,
+*:after {
+  margin: 0;
+  padding: 0;
 
-	-webkit-box-sizing: border-box !important;
-	-moz-box-sizing: border-box !important;
-	-ms-box-sizing: border-box !important;
-	box-sizing: border-box !important;
+  -webkit-box-sizing: border-box !important;
+  -moz-box-sizing: border-box !important;
+  -ms-box-sizing: border-box !important;
+  box-sizing: border-box !important;
 }
 
 #app {
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -31,7 +33,7 @@ export default {
 
 body {
   background: #f2f2f2;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
 }
 
 /* Header */
@@ -47,7 +49,7 @@ body {
   text-align: center;
   padding: 12px;
   text-decoration: none;
-  font-size: 18px; 
+  font-size: 18px;
   line-height: 25px;
   border-radius: 4px;
   font-weight: bold;
@@ -72,16 +74,16 @@ body {
   float: right;
 }
 
-
 /* Footer */
 .footer {
+  position: absolute;
+  bottom: 0;
   background: #ffdc14;
   color: #000;
   font-weight: bold;
   text-align: center;
   padding: 20px;
   width: 100%;
-  
 }
 
 .footer a {
