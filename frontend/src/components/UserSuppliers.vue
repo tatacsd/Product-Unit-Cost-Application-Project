@@ -31,7 +31,7 @@
             <p class="delete-btn">
               <input
                 type="button"
-                v-on:delete="deleteSupplier(supplier.supplierID)"
+                @click="deleteSupplier(supplier.supplierID)"
               />
               <img
                 src="../../public/images/deleteRed.png"
@@ -110,40 +110,17 @@
         </div>
       </div>
     </div>
-
-    <!-- Footer -->
-    <footer class="footer">
-      <p>
-        Created by
-        <a href="https://github.com/tatacsd/PCU" target="_blank">CoffeLovers</a
-        >☕
-      </p>
-      <div class="attributions">
-        <p>
-          <a href="https://www.flaticon.com/free-icons/bin" title="bin icons"
-            >Bin icons created by Kiranshastry - Flaticon</a
-          >
-          |
-        </p>
-        <p>
-          <a href="https://www.flaticon.com/free-icons/edit" title="edit icons"
-            >Edit icons created by Kiranshastry - Flaticon</a
-          >
-          |
-        </p>
-        <p>
-          <a href="https://www.flaticon.com/free-icons/plus" title="plus icons"
-            >Plus icons created by Vectors Market - Flaticon</a
-          >
-        </p>
-      </div>
-    </footer>
+    <BaseFooter />
   </div>
 </template>
 
 <script>
+import BaseFooter from "./Base/BaseFooter.vue";
 import SupplierDataServices from "../services/SupplierDataServices";
 export default {
+  components: {
+    BaseFooter,
+  },
   data() {
     return {
       suppliers: [],
@@ -158,7 +135,9 @@ export default {
     getSuppliers() {
       SupplierDataServices.get()
         .then((response) => {
+          // add the response to the data object
           this.suppliers = response.data;
+          console.log(response);
         })
         .catch((error) => {
           console.log(error);
@@ -184,6 +163,7 @@ export default {
         });
     },
     deleteSupplier(id) {
+      console.log("inside delete");
       SupplierDataServices.deleteById(id)
         .then((response) => {
           console.log(response);
@@ -216,6 +196,7 @@ export default {
       .then((response) => {
         // add the response to the data object
         this.suppliers = response.data;
+        console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -270,9 +251,5 @@ h1 {
 .edit-btn:hover,
 .add-btn:hover {
   cursor: pointer;
-}
-.attributions p {
-  font-size: 0.6rem;
-  display: inline-block;
 }
 </style>
