@@ -142,7 +142,7 @@
 </template>
 
 <script>
-import https from "../http-common";
+import SupplierDataServices from "../services/SupplierDataServices";
 export default {
   data() {
     return {
@@ -156,8 +156,7 @@ export default {
   },
   methods: {
     getSuppliers() {
-      https
-        .get("/suppliers")
+      SupplierDataServices.get()
         .then((response) => {
           this.suppliers = response.data;
         })
@@ -175,8 +174,8 @@ export default {
         email: this.email,
         address: this.address,
       };
-      https
-        .post("/suppliers", supplier)
+
+      SupplierDataServices.post(supplier)
         .then((response) => {
           console.log(response);
         })
@@ -185,8 +184,7 @@ export default {
         });
     },
     deleteSupplier(id) {
-      https
-        .delete("/suppliers/" + id)
+      SupplierDataServices.deleteById(id)
         .then((response) => {
           console.log(response);
         })
@@ -196,14 +194,15 @@ export default {
     },
     editSupplier(id) {
       const supplier = {
-        firstName: "John",
-        lastName: "Doe",
-        phone: "1234567890",
-        email: "any@any.com",
-        address: "123 Any Street",
+        supplierID: this.supplierID,
+        firstName: this.firstName,
+        lastName: this.lastName,
+        phone: this.phone,
+        email: this.email,
+        address: this.address,
       };
-      https
-        .put("/suppliers/" + id, supplier)
+
+      SupplierDataServices.put(id, supplier)
         .then((response) => {
           console.log(response);
         })
@@ -213,8 +212,7 @@ export default {
     },
   },
   mounted() {
-    https
-      .get("/suppliers")
+    SupplierDataServices.get()
       .then((response) => {
         // add the response to the data object
         this.suppliers = response.data;

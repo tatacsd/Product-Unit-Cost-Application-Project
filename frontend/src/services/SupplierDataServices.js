@@ -1,8 +1,8 @@
 import http from "../http-common.js";
 
-class SupplerDataService {
+class SupplierDataService {
     // get by id
-    get(id) {
+    getById(id) {
         return http.get(`/suppliers/${id}`)
     }
 
@@ -17,12 +17,12 @@ class SupplerDataService {
     }
 
     // edit
-    put(data) {
+    put(id, data) {
         return http.put(`/suppliers/${id}`, data)
     }
 
     // delete one
-    delete(id) {
+    deleteById(id) {
         return http.delete(`/suppliers/${id}`)
     }
 
@@ -31,3 +31,5 @@ class SupplerDataService {
         return http.delete(`/suppliers`)
     }
 }
+
+export default new SupplierDataService;
