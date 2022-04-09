@@ -1,30 +1,31 @@
 <template>
-<div>
-  <header class="header">
-      <a href="#home" class="logo">PCU</a>
-      <div class="header-right">
-        <a href="" @click="$router.push('/signup')">Sign up</a>
+  <div>
+    <header class="header">
+        <a href="#home" class="logo">PCU</a>
+        <div class="header-right">
+          <a href="" @click="$router.push('/signup')">Sign up</a>
+        </div>
+    </header>
+      <div class="login">
+    <!-- template for login from https://codepen.io/miroot/pen/AYJGJO -->
+        <div class="login-triangle"></div>
+        <h2 class="login-header">Log in</h2>
+        <form class="login-container" v-on:submit.prevent="submitForm">
+          <p><input type="text" placeholder="Email" v-model="form.email" required></p>
+          <p><input type="password" placeholder="Password" v-model="form.password" required></p>
+          <p><input type="submit" value="Log in"></p>
+        </form>
       </div>
-  </header>
-<!-- template for login from https://codepen.io/miroot/pen/AYJGJO -->
-    <div class="login">
-      <div class="login-triangle"></div>
-      <h2 class="login-header">Log in</h2>
-      <form class="login-container" v-on:submit.prevent="submitForm">
-        <p><input type="text" placeholder="Email" v-model="form.email" required></p>
-        <p><input type="password" placeholder="Password" v-model="form.password" required></p>
-        <p><input type="submit" value="Log in"></p>
-      </form>
-    </div>
+    <!-- footer -->
+    <footer class="footer">
+        <p>Created by <a href="https://github.com/tatacsd/PCU" target="_blank">CoffeLovers</a>☕</p>
+    </footer>
   </div>
-  <!-- footer -->
-  <footer class="footer">
-      <p>Created by <a href="https://github.com/tatacsd/PCU" target="_blank">CoffeLovers</a> 🛸 </p>
-  </footer>
 </template>
 
 <script>
 import http from "../http-common";
+
 export default {
   data() {
     return {
@@ -58,51 +59,6 @@ export default {
 </script>
 
 <style scoped>
-/* 'Open Sans' font from Google Fonts */
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700);
-
-body {
-  background: #f2f2f2;
-  font-family: 'Open Sans', sans-serif;
-}
-
-.header {
-  overflow: hidden;
-  background-color: #ffdc14;
-  padding: 20px 10px;
-}
-
-.header a {
-  float: left;
-  color: black;
-  text-align: center;
-  padding: 12px;
-  text-decoration: none;
-  font-size: 18px; 
-  line-height: 25px;
-  border-radius: 4px;
-  font-weight: bold;
-}
-
-.header a.logo {
-  font-size: 25px;
-  font-weight: bold;
-}
-
-.header a:hover {
-  background-color: #000;
-  color: white;
-}
-
-.header a.active {
-  background-color: dodgerblue;
-  color: white;
-}
-
-.header-right {
-  float: right;
-}
-
 .login {
   width: 400px;
   margin: 16px auto;
@@ -181,25 +137,6 @@ body {
 /* Buttons' focus effect */
 .login input[type="submit"]:focus {
   border-color: #05a;
-}
-
-/* Footer */
-.footer {
-  background: #ffdc14;
-  color: #000;
-  font-weight: bold;
-  text-align: center;
-  padding: 20px;
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-}
-
-.footer a {
-  text-decoration: none;
-  color: #000;
-  font-weight: bold;
 }
 
 </style>
