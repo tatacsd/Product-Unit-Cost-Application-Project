@@ -2,25 +2,42 @@
   <div class="hello">
 
     <header class="header">
+<<<<<<< HEAD
       <a href="/" class="logo">PCU</a>
       <div class="header-right">
         <a href="signup">Sign up</a>
         <a href="login">Log in</a>
+=======
+      <a href="#home" class="logo">PCU</a>
+      <div class="header-right">
+        <a href="#home">Sign up</a>
+        <a href="#home">Log in</a>
+>>>>>>> ac41b47ef5c6ff43672658f29d632fac378f23fe
       </div>
   </header>
     <body>
       <div class="body">
         <div class="image">
+<<<<<<< HEAD
       <img src="../assets/LandingPagePicTeam.jpeg" height="450px" width="500px">
+=======
+      <img src="https://www.pngall.com/wp-content/uploads/4/Gear-PNG-Image.png" height="150px" width="150px">
+>>>>>>> ac41b47ef5c6ff43672658f29d632fac378f23fe
       </div>
       <p>Bring solutions to support small and medium businesses manufacturing management with specific tools to calculate their product unit cost and generate customized reports.
          The proposed software will fit any kind of manufacturing industry such as textiles, automotive, electronics, food and beverages, pharmaceuticals etc.</p>
       </div>
     </body>
+<<<<<<< HEAD
     <BaseFooter />
     <!-- <footer class="footer">
       <p>Created by Coffeelovers</p>
     </footer> -->
+=======
+    <footer class="footer">
+      <p>Created by Coffeelovers</p>
+    </footer>
+>>>>>>> ac41b47ef5c6ff43672658f29d632fac378f23fe
   </div>
 </template>
 
@@ -70,20 +87,28 @@ template{
   align-items: center;
 }
 .body p{
+<<<<<<< HEAD
   font-size: 28px;
   text-align: justify;
   width: 150%;
   padding-right:3%;
   padding-left: 3%;
+=======
+  font-size: 20px;
+>>>>>>> ac41b47ef5c6ff43672658f29d632fac378f23fe
 }
 .image{
   padding-left:0px;
   float: left;
+<<<<<<< HEAD
   width: 80%;
   border-radius: 10px;
 }
 .image img{
   border-radius: 10px;
+=======
+  width: 40%;
+>>>>>>> ac41b47ef5c6ff43672658f29d632fac378f23fe
 }
 .header {
   overflow: hidden;
