@@ -18,6 +18,7 @@
           <div class="cell">Phone</div>
           <div class="cell">Email</div>
           <div class="cell">Address</div>
+          <div class="cell"></div>
         </div>
         <div class="row" v-for="supplier in suppliers" :key="supplier.id">
           <div class="cell">{{ supplier.supplierID }}</div>
@@ -29,22 +30,15 @@
           <!-- Delete and edit supplier -->
           <div class="cell">
             <p class="delete-btn">
-              <input
-                type="button"
-                @click="deleteSupplier(supplier.supplierID)"
-              />
               <img
                 src="../../public/images/deleteRed.png"
                 alt="delete"
                 width="20"
                 height="20"
+                @click="deleteSupplier(supplier.supplierID)"
               />
             </p>
             <p class="edit-btn">
-              <input
-                type="button"
-                v-on:click="editSupplier(supplier.supplierID)"
-              />
               <img
                 src="../../public/images/edit.png"
                 alt="edit"
@@ -58,12 +52,12 @@
           <!-- Add supplier -->
           <div class="cell">
             <p class="add-btn">
-              <input type="button" v-on:click="addSupplier()" />
               <img
                 src="../../public/images/plus.png"
                 alt="add"
                 width="20"
                 height="20"
+                @click="addSupplier()"
               />
             </p>
           </div>
@@ -214,6 +208,10 @@ h1 {
   /* in the center vertically and hotizontally of the page*/
   display: flex;
   justify-content: center;
+  overflow: auto;
+  height: 30vh;
+  width: 80vw;
+  
 }
 
 .table {
