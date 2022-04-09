@@ -4,7 +4,7 @@
     <header class="header">
       <a href="#home" class="logo">PCU</a>
       <div class="header-right">
-        <a href="" @click="$router.push('/login')">Login</a>
+        <a href="" @click="$router.push('/login')">Logout</a>
       </div>
     </header>
     <!-- Body -->

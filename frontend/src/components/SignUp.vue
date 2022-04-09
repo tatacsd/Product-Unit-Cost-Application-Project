@@ -31,16 +31,18 @@
 
         </body>
         <!-- footer -->
-        <footer class="footer">
-            <p>Created by <a href="https://github.com/tatacsd/PCU" target="_blank">CoffeLovers</a>☕</p>
-        </footer>
+        <BaseFooter />
     </div>
 </template>
 
 <script>
+import BaseFooter from "./Base/BaseFooter.vue";
 import http from "../http-common";
 
 export default {
+   components: {
+    BaseFooter,
+  },
     data() {
         return {
             form: {
