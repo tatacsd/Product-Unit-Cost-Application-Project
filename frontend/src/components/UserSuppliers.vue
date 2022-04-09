@@ -25,7 +25,7 @@
           <div class="cell">
             <p class="add-btn" v-if="!update">
               <img
-                src="../../public/images/plus.png"
+                src="../assets/plus.png"
                 alt="add"
                 width="20"
                 height="20"
@@ -76,7 +76,7 @@
           <div class="cell">
               <!-- button to update the cell  will be visible when the button add clicked-->
                <img
-                src="../../public/images/floppy-disk.png"
+                src="../assets/floppy-disk.png"
                 alt="add"
                 width="20"
                 height="20"
@@ -97,7 +97,7 @@
           <div class="cell">
             <p class="delete-btn">
               <img
-                src="../../public/images/deleteRed.png"
+                src="../assets/deleteRed.png"
                 alt="delete"
                 width="20"
                 height="20"
@@ -106,7 +106,7 @@
             </p>
             <p class="edit-btn">
               <img
-                src="../../public/images/edit.png"
+                src="../assets/edit.png"
                 alt="edit"
                 width="20"
                 height="20"
