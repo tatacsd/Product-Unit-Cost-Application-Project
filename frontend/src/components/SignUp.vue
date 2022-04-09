@@ -1,7 +1,7 @@
 <template>
     <div>
         <header class="header">
-            <a href="#home" class="logo">PCU</a>
+            <a href="/" class="logo">PCU</a>
             <div class="header-right">
                 <a href="" @click="$router.push('/login')">Login</a>
             </div>

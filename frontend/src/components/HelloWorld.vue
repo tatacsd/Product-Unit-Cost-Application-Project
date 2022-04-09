@@ -2,34 +2,41 @@
   <div class="hello">
 
     <header class="header">
-      <a href="#home" class="logo">PCU</a>
+      <a href="/" class="logo">PCU</a>
       <div class="header-right">
-        <a href="#home">Sign up</a>
-        <a href="#home">Log in</a>
+        <a href="signup">Sign up</a>
+        <a href="login">Log in</a>
       </div>
   </header>
     <body>
       <div class="body">
         <div class="image">
-      <img src="https://www.pngall.com/wp-content/uploads/4/Gear-PNG-Image.png" height="150px" width="150px">
+      <img src="../assets/LandingPagePicTeam.jpeg" height="450px" width="500px">
       </div>
       <p>Bring solutions to support small and medium businesses manufacturing management with specific tools to calculate their product unit cost and generate customized reports.
          The proposed software will fit any kind of manufacturing industry such as textiles, automotive, electronics, food and beverages, pharmaceuticals etc.</p>
       </div>
     </body>
-    <footer class="footer">
+    <BaseFooter />
+    <!-- <footer class="footer">
       <p>Created by Coffeelovers</p>
-    </footer>
+    </footer> -->
   </div>
 </template>
 
 <script>
+
+import BaseFooter from "./Base/BaseFooter.vue";
 export default {
+  components: {
+    BaseFooter
+  },
   name: 'HelloWorld',
   props: {
     msg: String
   }
 }
+
 </script>
 
 <style scoped>
@@ -63,12 +70,20 @@ template{
   align-items: center;
 }
 .body p{
-  font-size: 20px;
+  font-size: 28px;
+  text-align: justify;
+  width: 150%;
+  padding-right:3%;
+  padding-left: 3%;
 }
 .image{
   padding-left:0px;
   float: left;
-  width: 40%;
+  width: 80%;
+  border-radius: 10px;
+}
+.image img{
+  border-radius: 10px;
 }
 .header {
   overflow: hidden;
