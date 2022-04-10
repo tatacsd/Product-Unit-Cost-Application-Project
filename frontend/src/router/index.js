@@ -3,7 +3,11 @@ import HelloWorld from "../components/HelloWorld";
 import MyLogin from "../components/MyLogin";
 import SignUp from "../components/SignUp";
 import UserSuppliers from "../components/UserSuppliers";
+<<<<<<< HEAD
 import InvoiceDetails from "../components/InvoiceDetails";
+=======
+import UserRawMaterial from "../components/UserRawMaterial";
+>>>>>>> 10121c3 (rawMaterial base page and router)
 
 const routes = [
   {
@@ -30,7 +34,12 @@ const routes = [
     path: "/invoicedetails",
     name: "InvoiceDetails",
     component: InvoiceDetails
-  }
+  },
+  {
+    path: "/rawmaterial",
+    name: "RawMaterial",
+    component: UserRawMaterial,
+  },
 ];
 
 const router = createRouter({
