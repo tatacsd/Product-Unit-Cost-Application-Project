@@ -40,6 +40,10 @@ const routes = [
     name: "RawMaterial",
     component: UserRawMaterial,
   },
+  // TODO: Products
+  // TODO: Invoice
+  // TODO: InvoiceDetails
+  // TODO: Reports
 ];
 
 const router = createRouter({
