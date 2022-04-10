@@ -55,6 +55,19 @@ public class ActorController {
 		}
 	}
 	
+	@GetMapping("/actor/{email:.+}")
+	public ResponseEntity<Actor> getActorByEmail( @PathVariable("email") String actorEmail){
+		try {
+			Optional<Actor> actorData = actorRepository.findByEmail(actorEmail);
+			if(actorData.isPresent())
+				return new ResponseEntity<>(actorData.get(),HttpStatus.OK);
+			else
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
 	@PutMapping("/actors/{id}")
 	public ResponseEntity<Actor> updateActor(@PathVariable("id") long id, @RequestBody Actor actor){
 		try {

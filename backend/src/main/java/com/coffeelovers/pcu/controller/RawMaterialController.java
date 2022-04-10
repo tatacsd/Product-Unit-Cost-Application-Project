@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.coffeelovers.pcu.model.InvoiceDetails;
-import com.coffeelovers.pcu.model.InvoiceDetailsRepository;
+import com.coffeelovers.pcu.model.RawMaterial;
+import com.coffeelovers.pcu.model.RawMaterialRepository;
+import com.coffeelovers.pcu.model.RawMaterial;
+import com.coffeelovers.pcu.model.RawMaterialRepository;
 
 @CrossOrigin(origins = "http://localhost:8081")
 @RestController
@@ -26,12 +28,12 @@ import com.coffeelovers.pcu.model.InvoiceDetailsRepository;
 public class RawMaterialController {
 	
 	@Autowired
-	InvoiceDetailsRepository rawMaterialRepository;
+	RawMaterialRepository rawMaterialRepository;
 	
 	@GetMapping("/rawMaterials")
-	public ResponseEntity<List<InvoiceDetails>> getAllRawMaterial(){	
+	public ResponseEntity<List<RawMaterial>> getAllRawMaterial(){	
 		try {
-			List<InvoiceDetails> rawMaterial = new ArrayList<>();
+			List<RawMaterial> rawMaterial = new ArrayList<>();
 				rawMaterialRepository.findAll().forEach(rawMaterial::add);
 				return new ResponseEntity<>(rawMaterial, HttpStatus.OK);
 		} catch (Exception e) {
@@ -40,9 +42,9 @@ public class RawMaterialController {
 	}
 	
 	@GetMapping("/rawMaterials/{id}")
-	public ResponseEntity<InvoiceDetails> getRawMaterialByID(@PathVariable("id") long rawMaterialID){	
+	public ResponseEntity<RawMaterial> getRawMaterialByID(@PathVariable("id") long rawMaterialID){	
 		try {
-			Optional<InvoiceDetails> rawMaterialData = rawMaterialRepository.findById(rawMaterialID);	
+			Optional<RawMaterial> rawMaterialData = rawMaterialRepository.findById(rawMaterialID);	
 			if(rawMaterialData.isPresent()) {
 				return new ResponseEntity<>(rawMaterialData.get(), HttpStatus.OK);
 			} else {
@@ -54,16 +56,16 @@ public class RawMaterialController {
 	}
 	
 	@PutMapping("/rawMaterials/{id}")
-	public ResponseEntity<InvoiceDetails> updateRawMaterial(@PathVariable("id") long id, @RequestBody InvoiceDetails rawMaterial){
+	public ResponseEntity<RawMaterial> updateRawMaterial(@PathVariable("id") long id, @RequestBody RawMaterial rawMaterial){
 		try {
-			Optional<InvoiceDetails> rawMaterialData = rawMaterialRepository.findById(id);
+			Optional<RawMaterial> rawMaterialData = rawMaterialRepository.findById(id);
 			if(rawMaterialData.isPresent()) {
-				InvoiceDetails _rawMaterial = rawMaterialData.get();
-				_rawMaterial.setRawMaterialID(rawMaterial.getRawMaterialID());
+				RawMaterial _rawMaterial = rawMaterialData.get();
+				_rawMaterial.setId(id);
 				
 								
-				if(rawMaterial.getNoteString() != null) 
-					_rawMaterial.setNoteString(rawMaterial.getNoteString());
+				if(rawMaterial.getName() != null) 
+					_rawMaterial.setName(rawMaterial.getName());
 				
 
 				return new ResponseEntity<>(rawMaterialRepository.save(_rawMaterial), HttpStatus.OK);				
@@ -98,7 +100,7 @@ public class RawMaterialController {
 	}
 	
 	@PostMapping("/rawMaterials")
-	public ResponseEntity<InvoiceDetails> createRawMaterial(@RequestBody InvoiceDetails rawMaterial){
+	public ResponseEntity<RawMaterial> createRawMaterial(@RequestBody RawMaterial rawMaterial){
 		try {
 			return new ResponseEntity<>(rawMaterialRepository.save(rawMaterial), HttpStatus.CREATED);
 		} catch (Exception e) {
