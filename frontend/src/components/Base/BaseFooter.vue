@@ -22,6 +22,10 @@
         <a href="https://www.flaticon.com/free-icons/plus" title="plus icons"
           >Plus icons created by Vectors Market - Flaticon</a
         >
+        |
+      </p>
+      <p>
+      <a href="https://www.flaticon.com/free-icons/save" title="save icons">Save icons created by Those Icons - Flaticon</a>
       </p>
     </div>
   </footer>
