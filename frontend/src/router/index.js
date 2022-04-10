@@ -3,6 +3,7 @@ import HelloWorld from "../components/HelloWorld";
 import MyLogin from "../components/MyLogin";
 import SignUp from "../components/SignUp";
 import UserSuppliers from "../components/UserSuppliers";
+import InvoiceDetails from "../components/InvoiceDetails";
 
 const routes = [
   {
@@ -25,6 +26,11 @@ const routes = [
     name: "Suppliers",
     component: UserSuppliers,
   },
+  {
+    path: "/invoicedetails",
+    name: "InvoiceDetails",
+    component: InvoiceDetails
+  }
 ];
 
 const router = createRouter({
