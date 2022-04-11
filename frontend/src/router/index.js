@@ -5,6 +5,7 @@ import SignUp from "../components/SignUp";
 import UserSuppliers from "../components/UserSuppliers";
 import VendorInvoices from "../components/VendorInvoices";
 import InvoiceDetails from "../components/InvoiceDetails";
+import NewInvoiceDetails from "../components/NewInvoiceDetails";
 import UserRawMaterial from "../components/UserRawMaterial";
 import UserVariableCosts from "../components/UserVariableCosts";
 import MainDashboard from "../components/MainDashboard";
@@ -42,7 +43,12 @@ const routes = [
     component: InvoiceDetails,
   },
   {
-    path: "/rawmaterials",
+    path: "/newinvoicedetails",
+    name: "NewInvoiceDetails",
+    component: NewInvoiceDetails,
+  },
+  {
+    path: "/rawmaterial",
     name: "RawMaterial",
     component: UserRawMaterial,
   },
