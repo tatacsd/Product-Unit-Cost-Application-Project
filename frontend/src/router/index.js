@@ -5,6 +5,7 @@ import SignUp from "../components/SignUp";
 import UserSuppliers from "../components/UserSuppliers";
 import InvoiceDetails from "../components/InvoiceDetails";
 import UserRawMaterial from "../components/UserRawMaterial";
+import UserVariableCosts from "../components/UserVariableCosts";
 
 const routes = [
   {
@@ -36,6 +37,11 @@ const routes = [
     path: "/rawmaterial",
     name: "RawMaterial",
     component: UserRawMaterial,
+  },
+  {
+    path: "/variablecosts",
+    name: "VariableCosts",
+    component: UserVariableCosts,
   },
   // TODO: Products
   // TODO: Invoice
