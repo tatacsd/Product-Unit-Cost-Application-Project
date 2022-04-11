@@ -4,6 +4,7 @@ import MyLogin from "../components/MyLogin";
 import SignUp from "../components/SignUp";
 import UserSuppliers from "../components/UserSuppliers";
 import InvoiceDetails from "../components/InvoiceDetails";
+import UserRawMaterial from "../components/UserRawMaterial";
 
 const routes = [
   {
@@ -29,8 +30,16 @@ const routes = [
   {
     path: "/invoicedetails",
     name: "InvoiceDetails",
-    component: InvoiceDetails
-  }
+    component: InvoiceDetails,
+  },
+  {
+    path: "/rawmaterial",
+    name: "RawMaterial",
+    component: UserRawMaterial,
+  },
+  // TODO: Products
+  // TODO: Invoice
+  // TODO: Reports
 ];
 
 const router = createRouter({
