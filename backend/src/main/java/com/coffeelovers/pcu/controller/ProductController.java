@@ -70,8 +70,15 @@ public class ProductController {
 			
 				if(product.getSize() != null) 
 					_product.setSize(product.getSize());
+				
+				if(product.getTotalMaterialCost() != 0) 
+					_product.setTotalMaterialCost(product.getTotalMaterialCost());
 								
-
+				if(product.getTotalvariableCost() != 0) 
+					_product.setTotalvariableCost(product.getTotalvariableCost());
+				
+				if(product.getNetCost() != 0) 
+					_product.setNetCost(product.getNetCost());
 				
 				return new ResponseEntity<>(productRepository.save(_product), HttpStatus.OK);				
 			}else {

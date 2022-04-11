@@ -48,55 +48,6 @@ public class PcuApplication {
 		};
 	}
 	
-	/***
-	 * taster without M-N or 1-m
-	 * @param actorRepository
-	 * @param productRepository
-	 * @param supplierRepository
-	 * @param variableCostsRepository
-	 * @param invoiceRepository
-	 * @param invoiceDetailsRepository
-	 * @param rowMaterialRepository
-	 */
-	private void PopulateNoRalationalDataBase(ActorRepository actorRepository,
-			ProductRepository productRepository, 
-			SupplierRepository supplierRepository, 
-			VariableCostsRepository variableCostsRepository, 
-			InvoiceRepository invoiceRepository,
-			InvoiceDetailsRepository invoiceDetailsRepository,
-			RawMaterialRepository rowMaterialRepository) {
-
-		
-		//-1 Actor
-		actorRepository.save(new Actor("Modlina","Women Fashion",559594, "www.shanan.com","shanan@gmail.com","ddd","canada" ));			
-		actorRepository.findAll().forEach(System.out::println);
-		
-		//2- product
-		productRepository.save(new Product("CCS2205","Skrit","ddd","222-220"));			
-		productRepository.findAll().forEach(System.out::println);
-		
-		
-		//3- suppliers
-		supplierRepository.save(new Supplier("Andrew","shanan",5559594,"Snana@gmail.com","Syria"));			
-		supplierRepository.findAll().forEach(System.out::println);
-		
-		
-		//4- VariableCost
-		variableCostsRepository.save(new VariableCost("Rent",25.5));			
-		variableCostsRepository.findAll().forEach(System.out::println);
-		
-		//5- invoice
-		invoiceRepository.save(new Invoice("dd",10,8500));
-		invoiceRepository.findAll().forEach(System.out::println);
-		
-		//6- invoiceDetails
-		//invoiceDetailsRepository.save();
-		invoiceDetailsRepository.findAll().forEach(System.out::println);
-		
-		//6- rowMaterial
-		rowMaterialRepository.save(new RawMaterial("Zipper"));
-		rowMaterialRepository.findAll().forEach(System.out::println);
-	}
 
 	 /* taster with M-N
 	 * @param actorRepository
@@ -171,13 +122,13 @@ public class PcuApplication {
 			rawMaterialArray.push(new RawMaterial("Flat Waxed Thread"));
 			rawMaterialArray.push(new RawMaterial("Mandala Crafts Genuine Leathe"));
 
-			Product p1 = new Product("CCS2205","Skrit","No_Pic","S - M - L - XL -XXL");
-			Product p2 = new Product("AS225","T-shirt","No_Pic","S - M - L - XL -XXL");
-			Product p3 = new Product("cSD69","T-shirt","No_Pic","S - M - L - XL -XXL");
-			Product p4 = new Product("Cd963","Shirt","No_Pic","S - M - L - XL -XXL");
-			Product p5 = new Product("AA005","jacket","No_Pic","S - M - L - XL -XXL");
-			Product p6 = new Product("Vd682","jacket","No_Pic","S - M - L - XL -XXL");
-			Product p7 = new Product("RF658","jacket","No_Pic","S - M - L - XL -XXL");
+			Product p1 = new Product("CCS2205","Skrit","No_Pic","S - M - L - XL -XXL",100,200,300);
+			Product p2 = new Product("AS225","T-shirt","No_Pic","S - M - L - XL -XXL",200,300,500);
+			Product p3 = new Product("cSD69","T-shirt","No_Pic","S - M - L - XL -XXL",500,500,1000);
+			Product p4 = new Product("Cd963","Shirt","No_Pic","S - M - L - XL -XXL",400,300,700);
+			Product p5 = new Product("AA005","jacket","No_Pic","S - M - L - XL -XXL",250,250,500);
+			Product p6 = new Product("Vd682","jacket","No_Pic","S - M - L - XL -XXL",500,300,800);
+			Product p7 = new Product("RF658","jacket","No_Pic","S - M - L - XL -XXL",200,550,750);
 
 
 			for(int x = 0; x<variableCostArray.size();x++) {
