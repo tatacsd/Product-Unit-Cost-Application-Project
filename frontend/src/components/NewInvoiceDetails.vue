@@ -91,6 +91,7 @@
         </div>
         <p class="success-msg" v-if="success"> {{ success }} </p>
         <p class="error-msg" v-if="error"> {{ error }} </p>
+        <!-- Footer -->
         <BaseFooter />
     </div>
 </template>
@@ -137,20 +138,6 @@ export default {
         addInvoice(){
             console.log("inside addInvoice");
             const invoice = {
-                // invoiceID: this.invoiceID,
-                // invoiceNumber: this.invoiceNumber,
-                // supplier: this.supplier,
-                // invoiceValue: this.invoiceValue,
-                // invoiceDate: this.invoiceDate,
-                
-                // InvoiceDetails: this.InvoiceDetails,
-                // rawMaterialID: this.rawMaterialID,
-                // value: this.value,
-                // quantity: this.quantity,
-                // totalValue: this.totalValue,
-                // dateTime: this.dateTime,
-                // noteString: this.noteString
-
                 invliceId: this.invliceId,
                 invoiceNumber: this.invoiceNumber,
                 supplierID: this.supplierID,
