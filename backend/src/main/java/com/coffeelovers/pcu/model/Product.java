@@ -36,6 +36,7 @@ public class Product {
 	@Column(name= "size")
 	private String size;
 	
+
 	//----
 	
 	@ManyToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
@@ -44,7 +45,6 @@ public class Product {
 	@ManyToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private Set<RawMaterial> rawMaterials = new HashSet<>();
 	//---
-	
 	
 	
 	public Product() {}

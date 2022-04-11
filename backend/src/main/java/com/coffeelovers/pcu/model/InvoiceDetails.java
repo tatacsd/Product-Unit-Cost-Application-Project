@@ -20,7 +20,6 @@ public class InvoiceDetails {
 	private long InvoiceDetailsID;
 	
 
-	
 	@Column(name = "raw_material_id")
 	private long rawMaterialID;
 	
