@@ -43,6 +43,7 @@ body {
   overflow: hidden;
   background-color: #ffdc14;
   padding: 20px 10px;
+  width:100%;
 }
 
 .header a {
