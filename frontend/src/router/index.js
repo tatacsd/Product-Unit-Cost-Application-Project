@@ -3,6 +3,7 @@ import LandingPage from "../components/LandingPage";
 import MyLogin from "../components/MyLogin";
 import SignUp from "../components/SignUp";
 import UserSuppliers from "../components/UserSuppliers";
+import VendorInvoices from "../components/VendorInvoices";
 import InvoiceDetails from "../components/InvoiceDetails";
 import UserRawMaterial from "../components/UserRawMaterial";
 import UserVariableCosts from "../components/UserVariableCosts";
@@ -29,6 +30,11 @@ const routes = [
     path: "/suppliers",
     name: "Suppliers",
     component: UserSuppliers,
+  },
+  {
+    path: "/vendorinvoices",
+    name: "VendorInvoices",
+    component: VendorInvoices,
   },
   {
     path: "/invoicedetails",
