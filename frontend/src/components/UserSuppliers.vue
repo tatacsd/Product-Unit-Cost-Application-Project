@@ -1,12 +1,7 @@
 <template>
   <div>
     <!-- Header -->
-    <header class="header">
-      <a href="#home" class="logo">PCU</a>
-      <div class="header-right">
-        <a href="" @click="$router.push('/login')">Logout</a>
-      </div>
-    </header>
+    <BaseHeaderDashboard />
     <!-- Body -->
     <h1>Suppliers</h1>
     <div class="container">
@@ -124,10 +119,12 @@
 </template>
 
 <script>
+import BaseHeaderDashboard from "./Base/BaseHeaderDashboard.vue"
 import BaseFooter from "./Base/BaseFooter.vue";
 import SupplierDataServices from "../services/SupplierDataServices";
 export default {
   components: {
+    BaseHeaderDashboard,
     BaseFooter,
   },
   data() {
