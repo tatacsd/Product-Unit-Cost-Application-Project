@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.coffeelovers.pcu.model.Product;
 import com.coffeelovers.pcu.model.ProductRepository;
+import com.coffeelovers.pcu.model.RawMaterial;
+import com.coffeelovers.pcu.model.VariableCost;
 
 
 @CrossOrigin(origins = "http://localhost:8081")

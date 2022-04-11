@@ -83,11 +83,11 @@ public class Invoice {
 	}
 
 	public LocalDate getInvoiceDate() {
-		return invoiceDate;
+		return LocalDate.now();
 	}
 
 	public void setInvoiceDate(LocalDate invoiceDate) {
-		this.invoiceDate = invoiceDate;
+		this.invoiceDate = LocalDate.now();
 	}
 
 	public Set<InvoiceDetails> getInvoiceDetails() {
