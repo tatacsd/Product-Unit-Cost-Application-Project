@@ -4,7 +4,6 @@
     <header class="header">
       <a href="/">PCU</a>
       <div class="header-right">      
-        <!-- <a href="signup">Sign up</a> -->
         <a href="login">Log Out</a>      
       </div>    
     </header>
@@ -72,7 +71,6 @@ h1{
 .body a:hover {
   background-color: rgb(66, 66, 66);
   color: white;
-}
 
 .body a.active {
   background-color: dodgerblue;
