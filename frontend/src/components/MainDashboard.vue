@@ -8,6 +8,7 @@
       </div>    
     </header>
     <body>
+      <!-- TODO: change to a actor varibale name -->
       <h1 class="header-middle">Thays's company</h1>  
         <div class="body">
           <a href="/invoices" class="logo">Invoices</a>
