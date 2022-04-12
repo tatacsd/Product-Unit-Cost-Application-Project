@@ -10,11 +10,11 @@
     <body>
       <h1 class="header-middle">Thays's company</h1>  
         <div class="body">
-          <a href="/dashboard" class="logo">Invoices</a>
-          <a href="/dashboard" class="logo">Products</a>
-          <a href="/dashboard" class="logo">Raw Materials</a>
-          <a href="/dashboard" class="logo">Suppliers</a>
-          <a href="/dashboard" class="logo">Variable Costs</a>
+          <a href="/invoices" class="logo">Invoices</a>
+          <a href="/products" class="logo">Products</a>
+          <a href="/rawmaterial" class="logo">Raw Materials</a>
+          <a href="/suppliers" class="logo">Suppliers</a>
+          <a href="/variablecosts" class="logo">Variable Costs</a>
         </div>    
     </body>   
     <BaseFooter />
