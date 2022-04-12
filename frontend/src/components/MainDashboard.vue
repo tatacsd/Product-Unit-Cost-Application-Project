@@ -71,7 +71,7 @@ h1{
 .body a:hover {
   background-color: rgb(66, 66, 66);
   color: white;
-
+}
 .body a.active {
   background-color: dodgerblue;
   color: white;
