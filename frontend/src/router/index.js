@@ -6,6 +6,7 @@ import UserSuppliers from "../components/UserSuppliers";
 import InvoiceDetails from "../components/InvoiceDetails";
 import UserRawMaterial from "../components/UserRawMaterial";
 import UserVariableCosts from "../components/UserVariableCosts";
+import MainDashboard from "../components/MainDashboard";
 
 const routes = [
   {
@@ -43,7 +44,13 @@ const routes = [
     name: "VariableCosts",
     component: UserVariableCosts,
   },
-  // TODO: Products
+  {
+    path: "/dashboard",
+    name: "Dashboard",
+    component: MainDashboard,
+
+  }
+   // TODO: Products
   // TODO: Invoice
   // TODO: Reports
 ];
