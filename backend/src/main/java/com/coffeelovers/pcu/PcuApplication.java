@@ -174,45 +174,45 @@ public class PcuApplication {
 						  - in the dependen class, we must create a class to pupulate the set array for both class.
 				*/
 		
-			// invoice - invloc detals
-			Stack<InvoiceDetails> invoiceDetails = new Stack<>();
-			invoiceDetails.push( new InvoiceDetails(15,20,2,5000,"no notes"));
-			invoiceDetails.push( new InvoiceDetails(16,30,3,9000,"no notes"));
-			invoiceDetails.push( new InvoiceDetails(17,40,1,1000,"no notes"));
-			invoiceDetails.push( new InvoiceDetails(18,40,1,1000,"no notes"));
-			invoiceDetails.push( new InvoiceDetails(19,40,1,1000,"no notes"));
-			invoiceDetails.push( new InvoiceDetails(20,40,1,1000,"no notes"));
-			invoiceDetails.push( new InvoiceDetails(21,40,1,1000,"no notes"));
-			invoiceDetails.push( new InvoiceDetails(22,40,1,1000,"no notes"));
-
-			Invoice newInvoice1 = new Invoice("002",1,15000);
-			Invoice newInvoice2 = new Invoice("021",1,20000);
-			Invoice newInvoice3 = new Invoice("201",1,30000);
-			Invoice newInvoice4 = new Invoice("450",2,40000);
-			Invoice newInvoice5 = new Invoice("350",2,50000);
-			Invoice newInvoice6 = new Invoice("250",2,60000);
-			Invoice newInvoice7 = new Invoice("550",3,50000);
-			
-			for(int x = 0; x<invoiceDetails.size();x++) {
-								
-				newInvoice1.addInvoiceDetails(invoiceDetails.get(0));
-				newInvoice2.addInvoiceDetails(invoiceDetails.get(1));
-				newInvoice3.addInvoiceDetails(invoiceDetails.get(2));
-				newInvoice4.addInvoiceDetails(invoiceDetails.get(3));
-				newInvoice5.addInvoiceDetails(invoiceDetails.get(4));
-				newInvoice6.addInvoiceDetails(invoiceDetails.get(5));
-				newInvoice7.addInvoiceDetails(invoiceDetails.get(6));
-				
-			}
-			
-			
-			invoiceRepository.save(newInvoice1);
-			invoiceRepository.save(newInvoice2);
-			invoiceRepository.save(newInvoice3);
-			invoiceRepository.save(newInvoice4);
-			invoiceRepository.save(newInvoice5);
-			invoiceRepository.save(newInvoice6);
-			invoiceRepository.save(newInvoice7);
+//			// invoice - invloc detals
+//			Stack<InvoiceDetails> invoiceDetails = new Stack<>();
+//			invoiceDetails.push( new InvoiceDetails(15,20,2,5000,"no notes"));
+//			invoiceDetails.push( new InvoiceDetails(16,30,3,9000,"no notes"));
+//			invoiceDetails.push( new InvoiceDetails(17,40,1,1000,"no notes"));
+//			invoiceDetails.push( new InvoiceDetails(18,40,1,1000,"no notes"));
+//			invoiceDetails.push( new InvoiceDetails(19,40,1,1000,"no notes"));
+//			invoiceDetails.push( new InvoiceDetails(20,40,1,1000,"no notes"));
+//			invoiceDetails.push( new InvoiceDetails(21,40,1,1000,"no notes"));
+//			invoiceDetails.push( new InvoiceDetails(22,40,1,1000,"no notes"));
+//
+//			Invoice newInvoice1 = new Invoice("002",1,15000);
+//			Invoice newInvoice2 = new Invoice("021",1,20000);
+//			Invoice newInvoice3 = new Invoice("201",1,30000);
+//			Invoice newInvoice4 = new Invoice("450",2,40000);
+//			Invoice newInvoice5 = new Invoice("350",2,50000);
+//			Invoice newInvoice6 = new Invoice("250",2,60000);
+//			Invoice newInvoice7 = new Invoice("550",3,50000);
+//			
+//			for(int x = 0; x<invoiceDetails.size();x++) {
+//								
+//				newInvoice1.addInvoiceDetails(invoiceDetails.get(0));
+//				newInvoice2.addInvoiceDetails(invoiceDetails.get(1));
+//				newInvoice3.addInvoiceDetails(invoiceDetails.get(2));
+//				newInvoice4.addInvoiceDetails(invoiceDetails.get(3));
+//				newInvoice5.addInvoiceDetails(invoiceDetails.get(4));
+//				newInvoice6.addInvoiceDetails(invoiceDetails.get(5));
+//				newInvoice7.addInvoiceDetails(invoiceDetails.get(6));
+//				
+//			}
+//			
+//			
+//			invoiceRepository.save(newInvoice1);
+//			invoiceRepository.save(newInvoice2);
+//			invoiceRepository.save(newInvoice3);
+//			invoiceRepository.save(newInvoice4);
+//			invoiceRepository.save(newInvoice5);
+//			invoiceRepository.save(newInvoice6);
+//			invoiceRepository.save(newInvoice7);
 
 
 

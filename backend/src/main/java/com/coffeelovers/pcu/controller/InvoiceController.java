@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.coffeelovers.pcu.model.Invoice;
+import com.coffeelovers.pcu.model.InvoiceDetails;
 import com.coffeelovers.pcu.model.InvoiceRepository;
 
 
@@ -89,6 +90,55 @@ public class InvoiceController {
 		}
 	}
 
+	@PutMapping("/invoices/{id}/details")
+	public ResponseEntity<Invoice> createInvoiceDetails(@PathVariable("id") long invoiceID, @RequestBody InvoiceDetails invoicedetails) {
+		try {
+			// find by id
+			Optional<Invoice> invoiceData = invoiceRepository.findById(invoiceID);
+			
+			// add the invoice data to the invoice if exist
+			if (invoiceData.isPresent()) {
+				Invoice _invoice = invoiceData.get();
+				InvoiceDetails _invoiceDetails = new InvoiceDetails();
+				
+				if(invoicedetails.getRawMaterialID() != 0) {
+					_invoiceDetails.setRawMaterialID(invoicedetails.getRawMaterialID());
+				}
+				
+				if(invoicedetails.getValue() != 0) {
+					_invoiceDetails.setValue(invoicedetails.getValue());
+				}
+				
+				if(invoicedetails.getQuantity() != 0) {
+					_invoiceDetails.setQuantity(invoicedetails.getQuantity());
+				}
+				
+				if(invoicedetails.getTotalValue() != 0) {
+					_invoiceDetails.setTotalValue(invoicedetails.getTotalValue());
+				}
+				
+				if(invoicedetails.getDateTime() != null) {
+					_invoiceDetails.setDateTime(invoicedetails.getDateTime());
+				}
+				
+				if(invoicedetails.getNoteString() != null) {
+					_invoiceDetails.setNoteString(invoicedetails.getNoteString());
+				}
+				
+				
+				
+				_invoice.addInvoiceDetails(_invoiceDetails);
+				
+				
+				return new ResponseEntity<>(invoiceRepository.save(_invoice), HttpStatus.CREATED);
+			}
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	
 	@DeleteMapping("/invoices/{id}")
 	public ResponseEntity<HttpStatus> deleteInvoice(@PathVariable("id") long invoiceID) {
 		try {
