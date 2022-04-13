@@ -16,6 +16,7 @@
             <a href="/rawmaterials" class="logo">Raw Materials</a>
             <a href="/suppliers" class="logo">Suppliers</a>
             <a href="/variablecosts" class="logo">Variable Costs</a>
+            <a href="/report" class="logo">Report</a>
   </div>
     <BaseFooter />
     </div>
