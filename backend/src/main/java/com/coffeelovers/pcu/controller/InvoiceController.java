@@ -90,7 +90,7 @@ public class InvoiceController {
 		}
 	}
 
-	@PutMapping("/invoices/{id}/details")
+	@PostMapping("/invoices/{id}/details")
 	public ResponseEntity<Invoice> createInvoiceDetails(@PathVariable("id") long invoiceID, @RequestBody InvoiceDetails invoicedetails) {
 		try {
 			// find by id
@@ -122,14 +122,21 @@ public class InvoiceController {
 				}
 				
 				if(invoicedetails.getNoteString() != null) {
-					_invoiceDetails.setNoteString(invoicedetails.getNoteString());
+					_invoiceDetails.setNoteString(invoicedetails.getNoteString());					
 				}
-								
 				
-				_invoice.addInvoiceDetails(_invoiceDetails);
+				if(invoicedetails.getRawMaterialID() != 0 ||
+						invoicedetails.getValue() != 0 ||
+						invoicedetails.getQuantity() != 0 ||
+						invoicedetails.getTotalValue() != 0 ||
+						invoicedetails.getDateTime() != null ||
+						invoicedetails.getNoteString() != null) {
+					_invoice.addInvoiceDetails(_invoiceDetails);
+					return new ResponseEntity<>(invoiceRepository.save(_invoice), HttpStatus.CREATED);
+				}
+					
 				
-				
-				return new ResponseEntity<>(invoiceRepository.save(_invoice), HttpStatus.CREATED);
+				return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
 			}
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		} catch (Exception e) {
@@ -137,7 +144,7 @@ public class InvoiceController {
 		}
 	}
 	
-	
+		
 	@DeleteMapping("/invoices/{id}")
 	public ResponseEntity<HttpStatus> deleteInvoice(@PathVariable("id") long invoiceID) {
 		try {

@@ -2,6 +2,7 @@ package com.coffeelovers.pcu.model;
 
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -102,9 +103,5 @@ public class Invoice {
 		this.InvoiceDetails.add(invoiceDetails);
 		invoiceDetails.setInvoice(this);
 	}
-	
-	
-
-
 
 }
