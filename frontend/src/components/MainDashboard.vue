@@ -7,7 +7,7 @@
       </div>
     </header>
     <div class="company">
-      <h5>{{this.brand}}'s companny</h5>
+      <h5>{{this.brand}}'s brand</h5>
     </div>
     <div class="main-background">
       <a href="/invoices" class="logo">Invoices</a>
@@ -41,7 +41,9 @@ export default {
   },
   mounted() {
     if (localStorage.getItem("user")) {
+      // set first letter to upercase
       this.brand = JSON.parse(localStorage.getItem("user")).brand;
+      this.brand = this.brand.charAt(0).toUpperCase() + this.brand.slice(1);
     } else {
       this.$router.push("/login");
       console.log("not logged in");
