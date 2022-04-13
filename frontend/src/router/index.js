@@ -7,6 +7,7 @@ import InvoiceDetails from "../components/InvoiceDetails";
 import UserRawMaterial from "../components/UserRawMaterial";
 import UserVariableCosts from "../components/UserVariableCosts";
 import MainDashboard from "../components/MainDashboard";
+import UserProducts from "../components/UserProducts";
 
 const routes = [
   {
@@ -49,8 +50,14 @@ const routes = [
     name: "Dashboard",
     component: MainDashboard,
 
-  }
-   // TODO: Products
+  },
+  {
+    path: "/products",
+    name: "Products",
+    component: UserProducts,
+  },
+
+
   // TODO: Invoice
   // TODO: Reports
 ];
