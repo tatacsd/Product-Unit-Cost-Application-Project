@@ -36,6 +36,14 @@ public class Product {
 	@Column(name= "size")
 	private String size;
 	
+	@Column(name= "total_raw_material_cost")
+	private double totalMaterialCost;
+	
+	@Column(name= "total_variable_cost")
+	private double TotalvariableCost;
+	
+	@Column(name= "net_cost")
+	private double NetCost;
 	//----
 	
 	@ManyToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
@@ -44,7 +52,6 @@ public class Product {
 	@ManyToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private Set<RawMaterial> rawMaterials = new HashSet<>();
 	//---
-	
 	
 	
 	public Product() {}
@@ -56,11 +63,14 @@ public class Product {
 	 * @param picture
 	 * @param size
 	 */
-	public Product(String code, String discription, String picture, String size) {
+	public Product(String code, String discription, String picture, String size,double totalMaterialCost , double TotalvariableCost, double NetCost) {
 		this.code = code;
 		this.discription = discription;
 		this.picture = picture;
 		this.size = size;
+		this.totalMaterialCost = totalMaterialCost;
+		this.TotalvariableCost = TotalvariableCost;
+		this.NetCost = NetCost;
 	}
 
 	public long getProductID() {
@@ -103,6 +113,31 @@ public class Product {
 		this.size = size;
 	}
 
+	
+	public double getTotalMaterialCost() {
+		return totalMaterialCost;
+	}
+
+	public void setTotalMaterialCost(double totalMaterialCost) {
+		this.totalMaterialCost = totalMaterialCost;
+	}
+
+	public double getTotalvariableCost() {
+		return TotalvariableCost;
+	}
+
+	public void setTotalvariableCost(double totalvariableCost) {
+		TotalvariableCost = totalvariableCost;
+	}
+
+	public double getNetCost() {
+		return NetCost;
+	}
+
+	public void setNetCost(double netCost) {
+		NetCost = netCost;
+	}
+
 	public Set<VariableCost> getVariableCosts() {
 		return variableCosts;
 	}
@@ -116,6 +151,7 @@ public class Product {
 		return rawMaterials;
 	}
 
+	
 	public void setRawMaterials(Set<RawMaterial> rawMaterials) {
 		this.rawMaterials = rawMaterials;
 	}

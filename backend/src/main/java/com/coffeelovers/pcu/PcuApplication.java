@@ -48,55 +48,6 @@ public class PcuApplication {
 		};
 	}
 	
-	/***
-	 * taster without M-N or 1-m
-	 * @param actorRepository
-	 * @param productRepository
-	 * @param supplierRepository
-	 * @param variableCostsRepository
-	 * @param invoiceRepository
-	 * @param invoiceDetailsRepository
-	 * @param rowMaterialRepository
-	 */
-	private void PopulateNoRalationalDataBase(ActorRepository actorRepository,
-			ProductRepository productRepository, 
-			SupplierRepository supplierRepository, 
-			VariableCostsRepository variableCostsRepository, 
-			InvoiceRepository invoiceRepository,
-			InvoiceDetailsRepository invoiceDetailsRepository,
-			RawMaterialRepository rowMaterialRepository) {
-
-		
-		//-1 Actor
-		actorRepository.save(new Actor("Modlina","Women Fashion",559594, "www.shanan.com","shanan@gmail.com","ddd","canada" ));			
-		actorRepository.findAll().forEach(System.out::println);
-		
-		//2- product
-		productRepository.save(new Product("CCS2205","Skrit","ddd","222-220"));			
-		productRepository.findAll().forEach(System.out::println);
-		
-		
-		//3- suppliers
-		supplierRepository.save(new Supplier("Andrew","shanan",5559594,"Snana@gmail.com","Syria"));			
-		supplierRepository.findAll().forEach(System.out::println);
-		
-		
-		//4- VariableCost
-		variableCostsRepository.save(new VariableCost("Rent",25.5));			
-		variableCostsRepository.findAll().forEach(System.out::println);
-		
-		//5- invoice
-		invoiceRepository.save(new Invoice("dd",10,8500));
-		invoiceRepository.findAll().forEach(System.out::println);
-		
-		//6- invoiceDetails
-		//invoiceDetailsRepository.save();
-		invoiceDetailsRepository.findAll().forEach(System.out::println);
-		
-		//6- rowMaterial
-		rowMaterialRepository.save(new RawMaterial("Zipper"));
-		rowMaterialRepository.findAll().forEach(System.out::println);
-	}
 
 	 /* taster with M-N
 	 * @param actorRepository
@@ -160,9 +111,10 @@ public class PcuApplication {
 			// product - variableCost: M-N
 		
 			Stack<VariableCost> variableCostArray = new Stack<>();
-			variableCostArray.push(new VariableCost("Rent",18)) ;
-			variableCostArray.push(new VariableCost("Labor",55)) ;
-			variableCostArray.push(new VariableCost("Utility",32)) ;
+			variableCostArray.push(new VariableCost("andrew",18)) ;
+			variableCostArray.push(new VariableCost("Shanan",55)) ;
+			variableCostArray.push(new VariableCost("canada",32)) ;
+
 
 			Stack<RawMaterial> rawMaterialArray = new Stack<>();
 			rawMaterialArray.push(new RawMaterial("Elastic Bands"));
@@ -170,17 +122,48 @@ public class PcuApplication {
 			rawMaterialArray.push(new RawMaterial("Flat Waxed Thread"));
 			rawMaterialArray.push(new RawMaterial("Mandala Crafts Genuine Leathe"));
 
-			Product p1 = new Product("CCS2205","Skrit","No_Pic","S - M - L - XL -XXL");
-			
-			
-			while(!variableCostArray.isEmpty())
-				p1.addVaraibleCost(variableCostArray.pop());
+			Product p1 = new Product("CCS2205","Skrit","No_Pic","S - M - L - XL -XXL",100,200,300);
+			Product p2 = new Product("AS225","T-shirt","No_Pic","S - M - L - XL -XXL",200,300,500);
+			Product p3 = new Product("cSD69","T-shirt","No_Pic","S - M - L - XL -XXL",500,500,1000);
+			Product p4 = new Product("Cd963","Shirt","No_Pic","S - M - L - XL -XXL",400,300,700);
+			Product p5 = new Product("AA005","jacket","No_Pic","S - M - L - XL -XXL",250,250,500);
+			Product p6 = new Product("Vd682","jacket","No_Pic","S - M - L - XL -XXL",500,300,800);
+			Product p7 = new Product("RF658","jacket","No_Pic","S - M - L - XL -XXL",200,550,750);
 
-			while(!rawMaterialArray.isEmpty())
-				p1.addRawMaterials(rawMaterialArray.pop());
+
+			for(int x = 0; x<variableCostArray.size();x++) {
+				p1.addVaraibleCost(variableCostArray.get(x));
+				p2.addVaraibleCost(variableCostArray.get(x));
+				p3.addVaraibleCost(variableCostArray.get(x));
+				p4.addVaraibleCost(variableCostArray.get(x));
+				p5.addVaraibleCost(variableCostArray.get(x));
+				p6.addVaraibleCost(variableCostArray.get(x));
+				p7.addVaraibleCost(variableCostArray.get(x));
+
+			}
+
+			
+			for(int x = 0; x<rawMaterialArray.size();x++) {
+				p1.addRawMaterials(rawMaterialArray.get(x));
+				p2.addRawMaterials(rawMaterialArray.get(x));
+				p3.addRawMaterials(rawMaterialArray.get(x));
+				p4.addRawMaterials(rawMaterialArray.get(x));
+				p5.addRawMaterials(rawMaterialArray.get(x));
+				p6.addRawMaterials(rawMaterialArray.get(x));
+				p7.addRawMaterials(rawMaterialArray.get(x));
+
+
+			}
 
 			
 			productRepository.save(p1);
+			productRepository.save(p2);
+			productRepository.save(p3);
+			productRepository.save(p4);
+			productRepository.save(p5);
+			productRepository.save(p6);
+			productRepository.save(p7);
+
 			productRepository.findAll().forEach(System.out::println);
 						
 		
@@ -191,28 +174,45 @@ public class PcuApplication {
 						  - in the dependen class, we must create a class to pupulate the set array for both class.
 				*/
 		
-			// invoice - invlice detals
+			// invoice - invloc detals
 			Stack<InvoiceDetails> invoiceDetails = new Stack<>();
-			invoiceDetails.push( new InvoiceDetails(1,20,2,5000,"no notes"));
-			invoiceDetails.push( new InvoiceDetails(2,30,3,9000,"no notes"));
-			invoiceDetails.push( new InvoiceDetails(3,40,1,1000,"no notes"));
-			invoiceDetails.push( new InvoiceDetails(4,40,1,1000,"no notes"));
-			invoiceDetails.push( new InvoiceDetails(5,40,1,1000,"no notes"));
-			invoiceDetails.push( new InvoiceDetails(6,40,1,1000,"no notes"));
-			invoiceDetails.push( new InvoiceDetails(7,40,1,1000,"no notes"));
-			invoiceDetails.push( new InvoiceDetails(8,40,1,1000,"no notes"));
+			invoiceDetails.push( new InvoiceDetails(15,20,2,5000,"no notes"));
+			invoiceDetails.push( new InvoiceDetails(16,30,3,9000,"no notes"));
+			invoiceDetails.push( new InvoiceDetails(17,40,1,1000,"no notes"));
+			invoiceDetails.push( new InvoiceDetails(18,40,1,1000,"no notes"));
+			invoiceDetails.push( new InvoiceDetails(19,40,1,1000,"no notes"));
+			invoiceDetails.push( new InvoiceDetails(20,40,1,1000,"no notes"));
+			invoiceDetails.push( new InvoiceDetails(21,40,1,1000,"no notes"));
+			invoiceDetails.push( new InvoiceDetails(22,40,1,1000,"no notes"));
 
-			Invoice newInvoice = new Invoice("2S25",1,15000);
-
-
-			while(!invoiceDetails.isEmpty())
-				newInvoice.addInvoiceDetails(invoiceDetails.pop());
+			Invoice newInvoice1 = new Invoice("002",1,15000);
+			Invoice newInvoice2 = new Invoice("021",1,20000);
+			Invoice newInvoice3 = new Invoice("201",1,30000);
+			Invoice newInvoice4 = new Invoice("450",2,40000);
+			Invoice newInvoice5 = new Invoice("350",2,50000);
+			Invoice newInvoice6 = new Invoice("250",2,60000);
+			Invoice newInvoice7 = new Invoice("550",3,50000);
 			
-			invoiceRepository.save(newInvoice);
+			for(int x = 0; x<invoiceDetails.size();x++) {
+								
+				newInvoice1.addInvoiceDetails(invoiceDetails.get(0));
+				newInvoice2.addInvoiceDetails(invoiceDetails.get(1));
+				newInvoice3.addInvoiceDetails(invoiceDetails.get(2));
+				newInvoice4.addInvoiceDetails(invoiceDetails.get(3));
+				newInvoice5.addInvoiceDetails(invoiceDetails.get(4));
+				newInvoice6.addInvoiceDetails(invoiceDetails.get(5));
+				newInvoice7.addInvoiceDetails(invoiceDetails.get(6));
+				
+			}
 			
-
 			
-					
+			invoiceRepository.save(newInvoice1);
+			invoiceRepository.save(newInvoice2);
+			invoiceRepository.save(newInvoice3);
+			invoiceRepository.save(newInvoice4);
+			invoiceRepository.save(newInvoice5);
+			invoiceRepository.save(newInvoice6);
+			invoiceRepository.save(newInvoice7);
 
 
 

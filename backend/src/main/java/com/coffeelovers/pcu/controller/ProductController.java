@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.coffeelovers.pcu.model.Product;
 import com.coffeelovers.pcu.model.ProductRepository;
+import com.coffeelovers.pcu.model.RawMaterial;
+import com.coffeelovers.pcu.model.VariableCost;
 
 
 @CrossOrigin(origins = "http://localhost:8081")
@@ -68,8 +70,15 @@ public class ProductController {
 			
 				if(product.getSize() != null) 
 					_product.setSize(product.getSize());
+				
+				if(product.getTotalMaterialCost() != 0) 
+					_product.setTotalMaterialCost(product.getTotalMaterialCost());
 								
-
+				if(product.getTotalvariableCost() != 0) 
+					_product.setTotalvariableCost(product.getTotalvariableCost());
+				
+				if(product.getNetCost() != 0) 
+					_product.setNetCost(product.getNetCost());
 				
 				return new ResponseEntity<>(productRepository.save(_product), HttpStatus.OK);				
 			}else {
