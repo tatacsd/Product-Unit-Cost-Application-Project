@@ -124,8 +124,7 @@ public class InvoiceController {
 				if(invoicedetails.getNoteString() != null) {
 					_invoiceDetails.setNoteString(invoicedetails.getNoteString());
 				}
-				
-				
+								
 				
 				_invoice.addInvoiceDetails(_invoiceDetails);
 				

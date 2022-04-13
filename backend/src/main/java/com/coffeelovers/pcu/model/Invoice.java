@@ -41,12 +41,11 @@ public class Invoice {
 	 * @param supplierID
 	 * @param invoiceValue
 	 */
-	public Invoice(String invoiceNumber, long supplierID, double invoiceValue, InvoiceDetails invoiceDetails) {
+	public Invoice(String invoiceNumber, long supplierID, double invoiceValue) {
 		this.invoiceNumber = invoiceNumber;
 		this.supplierID = supplierID;
 		this.invoiceValue = invoiceValue;
 		this.invoiceDate = LocalDate.now();
-		addInvoiceDetails(invoiceDetails);
 	}
 
 
