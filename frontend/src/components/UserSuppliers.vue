@@ -69,16 +69,16 @@
             </p>
           </div>
           <div class="cell">
-              <!-- button to update the cell  will be visible when the button add clicked-->
-               <img
-                src="../assets/floppy-disk.png"
-                alt="add"
-                width="20"
-                height="20"
-                v-if="update"
-                @click="updateSupplier()"
-                class="img-update"
-              />    
+            <!-- button to update the cell  will be visible when the button add clicked-->
+            <img
+              src="../assets/floppy-disk.png"
+              alt="add"
+              width="20"
+              height="20"
+              v-if="update"
+              @click="updateSupplier()"
+              class="img-update"
+            />
           </div>
         </div>
         <div class="row" v-for="supplier in suppliers" :key="supplier.id">
@@ -112,14 +112,14 @@
         </div>
       </div>
     </div>
-    <p class="success-msg" v-if="success"> {{ success }} </p>
-    <p class="error-msg" v-if="error"> {{ error }} </p>
+    <p class="success-msg" v-if="success">{{ success }}</p>
+    <p class="error-msg" v-if="error">{{ error }}</p>
     <BaseFooter />
   </div>
 </template>
 
 <script>
-import BaseHeaderDashboard from "./Base/BaseHeaderDashboard.vue"
+import BaseHeaderDashboard from "./Base/BaseHeaderDashboard.vue";
 import BaseFooter from "./Base/BaseFooter.vue";
 import SupplierDataServices from "../services/SupplierDataServices";
 export default {
@@ -149,60 +149,68 @@ export default {
       SupplierDataServices.get()
         .then((response) => {
           // add the response to the data object
-          this.suppliers = response.data;          
+          this.suppliers = response.data;
         })
-        .catch((error) => {   
-          this.error = error.response.data.error;       
+        .catch((error) => {
+          this.error = error.response.data.error;
         });
     },
     addSupplier() {
       this.cleanMsgs();
       // if fields are not empty add supplier
-      if (this.firstName != "" && this.lastName != "" && this.phone != "" && this.email != "" && this.address != "") {      
-      const supplier = {
-        supplierID: this.supplierID,
-        firstName: this.firstName,
-        lastName: this.lastName,
-        phone: this.phone,
-        email: this.email,
-        address: this.address,
-      };
+      if (
+        this.firstName != "" &&
+        this.lastName != "" &&
+        this.phone != "" &&
+        this.email != "" &&
+        this.address != ""
+      ) {
+        const supplier = {
+          supplierID: this.supplierID,
+          firstName: this.firstName,
+          lastName: this.lastName,
+          phone: this.phone,
+          email: this.email,
+          address: this.address,
+        };
 
-      SupplierDataServices.post(supplier)
-        .then(() => {          
-          this.getSuppliers();
-          // clear the input fields
-          this.firstName = "";
-          this.lastName = "";
-          this.phone = "";
-          this.email = "";
-          this.address = "";
+        SupplierDataServices.post(supplier)
+          .then(() => {
+            this.getSuppliers();
+            // clear the input fields
+            this.firstName = "";
+            this.lastName = "";
+            this.phone = "";
+            this.email = "";
+            this.address = "";
 
-          // set the success message
-          this.success = "Supplier added successfully";
-        })
-        .catch((error) => {          
-          this.error = "Supplier not added ->" + error;
-        });
+            // set the success message
+            this.success = "Supplier added successfully";
+          })
+          .catch((error) => {
+            this.error = "Supplier not added ->" + error;
+          });
       } else {
         this.error = "Please fill in all the fields";
       }
     },
     deleteSupplier(id) {
-      this.cleanMsgs();      
+      this.cleanMsgs();
       SupplierDataServices.deleteById(id)
-        .then(() => {          
+        .then(() => {
           this.getSuppliers();
           this.success = "Supplier deleted successfully";
         })
-        .catch((error) => {          
+        .catch((error) => {
           this.error = "Supplier could not be deleted ->" + error;
         });
     },
     editSupplier(id) {
-      this.cleanMsgs();      
+      this.cleanMsgs();
       // find a supplier with the id and add values to the field
-      const supplierUpdate = this.suppliers.find((supplier) => supplier.supplierID == id);
+      const supplierUpdate = this.suppliers.find(
+        (supplier) => supplier.supplierID == id
+      );
       this.firstName = supplierUpdate.firstName;
       this.lastName = supplierUpdate.lastName;
       this.phone = supplierUpdate.phone;
@@ -214,9 +222,15 @@ export default {
       localStorage.setItem("supplierID", id);
     },
     updateSupplier() {
-      this.cleanMsgs();      
+      this.cleanMsgs();
       // if fields are not empty update supplier
-      if (this.firstName != "" && this.lastName != "" && this.phone != "" && this.email != "" && this.address != "") {
+      if (
+        this.firstName != "" &&
+        this.lastName != "" &&
+        this.phone != "" &&
+        this.email != "" &&
+        this.address != ""
+      ) {
         const supplier = {
           supplierID: localStorage.getItem("supplierID"),
           firstName: this.firstName,
@@ -227,14 +241,14 @@ export default {
         };
         // add to api
         SupplierDataServices.put(localStorage.getItem("supplierID"), supplier)
-        .then(() => {          
-          this.getSuppliers();
-        })
-        .catch((error) => {    
-          this.error = "Supplier not updated ->" + error;      
-        });
+          .then(() => {
+            this.getSuppliers();
+          })
+          .catch((error) => {
+            this.error = "Supplier not updated ->" + error;
+          });
         this.update = false;
-       // clear the input fields
+        // clear the input fields
         this.firstName = "";
         this.lastName = "";
         this.phone = "";
@@ -249,17 +263,23 @@ export default {
     },
   },
   mounted() {
-    SupplierDataServices.get()
-      .then((response) => {
-        // add the response to the data object
-        this.suppliers = response.data;        
-      })
-      .catch((error) => {     
-        this.error = error.response.data.error;         
-      });
-    this.error = "";
-    this.success = "";
-    this.update = false;
+    if (localStorage.getItem("user")) {
+      console.log(localStorage.getItem("user"));
+      SupplierDataServices.get()
+        .then((response) => {
+          // add the response to the data object
+          this.suppliers = response.data;
+        })
+        .catch((error) => {
+          this.error = error.response.data.error;
+        });
+      this.error = "";
+      this.success = "";
+      this.update = false;
+    } else {
+      this.$router.push("/login");
+      console.log("not logged in");
+    }
   },
 };
 </script>
@@ -299,7 +319,7 @@ h1 {
   padding: 6px 12px;
   display: table-cell;
   vertical-align: middle;
-   max-height: 10px;
+  max-height: 10px;
 }
 
 .delete-btn,

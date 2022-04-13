@@ -1,5 +1,5 @@
 <template>
-     <div>
+  <div>
     <!-- Header -->
     <BaseHeaderDashboard />
     <!-- Body -->
@@ -38,12 +38,7 @@
           </div>
           <div class="cell">
             <p>
-              <input
-                type="text"
-                v-model="value"
-                placeholder="value"
-                required
-              />
+              <input type="text" v-model="value" placeholder="value" required />
             </p>
           </div>
           <div class="cell">
@@ -57,22 +52,24 @@
             </p>
           </div>
           <div class="cell">
-             <!-- button to update the cell  will be visible when the button add clicked-->
-               <img
-                src="../assets/floppy-disk.png"
-                alt="add"
-                width="20"
-                height="20"
-                v-if="update"
-                @click="updateVariableCosts()"
-                class="img-update"
-              />    
+            <!-- button to update the cell  will be visible when the button add clicked-->
+            <img
+              src="../assets/floppy-disk.png"
+              alt="add"
+              width="20"
+              height="20"
+              v-if="update"
+              @click="updateVariableCosts()"
+              class="img-update"
+            />
           </div>
-          <div class="cell">
-             
-          </div>
+          <div class="cell"></div>
         </div>
-        <div class="row" v-for="variableCost in variableCosts" :key="variableCost.variableCostId">
+        <div
+          class="row"
+          v-for="variableCost in variableCosts"
+          :key="variableCost.variableCostId"
+        >
           <div class="cell">{{ variableCost.variableCostId }}</div>
           <div class="cell">{{ variableCost.description }}</div>
           <!-- display value in decimal format -->
@@ -102,152 +99,169 @@
         </div>
       </div>
     </div>
-    <p class="success-msg" v-if="success"> {{ success }} </p>
-    <p class="error-msg" v-if="error"> {{ error }} </p>
+    <p class="success-msg" v-if="success">{{ success }}</p>
+    <p class="error-msg" v-if="error">{{ error }}</p>
     <BaseFooter />
   </div>
 </template>
 
 <script>
-import BaseHeaderDashboard from "./Base/BaseHeaderDashboard.vue"
-import BaseFooter from "./Base/BaseFooter.vue"
-import VariableCostsDataServices from "../services/VariableCostsDataServices"
+import BaseHeaderDashboard from "./Base/BaseHeaderDashboard.vue";
+import BaseFooter from "./Base/BaseFooter.vue";
+import VariableCostsDataServices from "../services/VariableCostsDataServices";
 
 export default {
-    components:{
-        BaseHeaderDashboard,
-        BaseFooter,
+  components: {
+    BaseHeaderDashboard,
+    BaseFooter,
+  },
+  data() {
+    return {
+      variableCosts: [],
+      description: "",
+      value: "",
+      date: "",
+      update: false,
+      success: "",
+      error: "",
+    };
+  },
+  methods: {
+    getVariableCosts() {
+      VariableCostsDataServices.get()
+        .then((response) => {
+          this.variableCosts = response.data;
+        })
+        .catch((error) => {
+          this.error = "Error getting variable costs -> " + error;
+        });
     },
-    data() {
-      return {
-        variableCosts: [],
-        description: "",
-        value: "",
-        date: "",
-        update: false,
-        success: "",
-        error: "",
+    // Add variableCosts
+    addVariableCosts() {
+      // clean error msgs
+      this.cleanMsgs();
+      // check if the user has filled the form
+      if (this.description && this.value && this.date) {
+        // create the raw material
+        var variableCost = {
+          description: this.description,
+          value: this.value,
+          dateTime: this.date,
+        };
+        VariableCostsDataServices.post(variableCost)
+          .then((response) => {
+            this.success = "Variable cost added successfully";
+            // update the list
+            this.getVariableCosts();
+
+            // clean the form
+            this.description = "";
+            this.value = "";
+            this.date = "";
+
+            console.log(response.data);
+          })
+          .catch((error) => {
+            this.error = "Error adding variable cost -> " + error;
+          });
+      } else {
+        this.error = "Please fill all the fields";
+        return;
+      }
+    },
+
+    // Edit variableCosts
+    editVariableCosts(id) {
+      // clean error msgs
+      this.cleanMsgs();
+      // set the update to true
+      this.update = true;
+      // get the variable cost from the array
+      var variableCost = this.variableCosts.find(
+        (vc) => vc.variableCostId == id
+      );
+
+      // save the variable cost id for update
+      localStorage.setItem("variableCostId", variableCost.variableCostId);
+      console.log(variableCost.variableCostId);
+
+      // add the values to the fields
+      this.description = variableCost.description;
+      this.value = variableCost.value;
+      this.date = variableCost.dateTime;
+    },
+    updateVariableCosts() {
+      console.log(localStorage.getItem("variableCostId"));
+      // check if the form is not empty
+      if (this.description != "" && this.value != "" && this.date != "") {
+        var updated = {
+          description: this.description,
+          value: this.value,
+          dateTime: this.date,
+          variableCostId: localStorage.getItem("variableCostId"),
+        };
+
+        VariableCostsDataServices.put(
+          localStorage.getItem("variableCostId"),
+          updated
+        )
+          .then(() => {
+            // add success msg
+            this.success = "Variable cost updated successfully";
+            // clean the form
+            this.description = "";
+            this.value = "";
+            this.date = "";
+            this.update = false;
+            // update the list
+            this.getVariableCosts();
+          })
+          .catch((error) => {
+            this.error = "Error updating variable cost -> " + error;
+          });
+      } else {
+        this.error = "Please fill all the fields";
+      }
+    },
+    // Delete variableCosts
+    deleteVariableCost(id) {
+      // clean error msgs
+      this.cleanMsgs();
+      // delete the variable cost
+      VariableCostsDataServices.deleteById(id)
+        .then(() => {
+          // add success msg
+          this.success = "Variable cost deleted successfully";
+          // update the list
+          this.getVariableCosts();
+
+          // clean the form
+          this.description = "";
+          this.value = "";
+          this.date = "";
+          this.update = false;
+        })
+        .catch((error) => {
+          this.error = "Error deleting variable cost -> " + error;
+        });
+    },
+    cleanMsgs() {
+      this.error = "";
+      this.success = "";
+    },
+  },
+  mounted() {
+    if (localStorage.getItem("user")) {      
+      this.getVariableCosts();
+      this.error = "";
+      this.success = "";
+      this.update = false;
+    } else {
+      this.$router.push("/login");
+      console.log("not logged in");
     }
-    },
-    methods: {
-        getVariableCosts() {
-            VariableCostsDataServices.get()
-                .then(response => {
-                    this.variableCosts = response.data;
-                })
-                .catch(error => {
-                    this.error = "Error getting variable costs -> " + error;
-                });
-        },
-        // Add variableCosts
-        addVariableCosts() {
-          // clean error msgs
-          this.cleanMsgs();
-          // check if the user has filled the form
-          if (this.description && this.value && this.date) {
-            // create the raw material
-            var variableCost = {
-              description: this.description,
-              value: this.value,
-              dateTime: this.date,
-            };
-            VariableCostsDataServices.post(variableCost)
-            .then(response => {
-              this.success = "Variable cost added successfully";
-              // update the list
-              this.getVariableCosts();
-
-              // clean the form
-              this.description = "";
-              this.value = "";
-              this.date = "";
-
-              console.log(response.data);
-            })
-            .catch(error => {
-              this.error = "Error adding variable cost -> " + error;
-            });
-
-          } else {
-              this.error = "Please fill all the fields";
-              return;
-          }
-        },
-
-        // Edit variableCosts
-        editVariableCosts(id) {
-          // clean error msgs
-          this.cleanMsgs();
-           // set the update to true
-            this.update = true;
-          // get the variable cost from the array
-            var variableCost = this.variableCosts.find(vc => vc.variableCostId == id);
-
-            // save the variable cost id for update
-            localStorage.setItem("variableCostId", variableCost.variableCostId);
-            console.log(variableCost.variableCostId);
-
-            // add the values to the fields
-            this.description = variableCost.description;
-            this.value = variableCost.value;
-            this.date = variableCost.dateTime;
-        },
-        updateVariableCosts() {
-          console.log(localStorage.getItem("variableCostId"));
-            // check if the form is not empty
-            if (this.description != "" && this.value != "" && this.date != "") {
-              var updated = {
-                description: this.description,
-                value: this.value,
-                dateTime: this.date,
-                variableCostId: localStorage.getItem("variableCostId"),
-              }
-
-              VariableCostsDataServices.put(localStorage.getItem("variableCostId"), updated)
-                .then(() => {
-                  // add success msg
-                  this.success = "Variable cost updated successfully";
-                  // update the list
-                  this.getVariableCosts();
-                })
-                .catch(error => {
-                this.error = "Error updating variable cost -> " + error;
-              }); 
-                
-            } else {
-              this.error = "Please fill all the fields";
-            }
-
-        },       
-        // Delete variableCosts
-        deleteVariableCost(id) {
-          // clean error msgs
-          this.cleanMsgs();
-          // delete the variable cost
-          VariableCostsDataServices.deleteById(id)
-            .then(() => {
-              // add success msg
-              this.success = "Variable cost deleted successfully";
-              // update the list
-              this.getVariableCosts();
-            })
-            .catch(error => {
-              this.error = "Error deleting variable cost -> " + error;
-            });
-        },
-        cleanMsgs() {
-        this.error = "";
-        this.success = "";
-        },
-
-    },
-    mounted() {
-        this.getVariableCosts();
-        this.error = "";
-        this.success = "";
-        this.update = false;
-    }    
-}
+  },
+};
 </script>
 
 <style scoped>
@@ -285,7 +299,7 @@ h1 {
   padding: 6px 12px;
   display: table-cell;
   vertical-align: middle;
-   max-height: 10px;
+  max-height: 10px;
 }
 
 .delete-btn,
