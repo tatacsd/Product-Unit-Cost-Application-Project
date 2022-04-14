@@ -11,9 +11,13 @@ class InvoiceDataServices {
         return http.get(`/invoices`)
     }
 
-    // add 
+    // add a invoice
     post(data) {
         return http.post(`/invoices`, data)
+    }
+
+    postInvoiceDetail(id, data) {
+        return http.post(`/invoices/${id}/details`, data)
     }
 
     // edit
