@@ -35,7 +35,7 @@
             <input type="text" v-model="invoiceSearch.invoiceDate" disabled
           /></label>
           <label
-            >Total Value
+            >Total Value: $
             <input type="text" v-model="invoiceSearch.invoiceValue" disabled
           /></label>
           <input
@@ -138,8 +138,8 @@
                 />
               </p>
             </div>
-            <div class="cell">
               <!-- button to update the cell  will be visible when the button add clicked-->
+            <!-- <div class="cell">
               <img
                 src="../assets/floppy-disk.png"
                 alt="add"
@@ -149,7 +149,7 @@
                 @click="updateSupplier()"
                 class="img-update"
               />
-            </div>
+            </div> -->
           </div>
 
           <!-- For each invoiceDetails add a row -->
@@ -163,7 +163,9 @@
             <div class="cell left">
               <!-- {{ this.getNameFromId(invoiceDetails.rawMaterialID) }}
               {{ rawHtml }} -->
-              {{ invoiceDetails.rawMaterialID }}
+              <p>{{ this.getNameFromId(invoiceDetails.rawMaterialID) }}</p>
+              <!-- {{ invoiceDetails.rawMaterialID }} -->
+              <p>{{this.rawHtml}}</p>
             </div>
             <div class="cell">{{ invoiceDetails.quantity }}</div>
             <div class="cell">${{ invoiceDetails.value.toFixed(2) }}</div>
@@ -221,8 +223,7 @@ export default {
     getNameFromId(id) {
       this.rawMaterials.forEach((rawMaterial) => {
         if (rawMaterial.id == id) {
-          this.rawHtml = rawMaterial.name;
-          console.log("here");
+          return this.rawHtml = rawMaterial.name;
         }
       });
     },
@@ -244,7 +245,7 @@ export default {
           this.invoiceSearch.invoiceNumber = this.invoices.invoiceNumber;
           this.invoiceSearch.supplierID = this.invoices.supplierID;
           this.invoiceSearch.invoiceDate = this.invoices.invoiceDate;
-          this.invoiceSearch.invoiceValue = this.invoices.invoiceValue;
+          this.invoiceSearch.invoiceValue = this.invoices.invoiceValue.toFixed(2);
         })
         .catch((error) => {
           console.log(error);
