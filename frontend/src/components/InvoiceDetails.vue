@@ -1,112 +1,51 @@
 <template>
-  <div>
-    <!-- Header -->
-    <header class="header">
-      <a href="#home" class="logo">PCU</a>
-      <div class="header-right">
-        <a href="" @click="$router.push('/dashboard')">Dashboard</a>
-      </div>
-    </header>
-    <!-- Body -->
-    <h1>Invoice Details</h1>
-    <div id="invoiceDetails">
-      <form>
-        <label
-          ># <input type="text" v-model="invoices.invoiceNumber" required
-        /></label>
-        <label
-          >Supplier # <input type="text" v-model="invoices.supplierID" required
-        /></label>
-        <label
-          >Date <input type="text" v-model="invoices.invoiceDate" required
-        /></label>
-        <label
-          >Total Value
-          <input type="text" v-model="invoices.invoiceValue" required
-        /></label>
-        <input id="submitBtn" type="button" value="Submit" />
-      </form>
-    </div>
-    <div class="container">
-      <div class="table">
-        <div class="row-header">
-          <div class="cell">Raw Material ID</div>
-          <div class="cell">Value</div>
-          <div class="cell">Quantity</div>
-          <div class="cell">Total Value</div>
-          <div class="cell">Date</div>
-          <div class="cell">Notes</div>
-          <div class="cell"></div>
+<div>
+    <div>
+        <!-- Header -->
+         <header class="header">
+            <a href="#home" class="logo">PCU</a>
+            <div class="header-right">
+                <a href="" @click="$router.push('/dashboard')">Dashboard</a>
+            </div>
+        </header>
+        <!-- Body -->
+        <h1>Invoice Details</h1>
+        <div id="invoiceDetails">
+            <form>
+                <!-- selectbox of invliceId -->
+                <label># <input type="text" v-model="invoiceSearch.invliceId" required></label>
+                <label># <input type="text" v-model="invoiceSearch.invoiceNumber" disabled></label>
+                <label>Supplier # <input type="text" v-model="invoiceSearch.supplierID" disabled></label>
+                <label>Date <input type="text" v-model="invoiceSearch.invoiceDate" disabled></label>
+                <label>Total Value <input type="text" v-model="invoiceSearch.invoiceValue" disabled></label>
+                <input id="submitBtn" type="button" value="Submit" @click="searchInvoice()">
+            </form>
         </div>
-        <div class="row">
-          <!-- Add supplier -->
-          <div class="cell">
-            <p class="add-btn" v-if="!update">
-              <img
-                src="../assets/plus.png"
-                alt="add"
-                width="20"
-                height="20"
-                @click="addSupplier()"
-              />
-            </p>
-          </div>
-          <div class="cell">
-            <p><input type="text" placeholder="Item Value" required /></p>
-          </div>
-          <div class="cell">
-            <p><input type="text" placeholder="Quantity" required /></p>
-          </div>
-          <div class="cell">
-            <p><input type="text" placeholder="Total Value" required /></p>
-          </div>
-          <div class="cell">
-            <p><input type="text" placeholder="Date" required /></p>
-          </div>
-          <div class="cell">
-            <p><input type="text" placeholder="Notes" required /></p>
-          </div>
-          <div class="cell">
-            <!-- button to update the cell will be visible when the button add clicked-->
-            <img
-              src="../assets/floppy-disk.png"
-              alt="add"
-              width="20"
-              height="20"
-              v-if="update"
-              @click="updateSupplier()"
-              class="img-update"
-            />
-          </div>
-        </div>
-        <div class="row" v-for="supplier in suppliers" :key="supplier.id">
-          <div class="cell">{{ supplier.supplierID }}</div>
-          <div class="cell">{{ supplier.firstName }}</div>
-          <div class="cell">{{ supplier.lastName }}</div>
-          <div class="cell">{{ supplier.phone }}</div>
-          <div class="cell">{{ supplier.email }}</div>
-          <div class="cell">{{ supplier.address }}</div>
-          <!-- Delete and edit supplier -->
-          <div class="cell">
-            <p class="delete-btn">
-              <img
-                src="../assets/deleteRed.png"
-                alt="delete"
-                width="20"
-                height="20"
-                @click="deleteSupplier(supplier.supplierID)"
-              />
-            </p>
-            <p class="edit-btn">
-              <img
-                src="../assets/edit.png"
-                alt="edit"
-                width="20"
-                height="20"
-                @click="editSupplier(supplier.supplierID)"
-              />
-            </p>
-          </div>
+        <div class="container">
+        <div class="table">
+            <div class="row-header">
+            <div class="cell"></div>
+            <div class="cell">Raw Material</div>
+            <div class="cell">Quantity</div>
+            <div class="cell">Value</div>
+            <div class="cell">Total Value</div>
+            <div class="cell">Notes</div>
+            </div>
+            <!-- For each invoiceDetails add a row -->
+            <div class="row" v-for="invoiceDetails in invoices.invoiceDetails" :key="invoiceDetails.id">
+            <!-- Add new invoice details -->
+                <div class="cell"></div>
+                <div class="cell left">
+                    {{getNameFromId(invoiceDetails.rawMaterialID)}}
+                    {{rawHtml}}
+                 
+                </div>
+                <div class="cell">{{invoiceDetails.quantity}}</div>
+                <div class="cell">${{invoiceDetails.value.toFixed(2)}}</div>
+                <div class="cell">${{invoiceDetails.totalValue.toFixed(2)}}</div>
+                <div class="cell">{{invoiceDetails.noteString}}</div>
+                <!-- Delete and edit supplier -->
+            </div>
         </div>
       </div>
     </div>
@@ -118,6 +57,7 @@
 
 <script>
 import InvoiceDataServices from "../services/InvoiceDataServices";
+import RawMaterialDataServices from "../services/RawMaterialDataServices";
 import BaseFooter from "./Base/BaseFooter.vue";
 export default {
   components: {
@@ -125,21 +65,37 @@ export default {
   },
   data() {
     return {
+      addMore: 0,
+      rawMaterials: [],
+      invoicesRawMaterialsNames: [],
       invoices: [],
-      invliceId: "",
-      invoiceNumber: "",
-      supplierID: "",
-      invoiceValue: "",
-      invoiceDate: "",
-      InvoiceDetails: [],
+      update: false,
+      success: "",
+      error: "",
+      rawHtml: "",
+      invoiceSearch: {
+        invliceId: "",
+        invoiceNumber: "",
+        supplierID: "",
+        invoiceDate: "",
+        invoiceValue: "",
+      },
     };
   },
   methods: {
-    getInvoice() {
-      InvoiceDataServices.get()
+    getNameFromId(id) {
+      this.rawMaterials.forEach((rawMaterial) => {
+        if (rawMaterial.id == id) {
+          this.rawHtml = rawMaterial.name;
+        }
+      });
+    },
+    getRawMaterial() {
+      RawMaterialDataServices.get()
         .then((response) => {
-          this.invoices = response.data;
-          console.log(response.data);
+          this.rawMaterials = response.data;
+
+          //
         })
         .catch((error) => {
           console.log(error);
@@ -149,94 +105,200 @@ export default {
       InvoiceDataServices.getById(id)
         .then((response) => {
           this.invoices = response.data;
-          console.log(response.data);
+          // invliceId
+          this.invoiceSearch.invliceId = this.invoices.invliceId;
+          this.invoiceSearch.invoiceNumber = this.invoices.invoiceNumber;
+          this.invoiceSearch.supplierID = this.invoices.supplierID;
+          this.invoiceSearch.invoiceDate = this.invoices.invoiceDate;
+          this.invoiceSearch.invoiceValue = this.invoices.invoiceValue;
         })
         .catch((error) => {
           console.log(error);
         });
     },
-    addInvoice() {
-      console.log("inside addInvoice");
-      const invoice = {
-        // invoiceID: this.invoiceID,
-        // invoiceNumber: this.invoiceNumber,
-        // supplier: this.supplier,
-        // invoiceValue: this.invoiceValue,
-        // invoiceDate: this.invoiceDate,
+    searchInvoice() {
+      console.log("new invoice");
+      // get invoice number
+    },
+  },
+  getRawMaterial() {
+    RawMaterialDataServices.get()
+      .then((response) => {
+        this.rawMaterials = response.data;
 
-        // InvoiceDetails: this.InvoiceDetails,
-        // rawMaterialID: this.rawMaterialID,
-        // value: this.value,
-        // quantity: this.quantity,
-        // totalValue: this.totalValue,
-        // dateTime: this.dateTime,
-        // noteString: this.noteString
+        //
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
+  getInvoiceById(id) {
+    InvoiceDataServices.getById(id)
+      .then((response) => {
+        this.invoices = response.data;
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
+  addInvoice() {
+    console.log("inside addInvoice");
+    const invoice = {
+      invliceId: this.invliceId,
+      invoiceNumber: this.invoiceNumber,
+      supplierID: this.supplierID,
+      invoiceValue: this.invoiceValue,
+      invoiceDate: this.invoiceDate,
+      invoiceDetails: [
+        {
+          rawMaterialID: 1,
+          value: 20.0,
+          quantity: 2.0,
+          totalValue: 5000.0,
+          dateTime: "2022-04-10",
+          noteString: "no notes",
+          invoiceDetailsID: 40,
+        },
+      ],
+    };
+    InvoiceDataServices.post(invoice)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
+  deleteInvoice() {
+    InvoiceDataServices.delete()
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
+  deleteInvoiceById(id) {
+    InvoiceDataServices.deleteById(id)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
+  editInvoice(id) {
+    console.log("inside editInvoice");
+    const invoice = {
+      invoiceID: this.invoiceID,
+      invoiceNumber: this.invoiceNumber,
+      supplier: this.supplier,
+      invoiceValue: this.invoiceValue,
+      invoiceDate: this.invoiceDate,
 
-        invliceId: this.invliceId,
-        invoiceNumber: this.invoiceNumber,
-        supplierID: this.supplierID,
-        invoiceValue: this.invoiceValue,
-        invoiceDate: this.invoiceDate,
-        invoiceDetails: [
-          {
-            rawMaterialID: 1,
-            value: 20.0,
-            quantity: 2.0,
-            totalValue: 5000.0,
-            dateTime: "2022-04-10",
-            noteString: "no notes",
-            invoiceDetailsID: 40,
-          },
-        ],
-      };
-      InvoiceDataServices.post(invoice)
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
-    deleteInvoice() {
-      InvoiceDataServices.delete()
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
-    deleteInvoiceById(id) {
-      InvoiceDataServices.deleteById(id)
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
-    editInvoice(id) {
-      console.log("inside editInvoice");
-      const invoice = {
-        invoiceID: this.invoiceID,
-        invoiceNumber: this.invoiceNumber,
-        supplier: this.supplier,
-        invoiceValue: this.invoiceValue,
-        invoiceDate: this.invoiceDate,
+      InvoiceDetails: this.InvoiceDetails,
+    };
+    InvoiceDataServices.put(id, invoice)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
+  getInvoiceById(id) {
+    InvoiceDataServices.getById(id)
+      .then((response) => {
+        this.invoices = response.data;
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
+  addInvoice() {
+    console.log("inside addInvoice");
+    const invoice = {
+      // invoiceID: this.invoiceID,
+      // invoiceNumber: this.invoiceNumber,
+      // supplier: this.supplier,
+      // invoiceValue: this.invoiceValue,
+      // invoiceDate: this.invoiceDate,
 
-        InvoiceDetails: this.InvoiceDetails,
-      };
-      InvoiceDataServices.put(id, invoice)
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
+      // InvoiceDetails: this.InvoiceDetails,
+      // rawMaterialID: this.rawMaterialID,
+      // value: this.value,
+      // quantity: this.quantity,
+      // totalValue: this.totalValue,
+      // dateTime: this.dateTime,
+      // noteString: this.noteString
+
+      invliceId: this.invliceId,
+      invoiceNumber: this.invoiceNumber,
+      supplierID: this.supplierID,
+      invoiceValue: this.invoiceValue,
+      invoiceDate: this.invoiceDate,
+      invoiceDetails: [
+        {
+          rawMaterialID: 1,
+          value: 20.0,
+          quantity: 2.0,
+          totalValue: 5000.0,
+          dateTime: "2022-04-10",
+          noteString: "no notes",
+          invoiceDetailsID: 40,
+        },
+      ],
+    };
+    InvoiceDataServices.post(invoice)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
+  deleteInvoice() {
+    InvoiceDataServices.delete()
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
+  deleteInvoiceById(id) {
+    InvoiceDataServices.deleteById(id)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
+  editInvoice(id) {
+    console.log("inside editInvoice");
+    const invoice = {
+      invoiceID: this.invoiceID,
+      invoiceNumber: this.invoiceNumber,
+      supplier: this.supplier,
+      invoiceValue: this.invoiceValue,
+      invoiceDate: this.invoiceDate,
+
+      InvoiceDetails: this.InvoiceDetails,
+    };
+    InvoiceDataServices.put(id, invoice)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   },
   mounted() {
     this.getInvoiceById(35);
+    this.getRawMaterial();
     if (localStorage.getItem("user")) {
       console.log(localStorage.getItem("user"));
       this.getInvoiceById(35);
