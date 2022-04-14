@@ -12,6 +12,8 @@
           <div class="cell">Discription</div>
           <div class="cell">Picture</div>
           <div class="cell">Size</div>
+          <div class="cell">Raw Materials</div>
+          <div class="cell">Variable Costs</div>
           <div class="cell"></div>
         </div>
         <div class="row">
@@ -76,7 +78,7 @@
           <div class="cell">{{ product.discription }}</div>
           <div class="cell">{{ product.picture }}</div>
           <div class="cell">{{ product.size }}</div>
-          <!-- Delete and edit product -->
+          <!-- Delete and edit supplier -->
           <div class="cell">
             <p class="delete-btn">
               <img
