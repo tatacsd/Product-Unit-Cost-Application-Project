@@ -2,17 +2,23 @@
   <div>
     <div>
       <!-- Header -->
-      <header class="header">
-        <a href="#home" class="logo">PCU</a>
-        <div class="header-right">
-          <a href="" @click="$router.push('/dashboard')">Dashboard</a>
-        </div>
-      </header>
+      <BaseHeaderDashboard />
       <!-- Body -->
+      <!-- back to previous page icon -->
+      <div class="back-btn">
+        <img
+          class="back-icon"
+          src="../assets/return-button.png"
+          alt="back"
+          width="20"
+          height="20"
+          @click="backToPreviousPage()"
+        />
+      </div>
       <h1>Invoice Details</h1>
+      
       <div id="invoiceDetails">
         <form>
-          <!-- selectbox of invliceId -->
           <label
             ># <input type="text" v-model="invoiceSearch.invliceId" required
           /></label>
@@ -47,80 +53,104 @@
             <div class="cell">Raw Material</div>
             <div class="cell">Quantity</div>
             <div class="cell">Value</div>
+            <div class="cell">Date</div>
             <div class="cell">Total Value</div>
             <div class="cell">Notes</div>
             <div class="cell"></div>
-
           </div>
 
           <div class="row">
-          <!-- Add supplier -->
-          <div class="cell">
-            <p class="add-btn" v-if="!update">
+            <!-- Add new invoice details -->
+            <div class="cell">
+              <p class="add-btn" v-if="!update">
+                <img
+                  src="../assets/plus.png"
+                  alt="add"
+                  width="20"
+                  height="20"
+                  @click="addInvoiceDetails()"
+                />
+              </p>
+            </div>
+            <!-- <div class="cell">
+              <p>
+                <input
+                  type="text"
+                  v-model="rawMaterialInput"
+                  placeholder="Raw Material"
+                  required
+                />
+              </p>
+            </div> -->
+               <!-- dropdown with the raw materials type -->
+                    <select v-model="selected" >
+                        <option v-for="rawMaterial in rawMaterials" :value="rawMaterial.id" :key="rawMaterial.id">
+                            {{rawMaterial.name}} ({{rawMaterial.id}})
+                        </option>
+                    </select>
+            <div class="cell">
+              <p>
+                <input
+                  type="text"
+                  v-model="quantityInput"
+                  placeholder="Quantity"
+                  required
+                />
+              </p>
+            </div>
+            <div class="cell">
+              <p>
+                <input
+                  type="text"
+                  v-model="valueInput"
+                  placeholder="Value"
+                  required
+                />
+              </p>
+            </div>
+            <div class="cell">
+              <p>
+                <input
+                  type="text"
+                  v-model="dateTimeinput"
+                  placeholder="yyyy-mm-dd"
+                  required
+                />
+              </p>
+            </div>
+            <div class="cell">
+              <p>
+                <input
+                  type="text"
+                  v-model="totalValueInput"
+                  placeholder="Total Value"
+                  disabled
+                />
+              </p>
+            </div>
+            <div class="cell">
+              <p>
+                <input
+                  type="text"
+                  v-model="notesInput"
+                  placeholder="notes"
+                  required
+                />
+              </p>
+            </div>
+            <div class="cell">
+              <!-- button to update the cell  will be visible when the button add clicked-->
               <img
-                src="../assets/plus.png"
+                src="../assets/floppy-disk.png"
                 alt="add"
                 width="20"
                 height="20"
-                @click="addInvoiceDetails()"
+                v-if="update"
+                @click="updateSupplier()"
+                class="img-update"
               />
-            </p>
+            </div>
           </div>
-          <div class="cell">
-            <p>
-              <input
-                type="text"
-                v-model="rawMaterialInput"
-                placeholder="Raw Material"
-                required
-              />
-            </p>
-          </div>
-          <div class="cell">
-            <p>
-              <input
-                type="text"
-                v-model="quantityInput"
-                placeholder="Quantity"
-                required
-              />
-            </p>
-          </div>
-          <div class="cell">
-            <p>
-              <input type="text" v-model="valueInput" placeholder="Value" required />
-            </p>
-          </div>
-          <div class="cell">
-            <p>
-              <input type="text" v-model="totalValueInput" placeholder="Total Value" required />
-            </p>
-          </div>
-          <div class="cell">
-            <p>
-              <input
-                type="text"
-                v-model="notesInput"
-                placeholder="notes"
-                required
-              />
-            </p>
-          </div>
-          <div class="cell">
-            <!-- button to update the cell  will be visible when the button add clicked-->
-            <img
-              src="../assets/floppy-disk.png"
-              alt="add"
-              width="20"
-              height="20"
-              v-if="update"
-              @click="updateSupplier()"
-              class="img-update"
-            />
-          </div>
-        </div>
-
-
 
           <!-- For each invoiceDetails add a row -->
           <div
@@ -133,12 +163,13 @@
             <div class="cell left">
               <!-- {{ this.getNameFromId(invoiceDetails.rawMaterialID) }}
               {{ rawHtml }} -->
-              {{invoiceDetails.rawMaterialID}}
+              {{ invoiceDetails.rawMaterialID }}
             </div>
             <div class="cell">{{ invoiceDetails.quantity }}</div>
             <div class="cell">${{ invoiceDetails.value.toFixed(2) }}</div>
+            <div class="cell">{{ invoiceDetails.dateTime }}</div>
             <div class="cell">${{ invoiceDetails.totalValue.toFixed(2) }}</div>
-            <div class="cell">{{ invoiceDetails.noteString }}</div>            
+            <div class="cell">{{ invoiceDetails.noteString }}</div>
           </div>
         </div>
       </div>
@@ -150,17 +181,20 @@
 </template>
 
 <script>
+import BaseHeaderDashboard from "./Base/BaseHeaderDashboard.vue";
+import BaseFooter from "./Base/BaseFooter.vue";
 import InvoiceDataServices from "../services/InvoiceDataServices";
 import RawMaterialDataServices from "../services/RawMaterialDataServices";
-import BaseFooter from "./Base/BaseFooter.vue";
 export default {
   components: {
     BaseFooter,
+    BaseHeaderDashboard,
   },
   data() {
     return {
       addMore: 0,
       rawMaterials: [],
+      selected: "",
       invoicesRawMaterialsNames: [],
       invoices: [],
       update: false,
@@ -174,6 +208,13 @@ export default {
         invoiceDate: "",
         invoiceValue: "",
       },
+      rawMaterialInput: "",
+      quantityInput: "",
+      valueInput: "",
+      dateTimeinput: "",
+      totalValueInput: 0.0,
+      notesInput: "",
+
     };
   },
   methods: {
@@ -181,7 +222,7 @@ export default {
       this.rawMaterials.forEach((rawMaterial) => {
         if (rawMaterial.id == id) {
           this.rawHtml = rawMaterial.name;
-          console.log("here")
+          console.log("here");
         }
       });
     },
@@ -189,8 +230,6 @@ export default {
       RawMaterialDataServices.get()
         .then((response) => {
           this.rawMaterials = response.data;
-
-          //
         })
         .catch((error) => {
           console.log(error);
@@ -213,59 +252,116 @@ export default {
     },
     searchInvoice() {
       console.log("new invoice");
-      // get invoice number
+      // get invoice number from the form
+      let newInvoiceID = this.invoiceSearch.invliceId;
+      localStorage.setItem("invoiceDetailsID", newInvoiceID);
+      this.getInvoiceById(newInvoiceID);
     },
-  },
-  addInvoice() {
-    console.log("inside addInvoice");
-    const invoice = {
-      invliceId: this.invliceId,
-      invoiceNumber: this.invoiceNumber,
-      supplierID: this.supplierID,
-      invoiceValue: this.invoiceValue,
-      invoiceDate: this.invoiceDate,
-      invoiceDetails: [
-        {
-          rawMaterialID: 1,
-          value: 20.0,
-          quantity: 2.0,
-          totalValue: 5000.0,
-          dateTime: "2022-04-10",
-          noteString: "no notes",
-          invoiceDetailsID: 40,
-        },
-      ],
-    };
-    InvoiceDataServices.post(invoice)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
+    addInvoiceDetails() {
+      console.log("inside addInvoice");
+      // check if all fiels are filled
+      if (
+        this.selected == "" ||
+        this.quantityInput == "" ||
+        this.valueInput == "" ||
+        this.dateTimeinput == "" ||
+        this.notesInput == ""
+      ) {
+        this.error = "Please fill all the fields";
+      } else {
+        // create a new invoice details object
+        let newInvoiceDetails = {
+          // get selected raw material id
+          rawMaterialID: this.selected,
+          quantity: this.quantityInput,
+          value: this.valueInput,
+          dateTime: this.dateTimeinput,
+          totalValue:
+            parseFloat(this.valueInput) * parseFloat(this.quantityInput),
+          noteString: this.notesInput,
+        };
+
+        console.log("New invoice details -->", newInvoiceDetails);
+        // make a post request to add the new invoice details
+        InvoiceDataServices.postInvoiceDetail(
+          localStorage.getItem("invoiceDetailsID"),
+          newInvoiceDetails
+        )
+          .then((response) => {
+            this.success = "Invoice details added successfully";
+            this.getInvoiceById(localStorage.getItem("invoiceDetailsID"));
+            console.log(response);
+
+            // update the total value of invoice
+            this.updateTotalValue();
+
+            // clear the form
+            this.selected = "";
+            this.quantityInput = "";
+            this.valueInput = "";
+            this.totalValueInput = "";
+            this.notesInput = "";
+
+            // add success message
+            this.success = "Invoice details added successfully";
+            this.error = "";
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    },
+    deleteInvoice() {
+      InvoiceDataServices.delete()
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    deleteInvoiceById(id) {
+      InvoiceDataServices.deleteById(id)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    // method to update the total value of the invoice by summing up the total value of each invoice details
+    updateTotalValue() {
+      // sum the total value of each invoice details
+      let totalValueUpdate = 0;
+      this.invoices.invoiceDetails.forEach((invoiceDetails) => {
+        totalValueUpdate += invoiceDetails.totalValue;
       });
-  },
-  deleteInvoice() {
-    InvoiceDataServices.delete()
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  },
-  deleteInvoiceById(id) {
-    InvoiceDataServices.deleteById(id)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      // update the total value of the invoice
+      this.invoiceSearch.invoiceValue = totalValueUpdate;
+      console.log("total value", totalValueUpdate);
+
+      InvoiceDataServices.put(
+        localStorage.getItem("invoiceDetailsID"),
+        {invoiceValue: totalValueUpdate}
+      )
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+    },
+    backToPreviousPage() {
+      window.history.back();
+    },
   },
   mounted() {
     if (localStorage.getItem("user")) {
       console.log(localStorage.getItem("user"));
-      this.getInvoiceById(55);
+      console.log(localStorage.getItem("invoiceDetailsID"));
+      this.getRawMaterial();
+      this.getInvoiceById(localStorage.getItem("invoiceDetailsID"));
     } else {
       this.$router.push("/login");
       console.log("not logged in");
@@ -275,6 +371,15 @@ export default {
 </script>
 
 <style scoped>
+
+.back-btn {
+  position: absolute;
+  top: 8rem;
+  left: 7rem;
+  padding: 5px;
+  cursor: pointer;
+}
+
 h1 {
   text-align: center;
   padding: 40px;
@@ -315,7 +420,7 @@ input#submitBtn {
 }
 
 #invoiceDetails {
-  max-width: 61%;
+  width: 80vw;
   margin: 0 auto 10px;
   background-color: white;
 }
