@@ -1,58 +1,116 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
+
+    <header class="header">
+      <a href="/" class="logo">PCU</a>
+      <div class="header-right">
+        <a href="signup">Sign up</a>
+        <a href="login">Log in</a>
+      </div>
+  </header>
+    <body>
+      <div class="body">
+        <div class="image">
+      <img src="../assets/LandingPagePicTeam.jpeg" height="450px" width="500px">
+      </div>
+      <p>Bring solutions to support small and medium businesses manufacturing management with specific tools to calculate their product unit cost and generate customized reports.
+         The proposed software will fit any kind of manufacturing industry such as textiles, automotive, electronics, food and beverages, pharmaceuticals etc.</p>
+      </div>
+    </body>
+    <BaseFooter />
   </div>
 </template>
 
 <script>
+
+import BaseFooter from "./Base/BaseFooter.vue";
 export default {
+  components: {
+    BaseFooter
+  },
   name: 'HelloWorld',
   props: {
     msg: String
   }
 }
+
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
+.hello{
+ background-color: #f2f2f2;
+ height: 100vh;
+ 
 }
-ul {
-  list-style-type: none;
-  padding: 0;
+template{
+  background-color: #f2f2f2;
+  
 }
-li {
-  display: inline-block;
-  margin: 0 10px;
+.footer {
+   position:absolute;
+   bottom:0;
+   width:100%;
+   height:20px;   /* Height of the footer */
+   background:rgb(177, 172, 172);
 }
-a {
-  color: #42b983;
+.body{
+  display: flex;
+  background-color: beige;
+  text-align: center;
+  margin-top:150px;
+  margin-left: 5%;
+  margin-right: 5%;
+  width: 90%;
+  height: 500px;
+  padding: 10px;
+  justify-content: space-around;
+  align-items: center;
+}
+.body p{
+  font-size: 28px;
+  text-align: justify;
+  width: 150%;
+  padding-right:3%;
+  padding-left: 3%;
+}
+.image{
+  padding-left:0px;
+  float: left;
+  width: 80%;
+  border-radius: 10px;
+}
+.image img{
+  border-radius: 10px;
+}
+.header {
+  overflow: hidden;
+  background-color: #ffdc14;
+  padding: 20px 10px;
+}
+.header a {
+  float: left;
+  color: black;
+  text-align: center;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px; 
+  line-height: 25px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+.header a.logo {
+  font-size: 25px;
+  font-weight: bold;
+}
+.header a:hover {
+  background-color: #000;
+  color: white;
+}
+.header a.active {
+  background-color: dodgerblue;
+  color: white;
+}
+.header-right {
+  float: right;
 }
 </style>

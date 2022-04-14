@@ -12,7 +12,7 @@ export default {
 *,
 *:before,
 *:after {
-  margin: 0;
+  margin: auto;
   padding: 0;
 
   -webkit-box-sizing: border-box !important;
@@ -26,6 +26,8 @@ export default {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  height: 100vh;
+  width: 100vw;
 }
 
 /* 'Open Sans' font from Google Fonts */
@@ -41,6 +43,7 @@ body {
   overflow: hidden;
   background-color: #ffdc14;
   padding: 20px 10px;
+  width:100%;
 }
 
 .header a {

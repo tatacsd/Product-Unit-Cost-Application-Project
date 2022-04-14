@@ -3,6 +3,10 @@ import HelloWorld from "../components/HelloWorld";
 import MyLogin from "../components/MyLogin";
 import SignUp from "../components/SignUp";
 import UserSuppliers from "../components/UserSuppliers";
+import InvoiceDetails from "../components/InvoiceDetails";
+import UserRawMaterial from "../components/UserRawMaterial";
+import UserVariableCosts from "../components/UserVariableCosts";
+import MainDashboard from "../components/MainDashboard";
 
 const routes = [
   {
@@ -25,6 +29,30 @@ const routes = [
     name: "Suppliers",
     component: UserSuppliers,
   },
+  {
+    path: "/invoicedetails",
+    name: "InvoiceDetails",
+    component: InvoiceDetails,
+  },
+  {
+    path: "/rawmaterial",
+    name: "RawMaterial",
+    component: UserRawMaterial,
+  },
+  {
+    path: "/variablecosts",
+    name: "VariableCosts",
+    component: UserVariableCosts,
+  },
+  {
+    path: "/dashboard",
+    name: "Dashboard",
+    component: MainDashboard,
+
+  }
+   // TODO: Products
+  // TODO: Invoice
+  // TODO: Reports
 ];
 
 const router = createRouter({
