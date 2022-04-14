@@ -281,6 +281,8 @@ export default {
           noteString: this.notesInput,
         };
 
+        localStorage.setItem("newInvoiceDetailsTotalValue", newInvoiceDetails.totalValue);
+
         console.log("New invoice details -->", newInvoiceDetails);
         // make a post request to add the new invoice details
         InvoiceDataServices.postInvoiceDetail(
@@ -331,11 +333,14 @@ export default {
     },
     // method to update the total value of the invoice by summing up the total value of each invoice details
     updateTotalValue() {
+      this.getInvoiceById(localStorage.getItem("invoiceDetailsID"));
       // sum the total value of each invoice details
       let totalValueUpdate = 0;
       this.invoices.invoiceDetails.forEach((invoiceDetails) => {
         totalValueUpdate += invoiceDetails.totalValue;
       });
+
+      totalValueUpdate += parseFloat(localStorage.getItem("newInvoiceDetailsTotalValue"));
       // update the total value of the invoice
       this.invoiceSearch.invoiceValue = totalValueUpdate;
       console.log("total value", totalValueUpdate);
@@ -350,6 +355,8 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+
+        this.searchInvoice();
 
     },
     backToPreviousPage() {
