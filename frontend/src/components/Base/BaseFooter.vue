@@ -25,7 +25,17 @@
         |
       </p>
       <p>
-      <a href="https://www.flaticon.com/free-icons/save" title="save icons">Save icons created by Those Icons - Flaticon</a>
+        <a href="https://www.flaticon.com/free-icons/save" title="save icons"
+          >Save icons created by Those Icons - Flaticon</a
+        >
+        |
+      </p>
+      <p>
+        <a
+          href="https://www.flaticon.com/free-icons/return"
+          title="return icons"
+          >Return icons created by Freepik - Flaticon</a
+        >
       </p>
     </div>
   </footer>
