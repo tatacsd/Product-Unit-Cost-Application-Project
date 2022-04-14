@@ -16,7 +16,7 @@
         />
       </div>
       <h1>Invoice Details</h1>
-      
+
       <div id="invoiceDetails">
         <form>
           <label
@@ -82,12 +82,16 @@
                 />
               </p>
             </div> -->
-               <!-- dropdown with the raw materials type -->
-                    <select v-model="selected" >
-                        <option v-for="rawMaterial in rawMaterials" :value="rawMaterial.id" :key="rawMaterial.id">
-                            {{rawMaterial.name}} ({{rawMaterial.id}})
-                        </option>
-                    </select>
+            <!-- dropdown with the raw materials type -->
+            <select v-model="selected">
+              <option
+                v-for="rawMaterial in rawMaterials"
+                :value="rawMaterial.id"
+                :key="rawMaterial.id"
+              >
+                {{ rawMaterial.name }} ({{ rawMaterial.id }})
+              </option>
+            </select>
             <div class="cell">
               <p>
                 <input
@@ -138,7 +142,7 @@
                 />
               </p>
             </div>
-              <!-- button to update the cell  will be visible when the button add clicked-->
+            <!-- button to update the cell  will be visible when the button add clicked-->
             <!-- <div class="cell">
               <img
                 src="../assets/floppy-disk.png"
@@ -165,7 +169,7 @@
               {{ rawHtml }} -->
               <p>{{ this.getNameFromId(invoiceDetails.rawMaterialID) }}</p>
               <!-- {{ invoiceDetails.rawMaterialID }} -->
-              <p>{{this.rawHtml}}</p>
+              <p>{{ this.rawHtml }}</p>            
             </div>
             <div class="cell">{{ invoiceDetails.quantity }}</div>
             <div class="cell">${{ invoiceDetails.value.toFixed(2) }}</div>
@@ -216,21 +220,37 @@ export default {
       dateTimeinput: "",
       totalValueInput: 0.0,
       notesInput: "",
-
+      fixRendering: true,
     };
   },
   methods: {
     getNameFromId(id) {
-      this.rawMaterials.forEach((rawMaterial) => {
-        if (rawMaterial.id == id) {
-          return this.rawHtml = rawMaterial.name;
-        }
-      });
+      if(id){
+        this.rawMaterials.forEach((rawMaterial) => {
+          if (rawMaterial.id == id) {
+            return this.rawHtml = rawMaterial.name;
+          }
+        });
+      }
     },
     getRawMaterial() {
       RawMaterialDataServices.get()
         .then((response) => {
           this.rawMaterials = response.data;
+
+          this.invoices.invoiceDetails.forEach((invoiceDetails) => {
+            // find the id inside the rawMaterials array
+            this.rawMaterials.forEach((rawMaterial) => {
+              if (rawMaterial.id == invoiceDetails.rawMaterialID) {
+               this.invoicesRawMaterialsNames.push({
+                  id: invoiceDetails.invoiceDetailsID,
+                  name: rawMaterial.name,
+                  rawID: rawMaterial.id,
+                });
+              }
+            });
+          });               
+         
         })
         .catch((error) => {
           console.log(error);
@@ -245,7 +265,8 @@ export default {
           this.invoiceSearch.invoiceNumber = this.invoices.invoiceNumber;
           this.invoiceSearch.supplierID = this.invoices.supplierID;
           this.invoiceSearch.invoiceDate = this.invoices.invoiceDate;
-          this.invoiceSearch.invoiceValue = this.invoices.invoiceValue.toFixed(2);
+          this.invoiceSearch.invoiceValue =
+            this.invoices.invoiceValue.toFixed(2);
         })
         .catch((error) => {
           console.log(error);
@@ -255,6 +276,7 @@ export default {
       console.log("new invoice");
       // get invoice number from the form
       let newInvoiceID = this.invoiceSearch.invliceId;
+      console.log(newInvoiceID);
       localStorage.setItem("invoiceDetailsID", newInvoiceID);
       this.getInvoiceById(newInvoiceID);
     },
@@ -282,7 +304,10 @@ export default {
           noteString: this.notesInput,
         };
 
-        localStorage.setItem("newInvoiceDetailsTotalValue", newInvoiceDetails.totalValue);
+        localStorage.setItem(
+          "newInvoiceDetailsTotalValue",
+          newInvoiceDetails.totalValue
+        );
 
         console.log("New invoice details -->", newInvoiceDetails);
         // make a post request to add the new invoice details
@@ -341,15 +366,16 @@ export default {
         totalValueUpdate += invoiceDetails.totalValue;
       });
 
-      totalValueUpdate += parseFloat(localStorage.getItem("newInvoiceDetailsTotalValue"));
+      totalValueUpdate += parseFloat(
+        localStorage.getItem("newInvoiceDetailsTotalValue")
+      );
       // update the total value of the invoice
       this.invoiceSearch.invoiceValue = totalValueUpdate;
       console.log("total value", totalValueUpdate);
 
-      InvoiceDataServices.put(
-        localStorage.getItem("invoiceDetailsID"),
-        {invoiceValue: totalValueUpdate}
-      )
+      InvoiceDataServices.put(localStorage.getItem("invoiceDetailsID"), {
+        invoiceValue: totalValueUpdate,
+      })
         .then((response) => {
           console.log(response);
         })
@@ -357,8 +383,7 @@ export default {
           console.log(error);
         });
 
-        this.searchInvoice();
-
+      this.searchInvoice();
     },
     backToPreviousPage() {
       window.history.back();
@@ -366,10 +391,8 @@ export default {
   },
   mounted() {
     if (localStorage.getItem("user")) {
-      console.log(localStorage.getItem("user"));
-      console.log(localStorage.getItem("invoiceDetailsID"));
-      this.getRawMaterial();
       this.getInvoiceById(localStorage.getItem("invoiceDetailsID"));
+      this.getRawMaterial();
     } else {
       this.$router.push("/login");
       console.log("not logged in");
@@ -379,7 +402,6 @@ export default {
 </script>
 
 <style scoped>
-
 .back-btn {
   position: absolute;
   top: 8rem;
