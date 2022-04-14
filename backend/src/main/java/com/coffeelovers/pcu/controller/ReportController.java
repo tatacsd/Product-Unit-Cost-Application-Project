@@ -41,6 +41,7 @@ public class ReportController {
 		OptionalDouble productMaxValue; 
 		OptionalDouble productMinValue;
 		String productCostStandardDeviation ;
+		Double productCostVirance ;
 		OptionalDouble rawMaterialMaxValue; 
 		OptionalDouble varaiableMaxValue; 
 
@@ -54,16 +55,17 @@ public class ReportController {
 				productCostStandardDeviation = calculateSD(productRepository.findAll().stream().mapToDouble(productValue -> productValue.getNetCost()).sum(),
 						productRepository.findAll().stream().map(v->v.getNetCost()).toArray());
 
-				
 				reportArray.put("Product Cost Standard Deviation",productCostStandardDeviation);
+				
+				reportArray.put("Product Cost Virance",Math.pow(Double.parseDouble(productCostStandardDeviation) ,2));
 
 				productMaxValue = productRepository.findAll().stream().mapToDouble(productValue -> productValue.getNetCost()).max(); // the most expensive product
 				reportArray.put("Most Expensive Product in term of Net value",productMaxValue);
 				reportArray.put("Most Expensive Product in term of Net value-Code",productRepository.findAll().stream().filter(productValue ->productValue.getNetCost()== productMaxValue.getAsDouble()).findFirst().map(c->c.getCode()));// most  expensive  product's code
 				//
 				productMinValue = productRepository.findAll().stream().mapToDouble(productValue -> productValue.getNetCost()).min(); // the cheapest product
-				reportArray.put("cheapest Product term of Net value",productMinValue);
-				reportArray.put("cheapest Product term of Net value-Code",productRepository.findAll().stream().filter(productValue ->productValue.getNetCost()== productMinValue.getAsDouble()).findFirst().map(c->c.getCode()));// most  cheapest  product's code
+				reportArray.put("cheapest Product in term of Net value",productMinValue);
+				reportArray.put("cheapest Product in term of Net value-Code",productRepository.findAll().stream().filter(productValue ->productValue.getNetCost()== productMinValue.getAsDouble()).findFirst().map(c->c.getCode()));// most  cheapest  product's code
 				
 				// most expensive product in term of raw materials
 				rawMaterialMaxValue = productRepository.findAll().stream().mapToDouble(productValue -> productValue.getTotalMaterialCost()).min(); 
