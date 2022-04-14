@@ -15,7 +15,7 @@
           <div class="cell"></div>
         </div>
         <div class="row">
-          <!-- Add supplier -->
+          <!-- Add product -->
           <div class="cell">
             <p class="add-btn" v-if="!update">
               <img
@@ -76,7 +76,7 @@
           <div class="cell">{{ product.discription }}</div>
           <div class="cell">{{ product.picture }}</div>
           <div class="cell">{{ product.size }}</div>
-          <!-- Delete and edit supplier -->
+          <!-- Delete and edit product -->
           <div class="cell">
             <p class="delete-btn">
               <img
@@ -144,7 +144,7 @@ export default {
     },
     addProduct() {
       this.cleanMsgs();
-      // if fields are not empty add supplier
+      // if fields are not empty add product
       if (
         this.code != "" &&
         this.discription != "" &&
@@ -191,8 +191,8 @@ export default {
     },
     editProduct(id) {
       this.cleanMsgs();
-      // find a supplier with the id and add values to the field
-      const productUpdate = this.product.find(
+      // find a product with the id and add values to the field
+      const productUpdate = this.products.find(
         (product) => product.productID == id
       );
       this.code = productUpdate.code;
@@ -201,12 +201,12 @@ export default {
       this.size = productUpdate.size;
       this.update = true;
 
-      // set a local storage to the id of the supplier
+      // set a local storage to the id of the product
       localStorage.setItem("productID", id);
     },
     updateProduct() {
       this.cleanMsgs();
-      // if fields are not empty update supplier
+      // if fields are not empty update product
       if (
         this.code != "" &&
         this.discription != "" &&
