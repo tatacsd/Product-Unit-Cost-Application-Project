@@ -29,12 +29,7 @@
           </div>
           <div class="cell">
             <p>
-              <input
-                type="text"
-                v-model="code"
-                placeholder="Code"
-                required
-              />
+              <input type="text" v-model="code" placeholder="Code" required />
             </p>
           </div>
           <div class="cell">
@@ -49,7 +44,12 @@
           </div>
           <div class="cell">
             <p>
-              <input type="text" v-model="picture" placeholder="Picture" required />
+              <input
+                type="text"
+                v-model="picture"
+                placeholder="Picture"
+                required
+              />
             </p>
           </div>
           <div class="cell">
@@ -58,16 +58,16 @@
             </p>
           </div>
           <div class="cell">
-              <!-- button to update the cell  will be visible when the button add clicked-->
-               <img
-                src="../assets/floppy-disk.png"
-                alt="add"
-                width="20"
-                height="20"
-                v-if="update"
-                @click="updateProduct()"
-                class="img-update"
-              />    
+            <!-- button to update the cell  will be visible when the button add clicked-->
+            <img
+              src="../assets/floppy-disk.png"
+              alt="add"
+              width="20"
+              height="20"
+              v-if="update"
+              @click="updateProduct()"
+              class="img-update"
+            />
           </div>
         </div>
         <div class="row" v-for="product in products" :key="product.id">
@@ -75,7 +75,7 @@
           <div class="cell">{{ product.code }}</div>
           <div class="cell">{{ product.discription }}</div>
           <div class="cell">{{ product.picture }}</div>
-          <div class="cell">{{ product.size}}</div>
+          <div class="cell">{{ product.size }}</div>
           <!-- Delete and edit supplier -->
           <div class="cell">
             <p class="delete-btn">
@@ -100,14 +100,14 @@
         </div>
       </div>
     </div>
-    <p class="success-msg" v-if="success"> {{ success }} </p>
-    <p class="error-msg" v-if="error"> {{ error }} </p>
+    <p class="success-msg" v-if="success">{{ success }}</p>
+    <p class="error-msg" v-if="error">{{ error }}</p>
     <BaseFooter />
   </div>
 </template>
 
 <script>
-import BaseHeaderDashboard from "./Base/BaseHeaderDashboard.vue"
+import BaseHeaderDashboard from "./Base/BaseHeaderDashboard.vue";
 import BaseFooter from "./Base/BaseFooter.vue";
 import ProductDataServices from "../services/ProductDataServices";
 export default {
@@ -136,59 +136,65 @@ export default {
       ProductDataServices.get()
         .then((response) => {
           // add the response to the data object
-          this.products = response.data;          
+          this.products = response.data;
         })
-        .catch((error) => {   
-          this.error = error.response.data.error;       
+        .catch((error) => {
+          this.error = error.response.data.error;
         });
     },
     addProduct() {
       this.cleanMsgs();
       // if fields are not empty add supplier
-      if (this.code != "" && this.discription != "" && this.picture != "" && this.size != "" ) {      
-      const product = {
-        productID: this.productID,
-        code: this.code,
-        discription: this.discription,
-        picture: this.picture,
-        size: this.size,
-      };
+      if (
+        this.code != "" &&
+        this.discription != "" &&
+        this.picture != "" &&
+        this.size != ""
+      ) {
+        const product = {
+          productID: this.productID,
+          code: this.code,
+          discription: this.discription,
+          picture: this.picture,
+          size: this.size,
+        };
 
-      ProductDataServices.post(product)
-        .then(() => {          
-          this.getProducts();
-          // clear the input fields
-          this.code = "";
-          this.discription = "";
-          this.picture = "";
-          this.size = "";
-          
+        ProductDataServices.post(product)
+          .then(() => {
+            this.getProducts();
+            // clear the input fields
+            this.code = "";
+            this.discription = "";
+            this.picture = "";
+            this.size = "";
 
-          // set the success message
-          this.success = "Product added successfully";
-        })
-        .catch((error) => {          
-          this.error = "Product not added ->" + error;
-        });
+            // set the success message
+            this.success = "Product added successfully";
+          })
+          .catch((error) => {
+            this.error = "Product not added ->" + error;
+          });
       } else {
         this.error = "Please fill in all the fields";
       }
     },
     deleteProduct(id) {
-      this.cleanMsgs();      
+      this.cleanMsgs();
       ProductDataServices.deleteById(id)
-        .then(() => {          
+        .then(() => {
           this.getProducts();
           this.success = "Product deleted successfully";
         })
-        .catch((error) => {          
+        .catch((error) => {
           this.error = "Product could not be deleted ->" + error;
         });
     },
     editProduct(id) {
-      this.cleanMsgs();      
+      this.cleanMsgs();
       // find a supplier with the id and add values to the field
-      const productUpdate = this.product.find((product) => product.productID == id);
+      const productUpdate = this.product.find(
+        (product) => product.productID == id
+      );
       this.code = productUpdate.code;
       this.discription = productUpdate.discription;
       this.picture = productUpdate.picture;
@@ -199,9 +205,14 @@ export default {
       localStorage.setItem("productID", id);
     },
     updateProduct() {
-      this.cleanMsgs();      
+      this.cleanMsgs();
       // if fields are not empty update supplier
-      if (this.code != "" && this.discription != "" && this.picture != "" && this.size != "" ) {
+      if (
+        this.code != "" &&
+        this.discription != "" &&
+        this.picture != "" &&
+        this.size != ""
+      ) {
         const product = {
           productID: localStorage.getItem("productID"),
           code: this.code,
@@ -211,14 +222,14 @@ export default {
         };
         // add to api
         ProductDataServices.put(localStorage.getItem("productID"), product)
-        .then(() => {          
-          this.getProducts();
-        })
-        .catch((error) => {    
-          this.error = "Product not updated ->" + error;      
-        });
+          .then(() => {
+            this.getProducts();
+          })
+          .catch((error) => {
+            this.error = "Product not updated ->" + error;
+          });
         this.update = false;
-       // clear the input fields
+        // clear the input fields
         this.code = "";
         this.discription = "";
         this.picture = "";
@@ -232,17 +243,23 @@ export default {
     },
   },
   mounted() {
-    ProductDataServices.get()
-      .then((response) => {
-        // add the response to the data object
-        this.products = response.data;        
-      })
-      .catch((error) => {     
-        this.error = error.response.data.error;         
-      });
-    this.error = "";
-    this.success = "";
-    this.update = false;
+    if (localStorage.getItem("user")) {
+      console.log(localStorage.getItem("user"));
+      ProductDataServices.get()
+        .then((response) => {
+          // add the response to the data object
+          this.products = response.data;
+        })
+        .catch((error) => {
+          this.error = error.response.data.error;
+        });
+      this.error = "";
+      this.success = "";
+      this.update = false;
+    } else {
+      this.$router.push("/login");
+      console.log("not logged in");
+    }
   },
 };
 </script>
@@ -282,7 +299,7 @@ h1 {
   padding: 6px 12px;
   display: table-cell;
   vertical-align: middle;
-   max-height: 10px;
+  max-height: 10px;
 }
 
 .delete-btn,

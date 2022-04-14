@@ -1,61 +1,86 @@
 <template>
   <div>
     <header class="header">
-        <a href="/" class="logo">PCU</a>
-        <div class="header-right">
-          <a href="" @click="$router.push('/signup')">Sign up</a>
-        </div>
-    </header>
-      <div class="login">
-    <!-- template for login from https://codepen.io/miroot/pen/AYJGJO -->
-        <div class="login-triangle"></div>
-        <h2 class="login-header">Log in</h2>
-        <form class="login-container" v-on:submit.prevent="submitForm">
-          <p><input type="text" placeholder="Email" v-model="form.email" required></p>
-          <p><input type="password" placeholder="Password" v-model="form.password" required></p>
-          <p><input type="submit" value="Log in"></p>
-        </form>
+      <a href="/" class="logo">PCU</a>
+      <div class="header-right">
+        <a href="" @click="$router.push('/signup')">Sign up</a>
       </div>
+    </header>
+    <p id="error"> <strong>{{this.message}} </strong></p>
+    <div class="login">
+      <!-- template for login from https://codepen.io/miroot/pen/AYJGJO -->
+      <div class="login-triangle"></div>
+      <h2 class="login-header">Log in</h2>
+      <form class="login-container" v-on:submit.prevent="submitForm">
+        <p>
+          <input
+            type="text"
+            placeholder="Email"
+            v-model="form.email"
+            required
+          />
+        </p>
+        <p>
+          <input
+            type="password"
+            placeholder="Password"
+            v-model="form.password"
+            required
+          />
+        </p>
+        <p><input type="submit" value="Submit" @click="submitForm" /></p>
+      </form>
+    </div>
     <!-- footer -->
     <footer class="footer">
-        <p>Created by <a href="https://github.com/tatacsd/PCU" target="_blank">CoffeLovers</a>☕</p>
+      <p>
+        Created by
+        <a href="https://github.com/tatacsd/PCU" target="_blank">CoffeLovers</a
+        >☕
+      </p>
     </footer>
   </div>
 </template>
 
 <script>
-import http from "../http-common";
+import ActorsDataServices from "../services/ActorsDataServices";
 
 export default {
   data() {
     return {
+      message: "",
       form: {
-        email: '',
-        password: ''
-      }
-    }
+        email: "",
+        password: "",
+      },
+    };
   },
   // on form submit send data to server
-  methods:{
-    submitForm(){
-      http.get("/actors/" + this.form.email)
-        .then(
-            (response) => {
-                // check  if password is correct
-                if(response.data.password == this.form.password){
-                    // save user brand and id in local storage
-                    localStorage.setItem('user', JSON.stringify(response.data));
-                    this.$router.push('/dashboard');
-                }     
+  methods: {
+    submitForm() {
+      ActorsDataServices.getByEmail(this.form.email)
+        .then((response) => {
+          // check  if password is correct
+          if (response.data.password == this.form.password) {
+            // save user brand and id in local storage
+            localStorage.setItem("user", JSON.stringify(response.data));
+            this.$router.push("/dashboard");
+          }
         })
-        .catch(
-            error => {
-                console.log(error);
-            }
-        );
+        .catch((error) => {
+          console.log(error);
+          this.message = "Wrong email or password";
+        });
     },
-  }    
-}
+  },
+  mounted() {
+    if(localStorage.getItem("user")){
+      this.$router.push("/dashboard");
+    } else {
+      console.log("not logged in");
+    }
+  },
+};
 </script>
 
 <style scoped>
@@ -76,7 +101,6 @@ export default {
   margin-top: 0;
   margin-bottom: 0;
 }
-
 
 .login-header {
   background: #000;
@@ -139,4 +163,10 @@ export default {
   border-color: #05a;
 }
 
+#error {
+  color: red;
+  font-size: 1.2em;
+  text-align: center;
+  margin: 20px 0;
+}
 </style>

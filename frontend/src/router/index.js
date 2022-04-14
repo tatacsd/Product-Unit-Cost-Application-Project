@@ -1,5 +1,5 @@
 import { createWebHistory, createRouter } from "vue-router";
-import HelloWorld from "../components/HelloWorld";
+import LandingPage from "../components/LandingPage";
 import MyLogin from "../components/MyLogin";
 import SignUp from "../components/SignUp";
 import UserSuppliers from "../components/UserSuppliers";
@@ -12,8 +12,8 @@ import UserProducts from "../components/UserProducts";
 const routes = [
   {
     path: "/",
-    name: "HelloWorld",
-    component: HelloWorld,
+    name: "LandingPage",
+    component: LandingPage,
   },
   {
     path: "/login",
@@ -36,7 +36,7 @@ const routes = [
     component: InvoiceDetails,
   },
   {
-    path: "/rawmaterial",
+    path: "/rawmaterials",
     name: "RawMaterial",
     component: UserRawMaterial,
   },

@@ -1,6 +1,5 @@
 <template>
-  <div class="hello">
-
+  <div class="landingPage">
     <header class="header">
       <a href="/" class="logo">PCU</a>
       <div class="header-right">
@@ -28,7 +27,7 @@ export default {
   components: {
     BaseFooter
   },
-  name: 'HelloWorld',
+  name: 'LandingPage',
   props: {
     msg: String
   }
@@ -37,7 +36,7 @@ export default {
 </script>
 
 <style scoped>
-.hello{
+.landingPage{
  background-color: #f2f2f2;
  height: 100vh;
  
