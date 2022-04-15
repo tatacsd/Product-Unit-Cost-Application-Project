@@ -123,12 +123,16 @@ public class PcuApplication {
 			rawMaterialArray.push(new RawMaterial("Mandala Crafts Genuine Leathe"));
 
 			Product p1 = new Product("CCS2205","Skrit","No_Pic","S - M - L - XL -XXL",100,200,300);
-			Product p2 = new Product("AS225","T-shirt","No_Pic","S - M - L - XL -XXL",200,300,500);
+			Product p2 = new Product("AS225","T-shirt","No_Pic","M - L",200,300,500);
 			Product p3 = new Product("cSD69","T-shirt","No_Pic","S - M - L - XL -XXL",500,500,1000);
-			Product p4 = new Product("Cd963","Shirt","No_Pic","S - M - L - XL -XXL",400,300,700);
+			Product p4 = new Product("Cd963","Shirt","No_Pic","S - M ",400,300,700);
 			Product p5 = new Product("AA005","jacket","No_Pic","S - M - L - XL -XXL",250,250,500);
 			Product p6 = new Product("Vd682","jacket","No_Pic","S - M - L - XL -XXL",500,300,800);
-			Product p7 = new Product("RF658","jacket","No_Pic","S - M - L - XL -XXL",200,550,750);
+			Product p7 = new Product("RF658","jacket","No_Pic"," XL -XXL",200,550,750);
+			Product p8 = new Product("RF658","jacket","No_Pic","S - XL -XXL",1100,300,1400);
+			Product p9 = new Product("RF658","jacket","No_Pic","S - M - L ",250,300,650);
+			Product p10 = new Product("RF658","jacket","No_Pic"," M - L - XL -XXL",500,550,1050);
+
 
 
 			for(int x = 0; x<variableCostArray.size();x++) {
@@ -139,6 +143,10 @@ public class PcuApplication {
 				p5.addVaraibleCost(variableCostArray.get(x));
 				p6.addVaraibleCost(variableCostArray.get(x));
 				p7.addVaraibleCost(variableCostArray.get(x));
+				p8.addVaraibleCost(variableCostArray.get(x));
+				p9.addVaraibleCost(variableCostArray.get(x));
+				p10.addVaraibleCost(variableCostArray.get(x));
+
 
 			}
 
