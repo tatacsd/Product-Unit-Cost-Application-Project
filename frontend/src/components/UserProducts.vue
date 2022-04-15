@@ -3,20 +3,19 @@
     <!-- Header -->
     <BaseHeaderDashboard />
     <!-- Body -->
-    <h1>Suppliers</h1>
+    <h1>Products</h1>
     <div class="container">
       <div class="table">
         <div class="row-header">
           <div class="cell">ID</div>
-          <div class="cell">First Name</div>
-          <div class="cell">Last Name</div>
-          <div class="cell">Phone</div>
-          <div class="cell">Email</div>
-          <div class="cell">Address</div>
+          <div class="cell">Code</div>
+          <div class="cell">Discription</div>
+          <div class="cell">Picture</div>
+          <div class="cell">Size</div>
           <div class="cell"></div>
         </div>
         <div class="row">
-          <!-- Add supplier -->
+          <!-- Add product -->
           <div class="cell">
             <p class="add-btn" v-if="!update">
               <img
@@ -24,16 +23,21 @@
                 alt="add"
                 width="20"
                 height="20"
-                @click="addSupplier()"
+                @click="addProduct()"
               />
+            </p>
+          </div>
+          <div class="cell">
+            <p>
+              <input type="text" v-model="code" placeholder="Code" required />
             </p>
           </div>
           <div class="cell">
             <p>
               <input
                 type="text"
-                v-model="firstName"
-                placeholder="First Name"
+                v-model="discription"
+                placeholder="Discription"
                 required
               />
             </p>
@@ -42,30 +46,15 @@
             <p>
               <input
                 type="text"
-                v-model="lastName"
-                placeholder="Last Name"
+                v-model="picture"
+                placeholder="Picture"
                 required
               />
             </p>
           </div>
           <div class="cell">
             <p>
-              <input type="text" v-model="phone" placeholder="Phone" required />
-            </p>
-          </div>
-          <div class="cell">
-            <p>
-              <input type="text" v-model="email" placeholder="Email" required />
-            </p>
-          </div>
-          <div class="cell">
-            <p>
-              <input
-                type="text"
-                v-model="address"
-                placeholder="Address"
-                required
-              />
+              <input type="text" v-model="size" placeholder="Size" required />
             </p>
           </div>
           <div class="cell">
@@ -76,19 +65,18 @@
               width="20"
               height="20"
               v-if="update"
-              @click="updateSupplier()"
+              @click="updateProduct()"
               class="img-update"
             />
           </div>
         </div>
-        <div class="row" v-for="supplier in suppliers" :key="supplier.id">
-          <div class="cell">{{ supplier.supplierID }}</div>
-          <div class="cell">{{ supplier.firstName }}</div>
-          <div class="cell">{{ supplier.lastName }}</div>
-          <div class="cell">{{ supplier.phone }}</div>
-          <div class="cell">{{ supplier.email }}</div>
-          <div class="cell">{{ supplier.address }}</div>
-          <!-- Delete and edit supplier -->
+        <div class="row" v-for="product in products" :key="product.id">
+          <div class="cell">{{ product.productID }}</div>
+          <div class="cell">{{ product.code }}</div>
+          <div class="cell">{{ product.discription }}</div>
+          <div class="cell">{{ product.picture }}</div>
+          <div class="cell">{{ product.size }}</div>
+          <!-- Delete and edit product -->
           <div class="cell">
             <p class="delete-btn">
               <img
@@ -96,7 +84,7 @@
                 alt="delete"
                 width="20"
                 height="20"
-                @click="deleteSupplier(supplier.supplierID)"
+                @click="deleteProduct(product.productID)"
               />
             </p>
             <p class="edit-btn">
@@ -105,7 +93,7 @@
                 alt="edit"
                 width="20"
                 height="20"
-                @click="editSupplier(supplier.supplierID)"
+                @click="editProduct(product.productID)"
               />
             </p>
           </div>
@@ -121,7 +109,7 @@
 <script>
 import BaseHeaderDashboard from "./Base/BaseHeaderDashboard.vue";
 import BaseFooter from "./Base/BaseFooter.vue";
-import SupplierDataServices from "../services/SupplierDataServices";
+import ProductDataServices from "../services/ProductDataServices";
 export default {
   components: {
     BaseHeaderDashboard,
@@ -129,12 +117,11 @@ export default {
   },
   data() {
     return {
-      suppliers: [],
-      firstName: "",
-      lastName: "",
-      phone: "",
-      email: "",
-      address: "",
+      products: [],
+      code: "",
+      discription: "",
+      picture: "",
+      size: "",
       error: "",
       success: "",
       update: false,
@@ -145,118 +132,111 @@ export default {
       this.error = "";
       this.success = "";
     },
-    getSuppliers() {
-      SupplierDataServices.get()
+    getProducts() {
+      ProductDataServices.get()
         .then((response) => {
           // add the response to the data object
-          this.suppliers = response.data;
+          this.products = response.data;
         })
         .catch((error) => {
           this.error = error.response.data.error;
         });
     },
-    addSupplier() {
+    addProduct() {
       this.cleanMsgs();
-      // if fields are not empty add supplier
+      // if fields are not empty add product
       if (
-        this.firstName != "" &&
-        this.lastName != "" &&
-        this.phone != "" &&
-        this.email != "" &&
-        this.address != ""
+        this.code != "" &&
+        this.discription != "" &&
+        this.picture != "" &&
+        this.size != ""
       ) {
-        const supplier = {
-          supplierID: this.supplierID,
-          firstName: this.firstName,
-          lastName: this.lastName,
-          phone: this.phone,
-          email: this.email,
-          address: this.address,
+        const product = {
+          productID: this.productID,
+          code: this.code,
+          discription: this.discription,
+          picture: this.picture,
+          size: this.size,
         };
 
-        SupplierDataServices.post(supplier)
+        ProductDataServices.post(product)
           .then(() => {
-            this.getSuppliers();
+            this.getProducts();
             // clear the input fields
-            this.firstName = "";
-            this.lastName = "";
-            this.phone = "";
-            this.email = "";
-            this.address = "";
+            this.code = "";
+            this.discription = "";
+            this.picture = "";
+            this.size = "";
 
             // set the success message
-            this.success = "Supplier added successfully";
+            this.success = "Product added successfully";
           })
           .catch((error) => {
-            this.error = "Supplier not added ->" + error;
+            this.error = "Product not added ->" + error;
           });
       } else {
         this.error = "Please fill in all the fields";
       }
     },
-    deleteSupplier(id) {
+    deleteProduct(id) {
       this.cleanMsgs();
-      SupplierDataServices.deleteById(id)
+      ProductDataServices.deleteById(id)
         .then(() => {
-          this.getSuppliers();
-          this.success = "Supplier deleted successfully";
+          this.getProducts();
+          this.success = "Product deleted successfully";
         })
         .catch((error) => {
-          this.error = "Supplier could not be deleted ->" + error;
+          this.error = "Product could not be deleted ->" + error;
         });
     },
-    editSupplier(id) {
+    editProduct(id) {
       this.cleanMsgs();
-      // find a supplier with the id and add values to the field
-      const supplierUpdate = this.suppliers.find(
-        (supplier) => supplier.supplierID == id
+      // find a product with the id and add values to the field
+      const productUpdate = this.products.find(
+        (product) => product.productID == id
       );
-      this.firstName = supplierUpdate.firstName;
-      this.lastName = supplierUpdate.lastName;
-      this.phone = supplierUpdate.phone;
-      this.email = supplierUpdate.email;
-      this.address = supplierUpdate.address;
+      this.code = productUpdate.code;
+      this.discription = productUpdate.discription;
+      this.picture = productUpdate.picture;
+      this.size = productUpdate.size;
       this.update = true;
 
-      // set a local storage to the id of the supplier
-      localStorage.setItem("supplierID", id);
+      // set a local storage to the id of the product
+      localStorage.setItem("productID", id);
     },
-    updateSupplier() {
+    updateProduct() {
       this.cleanMsgs();
-      // if fields are not empty update supplier
+      // if fields are not empty update product
       if (
-        this.firstName != "" &&
-        this.lastName != "" &&
-        this.phone != "" &&
-        this.email != "" &&
-        this.address != ""
+        this.code != "" &&
+        this.discription != "" &&
+        this.picture != "" &&
+        this.size != ""
       ) {
-        const supplier = {
-          supplierID: localStorage.getItem("supplierID"),
-          firstName: this.firstName,
-          lastName: this.lastName,
-          phone: this.phone,
-          email: this.email,
-          address: this.address,
+        const product = {
+          productID: localStorage.getItem("productID"),
+          code: this.code,
+          discription: this.discription,
+          picture: this.picture,
+          size: this.size,
         };
         // add to api
-        SupplierDataServices.put(localStorage.getItem("supplierID"), supplier)
+        ProductDataServices.put(localStorage.getItem("productID"), product)
           .then(() => {
-            this.getSuppliers();
+            this.getProducts();
           })
           .catch((error) => {
-            this.error = "Supplier not updated ->" + error;
+            this.error = "Product not updated ->" + error;
           });
         this.update = false;
         // clear the input fields
-        this.firstName = "";
-        this.lastName = "";
-        this.phone = "";
-        this.email = "";
-        this.address = "";
+        this.code = "";
+        this.discription = "";
+        this.picture = "";
+        this.size = "";
 
         // set message to update
-        this.success = "Supplier updated";
+        this.success = "Product updated";
       } else {
         this.error = "Please fill in all the fields";
       }
@@ -265,10 +245,10 @@ export default {
   mounted() {
     if (localStorage.getItem("user")) {
       console.log(localStorage.getItem("user"));
-      SupplierDataServices.get()
+      ProductDataServices.get()
         .then((response) => {
           // add the response to the data object
-          this.suppliers = response.data;
+          this.products = response.data;
         })
         .catch((error) => {
           this.error = error.response.data.error;

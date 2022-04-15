@@ -68,7 +68,7 @@ public class PcuApplication {
 
 			
 			//-1 Actor
-			actorRepository.save(new Actor("Thays Company","Sport Garment",559594, "www.admin.com","admin@admin.ca","admin","canada" ));			
+			actorRepository.save(new Actor("Coffee Lovers","Sport Garment",123456789, "www.johndoe.com","admin@coffelovers.com","admin","Canada" ));			
 			actorRepository.findAll().forEach(System.out::println);
 		
 			//2- suppliers
