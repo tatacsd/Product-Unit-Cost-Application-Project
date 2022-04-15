@@ -10,8 +10,8 @@
           <div class="cell">Description</div>
           <div class="cell">Value</div>
         </div>
-        <div class="row" v-for="data in reportData" :key="data.description">
-          <div class="cell">{{ data.description }}</div>
+        <div class="row" v-for="data in reportData" :key="data.descrition">
+          <div class="cell">{{ data.descrition }}</div>
           <div class="cell">{{ data.value }}</div>
         </div>
       </div>
