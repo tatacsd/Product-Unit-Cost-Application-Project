@@ -58,8 +58,8 @@
                 <input
                   type="text"
                   v-model="description.netcost"
-                  placeholder="Netcost"
-                  required
+                  placeholder="0.0"
+                  disabled
                 />
               </div>
             </div>
@@ -272,6 +272,7 @@ import BaseHeaderDashboard from "./Base/BaseHeaderDashboard.vue";
 import BaseFooter from "./Base/BaseFooter.vue";
 import RawMaterialDataServices from "../services/RawMaterialDataServices";
 import VariableCostsDataServices from "../services/VariableCostsDataServices";
+import ProductDataServices from "../services/ProductDataServices";
 
 export default {
   components: {
@@ -282,7 +283,7 @@ export default {
     return {
       description: {
         code: "",
-        description: "",
+        discription: "",
         picture: "",
         size: "",
         netcost: "",
@@ -326,6 +327,7 @@ export default {
         });
 
         this.totalRawMaterials += this.quantity * this.value;
+        this.description.netcost = this.totalRawMaterials + this.totalVarCosts;
 
         // clear fields
         this.selected = "";
@@ -355,6 +357,8 @@ export default {
       this.quantity = rawMaterial.quantity;
       this.value = rawMaterial.value;
       this.total = rawMaterial.total;
+
+      localStorage.setItem("previousRawMaterialTotalValue", rawMaterial.total);
       // set the update to true
       this.update = true;
     },
@@ -372,6 +376,13 @@ export default {
         rawMaterial.total = this.quantity * this.value;
         // set the update to false
         this.update = false;
+
+        // update total value
+        this.totalRawMaterials -= localStorage.getItem(
+          "previousRawMaterialTotalValue"
+        );
+        this.totalRawMaterials += rawMaterial.total;
+        this.description.netcost = this.totalRawMaterials + this.totalVarCosts;
 
         // clear the fields
         this.selected = "";
@@ -405,6 +416,7 @@ export default {
         this.variableCosts.push(variableCosts);
 
         this.totalVarCosts += variableCosts.value;
+        this.description.netcost = this.totalRawMaterials + this.totalVarCosts;
 
         // clear fields
         this.selectedVariableCosts = "";
@@ -423,38 +435,47 @@ export default {
         return variableCosts.variableCostId != id;
       });
     },
-  },
-  submit() {
-    console.log(this.rawMaterials);
-    console.log(this.variableCosts);
+    submit() {
+      console.log(this.rawMaterials);
+      console.log(this.variableCosts);
+      // check if the fields are not empty
+      if (
+        this.description.code != "" &&
+        this.description.discription != "" &&
+        this.description.picture != "" &&
+        this.description.size != "" &&
+        this.description.netcost != ""
+      ) {
+        // creat a product json
+        let product = {
+          productID: Math.floor(Math.random() * 100),
+          code: this.description.code,
+          discription: this.description.discription,
+          picture: this.description.picture,
+          size: this.description.size,
+          totalMaterialCost: this.totalRawMaterials,
+          variableCosts: this.variableCosts,
+          rawMaterials: this.rawMaterials,
+          netCost: this.description.netcost,
+          totalvariableCosts: this.totalVarCosts,
+        };
 
-    // creat a product json
-    let product = {
-      productID: Math.floor(Math.random() * 100),
-      code: this.description.code,
-      discription: this.description.description,
-      picture: this.description.picture,
-      size: this.description.size,
-      totalMaterialCost: this.totalRawMaterials,
-      variableCosts: [
-        {
-          description: "canada",
-          value: 32.0,
-          dateTime: "2022-04-15",
-          variableCostId: 38,
-        },
-      ],
-      rawMaterials: [
-        {
-          name: "Flat Waxed Thread",
-          id: 32,
-        },
-      ],
-      netCost: this.description.netcost,
-      totalvariableCosts: this.totalVarCosts,
-    };
-
-    console.log(product);
+        console.log(product);
+        // send the product to the server
+        ProductDataServices.post(product)
+          .then((response) => {
+            console.log(response);
+            // alert("Product created successfully");
+            // this.$router.push("/products");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } else {
+        alert("Please fill all the fields");
+        return;
+      }
+    },
   },
 
   mounted() {
