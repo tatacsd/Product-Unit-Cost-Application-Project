@@ -11,7 +11,7 @@
           <div class="cell">Value</div>
         </div>
         <div class="row" v-for="data in reportData" :key="data.descrition">
-          <div class="cell">{{ data.descrition }}</div>
+          <div class="cell left">{{ data.descrition }}</div>
           <div class="cell">{{ data.value }}</div>
         </div>
       </div>
@@ -85,5 +85,9 @@ h1 {
   display: table-cell;
   vertical-align: middle;
   max-height: 10px;
+}
+
+.left {
+  text-align: left;
 }
 </style>

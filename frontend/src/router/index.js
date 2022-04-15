@@ -11,6 +11,7 @@ import UserVariableCosts from "../components/UserVariableCosts";
 import MainDashboard from "../components/MainDashboard";
 import UserProducts from "../components/UserProducts";
 import UserReport from "../components/UserReport";
+import CeateNewProduct from "../components/CreateNewProduct";
 
 const routes = [
   {
@@ -73,6 +74,16 @@ const routes = [
     name: "Reports",
     component: UserReport,
   },
+
+  {
+    path: "/createproduct",
+    name: "CreateNewProduct",
+    component: CeateNewProduct,
+  }
+
+
+  // TODO: Invoice
+  // TODO: Reports
 ];
 
 const router = createRouter({
