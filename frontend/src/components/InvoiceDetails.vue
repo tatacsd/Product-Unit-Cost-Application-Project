@@ -20,7 +20,7 @@
       <div id="invoiceDetails">
         <form>
           <label
-            ># <input type="text" v-model="invoiceSearch.invliceId" required
+            ># <input type="text" v-model="invoiceSearch.invliceId" disabled
           /></label>
           <label
             >#
@@ -38,12 +38,6 @@
             >Total Value: $
             <input type="text" v-model="invoiceSearch.invoiceValue" disabled
           /></label>
-          <input
-            id="submitBtn"
-            type="button"
-            value="Submit"
-            @click="searchInvoice()"
-          />
         </form>
       </div>
       <div class="container">
@@ -56,7 +50,6 @@
             <div class="cell">Date</div>
             <div class="cell">Total Value</div>
             <div class="cell">Notes</div>
-            <div class="cell"></div>
           </div>
 
           <div class="row">
@@ -72,16 +65,6 @@
                 />
               </p>
             </div>
-            <!-- <div class="cell">
-              <p>
-                <input
-                  type="text"
-                  v-model="rawMaterialInput"
-                  placeholder="Raw Material"
-                  required
-                />
-              </p>
-            </div> -->
             <!-- dropdown with the raw materials type -->
             <select v-model="selected">
               <option
@@ -169,7 +152,7 @@
               {{ rawHtml }} -->
               <p>{{ this.getNameFromId(invoiceDetails.rawMaterialID) }}</p>
               <!-- {{ invoiceDetails.rawMaterialID }} -->
-              <p>{{ this.rawHtml }}</p>            
+              <p>{{ this.rawHtml }}</p>
             </div>
             <div class="cell">{{ invoiceDetails.quantity }}</div>
             <div class="cell">${{ invoiceDetails.value.toFixed(2) }}</div>
@@ -225,10 +208,10 @@ export default {
   },
   methods: {
     getNameFromId(id) {
-      if(id){
+      if (id) {
         this.rawMaterials.forEach((rawMaterial) => {
           if (rawMaterial.id == id) {
-            return this.rawHtml = rawMaterial.name;
+            return (this.rawHtml = rawMaterial.name);
           }
         });
       }
@@ -242,15 +225,14 @@ export default {
             // find the id inside the rawMaterials array
             this.rawMaterials.forEach((rawMaterial) => {
               if (rawMaterial.id == invoiceDetails.rawMaterialID) {
-               this.invoicesRawMaterialsNames.push({
+                this.invoicesRawMaterialsNames.push({
                   id: invoiceDetails.invoiceDetailsID,
                   name: rawMaterial.name,
                   rawID: rawMaterial.id,
                 });
               }
             });
-          });               
-         
+          });
         })
         .catch((error) => {
           console.log(error);
@@ -329,6 +311,9 @@ export default {
             this.valueInput = "";
             this.totalValueInput = "";
             this.notesInput = "";
+
+            // refresh the page
+            this.getInvoiceById(localStorage.getItem("invoiceDetailsID"));
 
             // add success message
             this.success = "Invoice details added successfully";
