@@ -1,161 +1,452 @@
 <template>
-    <div>
+  <div>
     <!-- Header -->
     <BaseHeaderDashboard />
     <h1>Create Product</h1>
     <div class="container">
+      <!-- Description table -->
+      <!-- Raw materials table -->
+      <div class="containerOne">
+        <h4>Raw Materials</h4>
         <div class="table">
-        <div class="column">
+          <div class="row-header">
+            <div class="cell"></div>
+            <div class="cell">Name/ID</div>
+            <div class="cell">Quantity</div>
+            <div class="cell">Value</div>
+            <div class="cell">Total</div>
+            <div class="cell"></div>
+          </div>
           <div class="row">
-              <div class="cell">Code</div>
-              <div class="cell"><input type="text" v-model="code" placeholder="Code" required /></div>
-              </div>
-          <div class="row">
-              <div class="cell">Description</div>
-              <div class="cell">
-              <input
-                type="text"
-                v-model="discription"
-                placeholder="Description"
-                required
+            <!-- Add raw material -->
+            <div class="cell">
+              <p class="add-btn" v-if="!update">
+                <img
+                  src="../assets/plus.png"
+                  alt="add"
+                  width="20"
+                  height="20"
+                  @click="addRawMaterial()"
+                />
+              </p>
+            </div>
+            <div class="cell">
+              <!-- TODO: Add dropdown here -->
+              <!-- dropdown with the raw materials type -->
+              <select v-model="selected">
+                <option
+                  v-for="rawMaterial in dropdownRawMaterials"
+                  :value="rawMaterial.id"
+                  :key="rawMaterial.id"
+                >
+                  {{ rawMaterial.name }} ({{ rawMaterial.id }})
+                </option>
+              </select>
+            </div>
+            <div class="cell">
+              <p>
+                <input
+                  type="number"
+                  v-model="quantity"
+                  placeholder="Quantity"
+                  required
+                />
+              </p>
+            </div>
+            <div class="cell">
+              <p>
+                <input
+                  type="number"
+                  v-model="value"
+                  placeholder="Value"
+                  required
+                />
+              </p>
+            </div>
+            <div class="cell">
+              <p>
+                <input
+                  type="number"
+                  v-model="total"
+                  placeholder="Total"
+                  disabled
+                />
+              </p>
+            </div>
+            <div class="cell">
+              <!-- button to update the cell  will be visible when the button add clicked-->
+              <img
+                src="../assets/floppy-disk.png"
+                alt="add"
+                width="20"
+                height="20"
+                v-if="update"
+                @click="updateRawMaterial()"
+                class="img-update"
               />
+            </div>
+            <div class="cell"></div>
           </div>
+          <div
+            class="row"
+            v-for="rawMaterial in rawMaterials"
+            :key="rawMaterial.id"
+          >
+            <div class="cell"></div>
+            <div class="cell">{{ rawMaterial.id }}</div>
+            <div class="cell">{{ rawMaterial.quantity }}</div>
+            <div class="cell">{{ rawMaterial.value }}</div>
+            <div class="cell">{{ rawMaterial.total }}</div>
+            <!-- Delete and edit rawMaterial -->
+            <div class="cell">
+              <p class="delete-btn">
+                <img
+                  src="../assets/deleteRed.png"
+                  alt="delete"
+                  width="20"
+                  height="20"
+                  @click="deleteRawMaterial(rawMaterial.id)"
+                />
+              </p>
+              <p class="edit-btn">
+                <img
+                  src="../assets/edit.png"
+                  alt="edit"
+                  width="20"
+                  height="20"
+                  @click="editRawMaterial(rawMaterial.id)"
+                />
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- variable cost table -->
+      <div class="containerTwo">
+        <h4>Variable Costs</h4>
+        <div class="table">
+          <div class="row-header">
+            <div class="cell"></div>
+            <div class="cell">Name/Value</div>
+            <div class="cell"></div>
           </div>
           <div class="row">
-              <div class="cell">Picture</div>
-              <div class="cell">
-              <input
-                type="text"
-                v-model="picture"
-                placeholder="Picture"
-                required
+            <!-- Add Variable costs -->
+            <div class="cell">
+              <p class="add-btn" v-if="!updateVariableCosts">
+                <img
+                  src="../assets/plus.png"
+                  alt="add"
+                  width="20"
+                  height="20"
+                  @click="addVariableCosts()"
+                />
+              </p>
+            </div>
+            <div class="cell">
+              <!-- TODO: Add dropdown here -->
+              <!-- dropdown with the variable costs type -->
+              <select v-model="selectedVariableCosts">
+                <option
+                  v-for="variableCosts in dropdownVariableCosts"
+                  :value="variableCosts.variableCostId"
+                  :key="variableCosts.variableCostId"
+                >
+                  {{ variableCosts.description }} ({{
+                    variableCosts.value.toFixed(2)
+                  }})
+                </option>
+              </select>
+            </div>
+
+            <div class="cell">
+              <!-- button to update the cell  will be visible when the button add clicked-->
+              <img
+                src="../assets/floppy-disk.png"
+                alt="add"
+                width="20"
+                height="20"
+                v-if="update"
+                @click="updateVariableCosts()"
+                class="img-update"
               />
+            </div>
+            <div class="cell"></div>
           </div>
-              </div>
-          <div class="row">
-              <div class="cell">Size</div>
-              <div class="cell">
-              <input type="text" v-model="size" placeholder="Size" required />
+          <div
+            class="row"
+            v-for="item in variableCosts"
+            :key="item.variableCostId"
+          >
+            <div class="cell"></div>
+            <div class="cell">
+              {{ item.description }} {{ item.value.toFixed(2) }}
+            </div>
+            <!-- Delete and edit rawMaterial -->
+            <div class="cell">
+              <p class="delete-btn">
+                <img
+                  src="../assets/deleteRed.png"
+                  alt="delete"
+                  width="20"
+                  height="20"
+                  @click="deleteVariableCosts(item.variableCostId)"
+                />
+              </p>
+              <p class="edit-btn">
+                <img
+                  src="../assets/edit.png"
+                  alt="edit"
+                  width="20"
+                  height="20"
+                  @click="editVariableCosts(rawMaterial.id)"
+                />
+              </p>
+            </div>
           </div>
-              </div>
-          <div class="row">
-              <div class="cell">Net Cost</div>
-              <div class="cell"></div>
-          </div>
         </div>
-        
-        
-    </div>
-    <div class="secondContainer">
-    <div class="secondTable">
-        <div class="caption">Raw materials</div>
-        <div class="secondRow-header">
-          <div class="secondCell">ID</div>
-          <div class="secondCell">Cost</div>
-          <div class="secondCell">Quantity</div>
-          <div class="secondCell">Total</div>
-        </div>
-        <div class="row" >
-          <div class="cell">dropdown</div>
-          <div class="cell">from dropdown</div>
-          <div class="cell"><input type="number"></div>
-          <div class="cell">{{this.totalRaw}}</div>
-          <div class="cell">
-          </div>
-        </div>
-    </div>
-        <div class="secondTable">
-        <div class="caption">Variable costs</div>
-        <div class="secondRow-header">
-          <div class="secondCell">ID</div>
-          <div class="secondCell">Name</div>
-          <div class="secondCell">Cost</div>
-        </div>
-        <div class="row" >
-          <div class="cell">dropdown</div>
-          <div class="cell">from dropdown</div>
-          <div class="cell">from dropdown</div>
-          <div class="cell">
-        </div>
-        </div>
-        </div>
-    </div>
-    <div class="totals">
+      </div>
+
+      <!-- Totals table -->
+      <!-- submit button for the api -->
+      <div class="totals">
         <div class="row">
-            <div class="cell">Total raw materials</div>
-            <div class="cell">{{totalRawMaterials}}</div>
+          <div class="cell">Total raw materials</div>
+          <div class="cell">{{ totalRawMaterials }}</div>
         </div>
         <div class="row">
-            <div class="cell">Total variable costs</div>
-            <div class="cell">{{totalVarCosts}}</div>
+          <div class="cell">Total variable costs</div>
+          <div class="cell">{{ totalVarCosts }}</div>
         </div>
+      </div>
+
+      <BaseFooter />
     </div>
-    
-    
-
-
-
-
-
-
-    
-    <BaseFooter />
-</div>
-</div>
+  </div>
 </template>
 
 <script>
 import BaseHeaderDashboard from "./Base/BaseHeaderDashboard.vue";
 import BaseFooter from "./Base/BaseFooter.vue";
+import RawMaterialDataServices from "../services/RawMaterialDataServices";
+import VariableCostsDataServices from "../services/VariableCostsDataServices";
 
 export default {
   components: {
     BaseHeaderDashboard,
     BaseFooter,
-  }};
+  },
+  data() {
+    return {
+      selected: "",
+      quantity: "",
+      value: "",
+      total: "",
+      rawMaterials: [],
+      variableCosts: [],
+      selectedVariableCosts: "",
+      valueVariableCosts: "",
+      dropdownRawMaterials: [],
+      dropdownVariableCosts: [],
+      totalRawMaterials: 0,
+      totalVarCosts: 0,
+      update: false,
+      updateVariableCosts: false,
+    };
+  },
+  methods: {
+    getRawMaterials() {
+      RawMaterialDataServices.get()
+        .then((response) => {
+          this.dropdownRawMaterials = response.data;
+          //   console.log(this.dropdownRawMaterials);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    addRawMaterial() {
+      // check if the fields are not empty
+      if (this.selected != "" && this.quantity != "" && this.value != "") {
+        // add the data to the rawMaterials array
+        this.rawMaterials.push({
+          id: this.selected,
+          quantity: this.quantity,
+          value: this.value,
+          total: this.quantity * this.value,
+        });
 
+        // clear fields
+        this.selected = "";
+        this.quantity = "";
+        this.value = "";
+        this.total = "";
 
+        // update total
+        this.updateRawMaterials();
+
+        console.log(this.rawMaterials);
+      } else {
+        alert("Please fill all the fields");
+        return;
+      }
+    },
+    deleteRawMaterial(id) {
+      // delete the raw material from the array
+      this.rawMaterials = this.rawMaterials.filter((rawMaterial) => {
+        return rawMaterial.id != id;
+      });
+    },
+    editRawMaterial(id) {
+      // find the raw material in the array
+      let rawMaterial = this.rawMaterials.find((rawMaterial) => {
+        return rawMaterial.id == id;
+      });
+      // set the values to the fields
+      this.selected = rawMaterial.id;
+      this.quantity = rawMaterial.quantity;
+      this.value = rawMaterial.value;
+      this.total = rawMaterial.total;
+      // set the update to true
+      this.update = true;
+    },
+    updateRawMaterial() {
+      console.log(this.selected);
+      // find the raw material in the array
+      try {
+        let rawMaterial = this.rawMaterials.find((rawMaterial) => {
+          return rawMaterial.id == this.selected;
+        });
+        // update the raw material
+        rawMaterial.id = this.selected;
+        rawMaterial.quantity = this.quantity;
+        rawMaterial.value = this.value;
+        rawMaterial.total = this.quantity * this.value;
+        // set the update to false
+        this.update = false;
+
+        // clear the fields
+        this.selected = "";
+        this.quantity = "";
+        this.value = "";
+        this.total = "";
+      } catch (error) {
+        alert("You cant change the id");
+      }
+    },
+
+    // methods for variable costs
+    getVariableCosts() {
+      VariableCostsDataServices.get()
+        .then((response) => {
+          this.dropdownVariableCosts = response.data;
+          console.log(this.dropdownVariableCosts);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    addVariableCosts() {
+      // check if the fields are not empty
+      if (this.selectedVariableCosts != "") {
+        console.log(this.selectedVariableCosts);
+        // using the this.selectedVariableCosts to find the variable costs
+        let variableCostsSelection = this.dropdownVariableCosts.find(
+          (variableCosts) => {
+            return variableCosts.id == this.selectedVariableCosts;
+          }
+        );
+        this.variableCosts.push(variableCostsSelection);
+
+        // clear fields
+        this.selectedVariableCosts = "";
+        this.valueVariableCosts = "";
+
+        console.log(this.variableCosts);
+      } else {
+        alert("Please fill all the fields");
+        return;
+      }
+    },
+    deleteVariableCosts(id) {
+      // delete the variable costs from the array
+      this.variableCosts = this.variableCosts.filter((variableCosts) => {
+        return variableCosts.id != id;
+      });
+    },
+    editVariableCosts(id) {
+      // find the variable costs in the array
+      let variableCosts = this.variableCosts.find((variableCosts) => {
+        return variableCosts.id == id;
+      });
+      // set the values to the fields
+      this.selectedVariableCosts = variableCosts.id;
+      this.valueVariableCosts = variableCosts.value;
+      // set the update to true
+      this.update = true;
+    },
+  },
+
+  updateTotalRawMaterials() {
+    // calculate the total raw materials
+    this.totalRawMaterials = 0;
+    this.rawMaterials.forEach((rawMaterial) => {
+      this.totalRawMaterials += rawMaterial.total;
+    });
+  },
+  updateTotalVarCosts() {
+    // calculate the total variable costs
+    this.totalVarCosts = 0;
+    this.variableCosts.forEach((variableCosts) => {
+      this.totalVarCosts += variableCosts.value;
+    });
+  },
+
+  mounted() {
+    this.getRawMaterials();
+    this.getVariableCosts();
+  },
+};
 </script>
 
 <style scoped>
-
-.caption{
-    display:table-caption;
-    text-align: center;
-    
+.table {
+  display: table;
+  justify-content: top;
 }
 
-.secondContainer{
-    display:flex;
-}
-.table{
-    display: table;
-}
-.secondTable{
-    display: table;
+.row-header {
+  display: table-row;
+  background-color: black;
+  color: white;
+  text-align: center;
 }
 
-.row{
-    display: table-row;
+.row {
+  display: table-row;
+  background: #f6f6f6;
+  text-align: center;
 }
-.secondRow-header{
-    display:table-row;
-    background-color: black;
-    color: white;
-}
-
-.cell{
-    display: table-cell;
-    padding: 6px 12px;
-}
-.secondCell{
-    display: table-cell;
-    padding: 5px 4vw;
-}
-.totals{
-    display: table;
-    float: left;
-    margin-top: 2vh;
+.cell {
+  padding: 6px 12px;
+  display: table-cell;
+  vertical-align: middle;
+  max-height: 10px;
 }
 
+.delete-btn,
+.edit-btn,
+.add-btn {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin: 0 5px;
+}
+
+/* on hover change image */
+.delete-btn:hover,
+.edit-btn:hover,
+.add-btn:hover {
+  cursor: pointer;
+}
 </style>
