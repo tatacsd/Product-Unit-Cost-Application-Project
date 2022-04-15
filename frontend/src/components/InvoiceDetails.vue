@@ -451,6 +451,10 @@ input#submitBtn {
   max-height: 10px;
 }
 
+select {
+  margin: 1vh auto;
+}
+
 .delete-btn,
 .edit-btn,
 .add-btn {

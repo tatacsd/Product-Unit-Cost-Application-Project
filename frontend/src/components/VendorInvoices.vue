@@ -288,6 +288,9 @@ input#submitBtn {
   vertical-align: middle;
   max-height: 10px;
 }
+select {
+  visibility: hidden;
+}
 
 .delete-btn,
 .edit-btn,
