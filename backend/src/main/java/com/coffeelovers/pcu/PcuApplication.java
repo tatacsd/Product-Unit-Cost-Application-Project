@@ -68,7 +68,7 @@ public class PcuApplication {
 
 			
 			//-1 Actor
-			actorRepository.save(new Actor("Thays Company","Sport Garment",559594, "www.Thays.com","login@Thays.com","login","canada" ));			
+			actorRepository.save(new Actor("Thays Company","Sport Garment",559594, "www.admin.com","admin@admin.ca","admin","canada" ));			
 			actorRepository.findAll().forEach(System.out::println);
 		
 			//2- suppliers
@@ -175,43 +175,38 @@ public class PcuApplication {
 			productRepository.findAll().forEach(System.out::println);
 						
 		
-				/* note1: - no need to save the leader class's objects(that has the realtion Creation becouse the dependent class will save the record in both tables)
-				
-						  - in the leader  class(that hold the relational table), no need to add any additional method more than set and get.....
-						  
-						  - in the dependen class, we must create a class to pupulate the set array for both class.
-				*/
-		
 			// invoice - invloc detals
 			Stack<InvoiceDetails> invoiceDetails = new Stack<>();
-			invoiceDetails.push( new InvoiceDetails(15,20,2,5000,"no notes"));
-			invoiceDetails.push( new InvoiceDetails(16,30,3,9000,"no notes"));
-			invoiceDetails.push( new InvoiceDetails(17,40,1,1000,"no notes"));
-			invoiceDetails.push( new InvoiceDetails(18,40,1,1000,"no notes"));
-			invoiceDetails.push( new InvoiceDetails(19,40,1,1000,"no notes"));
-			invoiceDetails.push( new InvoiceDetails(20,40,1,1000,"no notes"));
-			invoiceDetails.push( new InvoiceDetails(21,40,1,1000,"no notes"));
-			invoiceDetails.push( new InvoiceDetails(22,40,1,1000,"no notes"));
+			invoiceDetails.push( new InvoiceDetails(15,20,2,40,"no notes"));
+			invoiceDetails.push( new InvoiceDetails(16,30,3,90,"no notes"));
+			invoiceDetails.push( new InvoiceDetails(17,40,1,40,"no notes"));
+			invoiceDetails.push( new InvoiceDetails(18,40,1,40,"no notes"));
+			invoiceDetails.push( new InvoiceDetails(19,20,3,60,"no notes"));
+			invoiceDetails.push( new InvoiceDetails(20,50,3,150,"no notes"));
+			invoiceDetails.push( new InvoiceDetails(21,80,2,160,"no notes"));
+			invoiceDetails.push( new InvoiceDetails(22,90,1,180,"no notes"));
 
-			Invoice newInvoice1 = new Invoice("002",1,15000);
-			Invoice newInvoice2 = new Invoice("021",1,20000);
-			Invoice newInvoice3 = new Invoice("201",1,30000);
-			Invoice newInvoice4 = new Invoice("450",2,40000);
-			Invoice newInvoice5 = new Invoice("350",2,50000);
-			Invoice newInvoice6 = new Invoice("250",2,60000);
-			Invoice newInvoice7 = new Invoice("550",3,50000);
+			Invoice newInvoice1 = new Invoice("002",1,40);
+			Invoice newInvoice2 = new Invoice("021",1,90);
+			Invoice newInvoice3 = new Invoice("201",1,40);
+			Invoice newInvoice4 = new Invoice("450",2,40);
+			Invoice newInvoice5 = new Invoice("350",2,60);
+			Invoice newInvoice6 = new Invoice("250",2,150);
+			Invoice newInvoice7 = new Invoice("550",3,160);
+			Invoice newInvoice8 = new Invoice("220",3,180);
+
 			
-			for(int x = 0; x<invoiceDetails.size();x++) {
 								
-				newInvoice1.addInvoiceDetails(invoiceDetails.get(0));
-				newInvoice2.addInvoiceDetails(invoiceDetails.get(1));
-				newInvoice3.addInvoiceDetails(invoiceDetails.get(2));
-				newInvoice4.addInvoiceDetails(invoiceDetails.get(3));
-				newInvoice5.addInvoiceDetails(invoiceDetails.get(4));
-				newInvoice6.addInvoiceDetails(invoiceDetails.get(5));
-				newInvoice7.addInvoiceDetails(invoiceDetails.get(6));
+			newInvoice1.addInvoiceDetails(invoiceDetails.get(0));
+			newInvoice2.addInvoiceDetails(invoiceDetails.get(1));
+			newInvoice3.addInvoiceDetails(invoiceDetails.get(2));
+			newInvoice4.addInvoiceDetails(invoiceDetails.get(3));
+			newInvoice5.addInvoiceDetails(invoiceDetails.get(4));
+			newInvoice6.addInvoiceDetails(invoiceDetails.get(5));
+			newInvoice7.addInvoiceDetails(invoiceDetails.get(6));
+			newInvoice8.addInvoiceDetails(invoiceDetails.get(7));
 				
-			}
+		
 			
 			
 			invoiceRepository.save(newInvoice1);
@@ -221,6 +216,7 @@ public class PcuApplication {
 			invoiceRepository.save(newInvoice5);
 			invoiceRepository.save(newInvoice6);
 			invoiceRepository.save(newInvoice7);
+			invoiceRepository.save(newInvoice8);
 
 
 
