@@ -23,7 +23,7 @@
             placeholder="Supplier Number"
             required
             v-model="newInvoice.supplierNumber"
-        /> -->
+          /> -->
           <select
             class="form-input"
             v-model="newInvoice.supplierNumber"
@@ -135,10 +135,9 @@ export default {
       InvoiceDataServices.get()
         .then((response) => {
           this.invoices = response.data;
-          console.log(this.invoices);
         })
         .catch((error) => {
-          console.log(error);
+          this.error = "Erro fetching invoices -> " + error;
         });
     },
     getInvoiceById(id) {
@@ -146,10 +145,9 @@ export default {
       InvoiceDataServices.getById(id)
         .then((response) => {
           this.invoices = response.data;
-          console.log(response.data);
         })
         .catch((error) => {
-          console.log(error);
+          this.error = "Erro fetching invoices by ID-> " + error;
         });
     },
     deleteInvoiceById(id) {
@@ -205,17 +203,20 @@ export default {
           });
       }
     },
+    getSuppliers() {
+      SupplierDataServices.get()
+        .then((response) => {
+          this.suppliers = response.data;
+          console.log(this.suppliers);
+        })
+        .catch((error) => {
+          this.error = "Error fetching suppliers -> " + error;
+        });
+    },
   },
   mounted() {
     this.getInvoices();
-    SupplierDataServices.get()
-      .then((response) => {
-        this.suppliers = response.data;
-        console.log(this.suppliers);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    this.getSuppliers();
   },
 };
 </script>
@@ -287,9 +288,6 @@ input#submitBtn {
   display: table-cell;
   vertical-align: middle;
   max-height: 10px;
-}
-select {
-  visibility: hidden;
 }
 
 .delete-btn,
