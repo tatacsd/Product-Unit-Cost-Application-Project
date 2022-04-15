@@ -125,18 +125,6 @@
                 />
               </p>
             </div>
-            <!-- button to update the cell  will be visible when the button add clicked-->
-            <!-- <div class="cell">
-              <img
-                src="../assets/floppy-disk.png"
-                alt="add"
-                width="20"
-                height="20"
-                v-if="update"
-                @click="updateSupplier()"
-                class="img-update"
-              />
-            </div> -->
           </div>
 
           <!-- For each invoiceDetails add a row -->
@@ -150,8 +138,8 @@
             <div class="cell left">
               <!-- {{ this.getNameFromId(invoiceDetails.rawMaterialID) }}
               {{ rawHtml }} -->
-              <p>{{ this.getNameFromId(invoiceDetails.rawMaterialID) }}</p>
               <!-- {{ invoiceDetails.rawMaterialID }} -->
+              <p>{{ this.getNameFromId(invoiceDetails.rawMaterialID) }}</p>
               <p>{{ this.rawHtml }}</p>
             </div>
             <div class="cell">{{ invoiceDetails.quantity }}</div>
@@ -369,6 +357,9 @@ export default {
         });
 
       this.searchInvoice();
+
+      // reload the page
+      location.reload();
     },
     backToPreviousPage() {
       window.history.back();
@@ -378,6 +369,7 @@ export default {
     if (localStorage.getItem("user")) {
       this.getInvoiceById(localStorage.getItem("invoiceDetailsID"));
       this.getRawMaterial();
+      console.log("here");
     } else {
       this.$router.push("/login");
       console.log("not logged in");
