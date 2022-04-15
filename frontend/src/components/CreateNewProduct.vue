@@ -56,8 +56,16 @@
           <div class="secondCell">Total</div>
         </div>
         <div class="row" >
-          <div class="cell">dropdown</div>
-          <div class="cell">from dropdown</div>
+          <div class="cell"><select v-model="selected">
+            <option
+              v-for="rawMaterial in rawMaterials"
+              :value="rawMaterial.id"
+              :key="rawMaterial.id"
+            >
+              {{ rawMaterial.name }} ({{ rawMaterial.id }})
+            </option>
+          </select></div>
+          <div class="cell"><input type="number"></div>
           <div class="cell"><input type="number"></div>
           <div class="cell">{{this.totalRaw}}</div>
           <div class="cell">
@@ -67,14 +75,20 @@
         <div class="secondTable">
         <div class="caption">Variable costs</div>
         <div class="secondRow-header">
-          <div class="secondCell">ID</div>
-          <div class="secondCell">Name</div>
+          <div class="secondCell">Name/ID</div>
           <div class="secondCell">Cost</div>
         </div>
         <div class="row" >
-          <div class="cell">dropdown</div>
-          <div class="cell">from dropdown</div>
-          <div class="cell">from dropdown</div>
+          <div class="cell"><select v-model="selected">
+            <option
+              v-for="variableCost in variableCosts"
+              :value="variableCost.id"
+              :key="variableCost.id"
+            >
+              {{ variableCost.description }} ({{ variableCost.variableCostId }})
+            </option>
+          </select></div>
+          <div class="cell"><input type="text"/></div>
           <div class="cell">
         </div>
         </div>
@@ -107,12 +121,49 @@
 <script>
 import BaseHeaderDashboard from "./Base/BaseHeaderDashboard.vue";
 import BaseFooter from "./Base/BaseFooter.vue";
+import RawMaterialDataServices from "../services/RawMaterialDataServices";
+import VariableCostsDataServices from "../services/VariableCostsDataServices";
 
 export default {
   components: {
     BaseHeaderDashboard,
     BaseFooter,
-  }};
+  },
+  data(){
+      return {
+      rawMaterials: [],
+      rawMaterialsId: "",
+      rawMaterialsCost: "",
+      variableCosts: [],
+      variableCostsId: "",
+
+    };
+  },
+  methods: {
+    getRawMaterials() {
+      RawMaterialDataServices.get()
+        .then((response) => {
+          this.rawMaterials = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    getVariableCosts(){
+        VariableCostsDataServices.get()
+        .then((respons) => {
+            this.variableCosts = respons.data;
+        }).catch((error) =>{
+            console.log(error);
+        });
+    }
+  },mounted() {
+    this.getRawMaterials();
+    this.getVariableCosts();
+  },
+};
+  
+  
 
 
 </script>
