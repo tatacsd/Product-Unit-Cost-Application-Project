@@ -2,6 +2,7 @@ package com.coffeelovers.pcu.controller;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.List;
@@ -41,7 +42,7 @@ public class ReportController {
 		OptionalDouble productMaxValue; 
 		OptionalDouble productMinValue;
 		String productCostStandardDeviation ;
-		Double productCostVirance ;
+		Double productCostMedian ;
 		OptionalDouble rawMaterialMaxValue; 
 		OptionalDouble varaiableMaxValue; 
 
@@ -54,11 +55,16 @@ public class ReportController {
 				//
 				productCostStandardDeviation = calculateSD(productRepository.findAll().stream().mapToDouble(productValue -> productValue.getNetCost()).sum(),
 						productRepository.findAll().stream().map(v->v.getNetCost()).toArray());
-
 				reportArray.put("Product Cost Standard Deviation",productCostStandardDeviation);
 				
+				//
+				productCostMedian = getMedian(productRepository.findAll().stream().map(v->v.getNetCost()).toArray());
+				reportArray.put("Product Cost Median",productCostMedian);
+
+				//
 				reportArray.put("Product Cost Virance",Math.pow(Double.parseDouble(productCostStandardDeviation) ,2));
 
+				//
 				productMaxValue = productRepository.findAll().stream().mapToDouble(productValue -> productValue.getNetCost()).max(); // the most expensive product
 				reportArray.put("Most Expensive Product in term of Net value",productMaxValue);
 				reportArray.put("Most Expensive Product in term of Net value-Code",productRepository.findAll().stream().filter(productValue ->productValue.getNetCost()== productMaxValue.getAsDouble()).findFirst().map(c->c.getCode()));// most  expensive  product's code
@@ -86,6 +92,26 @@ public class ReportController {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	
+	
+	// calculation median
+	public static double getMedian(Object[] costArray)
+    {
+        // First we sort the array
+		int n= costArray.length;
+		double costElements[] = new double[n];
+
+		for(int x = 0; x<costElements.length;x++)
+			costElements[x] = (double)costArray[x];
+
+        Arrays.sort(costElements);
+		
+        // check for even case
+        if (n % 2 != 0)
+            return (double)costElements[n / 2];
+ 
+        return (double)(costElements[(n - 1) / 2] + costElements[n / 2]) / 2.0;
+    }
 	
 	
 	// this mothod calc the Standard Deviation of the product cost  
