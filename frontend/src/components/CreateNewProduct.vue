@@ -272,7 +272,7 @@ import BaseHeaderDashboard from "./Base/BaseHeaderDashboard.vue";
 import BaseFooter from "./Base/BaseFooter.vue";
 import RawMaterialDataServices from "../services/RawMaterialDataServices";
 import VariableCostsDataServices from "../services/VariableCostsDataServices";
-import ProductDataServices from "../services/ProductDataServices";
+import ProductDataService from "../services/ProductDataServices";
 
 export default {
   components: {
@@ -462,7 +462,7 @@ export default {
 
         console.log(product);
         // send the product to the server
-        ProductDataServices.post(product)
+        ProductDataService.post(product)
           .then((response) => {
             console.log(response);
             // alert("Product created successfully");

@@ -1,6 +1,6 @@
 import http from "../http-common.js";
 
-class ProductDataServices {
+class ProductDataService {
   // get by id
   getById(id) {
     return http.get(`/products/${id}`);
@@ -32,4 +32,4 @@ class ProductDataServices {
   }
 }
 
-export default new ProductDataServices();
+export default new ProductDataService();
