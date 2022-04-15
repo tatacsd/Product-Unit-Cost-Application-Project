@@ -6,7 +6,7 @@ import UserSuppliers from "../components/UserSuppliers";
 import VendorInvoices from "../components/VendorInvoices";
 import InvoiceDetails from "../components/InvoiceDetails";
 import NewInvoiceDetails from "../components/NewInvoiceDetails";
-import UserRawMaterial from "../components/UserRawMaterial";
+import UserRawMaterials from "../components/UserRawMaterials";
 import UserVariableCosts from "../components/UserVariableCosts";
 import MainDashboard from "../components/MainDashboard";
 import UserProducts from "../components/UserProducts";
@@ -50,8 +50,8 @@ const routes = [
   },
   {
     path: "/rawmaterials",
-    name: "RawMaterial",
-    component: UserRawMaterial,
+    name: "RawMaterials",
+    component: UserRawMaterials,
   },
   {
     path: "/variablecosts",
