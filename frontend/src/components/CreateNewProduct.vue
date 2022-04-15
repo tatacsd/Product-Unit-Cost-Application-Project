@@ -66,181 +66,183 @@
           </div>
         </div>
       </div>
-      <!-- Raw materials table -->
-      <div class="containerRaw">
-        <h4>Raw Materials</h4>
-        <div class="table">
-          <div class="row-header">
-            <div class="cell"></div>
-            <div class="cell">Name/ID</div>
-            <div class="cell">Quantity</div>
-            <div class="cell">Value</div>
-            <div class="cell">Total</div>
-            <div class="cell"></div>
-          </div>
-          <div class="row">
-            <!-- Add raw material -->
-            <div class="cell">
-              <p class="add-btn" v-if="!update">
+      <div class="containerMain">
+        <!-- Raw materials table -->
+        <div class="containerRaw">
+          <h4>Raw Materials</h4>
+          <div class="table">
+            <div class="row-header">
+              <div class="cell"></div>
+              <div class="cell">Name/ID</div>
+              <div class="cell">Quantity</div>
+              <div class="cell">Value</div>
+              <div class="cell">Total</div>
+              <div class="cell"></div>
+            </div>
+            <div class="row">
+              <!-- Add raw material -->
+              <div class="cell">
+                <p class="add-btn" v-if="!update">
+                  <img
+                    src="../assets/plus.png"
+                    alt="add"
+                    width="20"
+                    height="20"
+                    @click="addRawMaterial()"
+                  />
+                </p>
+              </div>
+              <div class="cell">
+                <!-- TODO: Add dropdown here -->
+                <!-- dropdown with the raw materials type -->
+                <select v-model="selected">
+                  <option
+                    v-for="rawMaterial in dropdownRawMaterials"
+                    :value="rawMaterial.id"
+                    :key="rawMaterial.id"
+                  >
+                    {{ rawMaterial.name }} ({{ rawMaterial.id }})
+                  </option>
+                </select>
+              </div>
+              <div class="cell">
+                <p>
+                  <input
+                    type="number"
+                    v-model="quantity"
+                    placeholder="Quantity"
+                    required
+                  />
+                </p>
+              </div>
+              <div class="cell">
+                <p>
+                  <input
+                    type="number"
+                    v-model="value"
+                    placeholder="Value"
+                    required
+                  />
+                </p>
+              </div>
+              <div class="cell">
+                <p>
+                  <input
+                    type="number"
+                    v-model="total"
+                    placeholder="Total"
+                    disabled
+                  />
+                </p>
+              </div>
+              <div class="cell">
+                <!-- button to update the cell  will be visible when the button add clicked-->
                 <img
-                  src="../assets/plus.png"
+                  src="../assets/floppy-disk.png"
                   alt="add"
                   width="20"
                   height="20"
-                  @click="addRawMaterial()"
+                  v-if="update"
+                  @click="updateRawMaterial()"
+                  class="img-update"
                 />
-              </p>
+              </div>
+              <div class="cell"></div>
             </div>
-            <div class="cell">
-              <!-- TODO: Add dropdown here -->
-              <!-- dropdown with the raw materials type -->
-              <select v-model="selected">
-                <option
-                  v-for="rawMaterial in dropdownRawMaterials"
-                  :value="rawMaterial.id"
-                  :key="rawMaterial.id"
-                >
-                  {{ rawMaterial.name }} ({{ rawMaterial.id }})
-                </option>
-              </select>
-            </div>
-            <div class="cell">
-              <p>
-                <input
-                  type="number"
-                  v-model="quantity"
-                  placeholder="Quantity"
-                  required
-                />
-              </p>
-            </div>
-            <div class="cell">
-              <p>
-                <input
-                  type="number"
-                  v-model="value"
-                  placeholder="Value"
-                  required
-                />
-              </p>
-            </div>
-            <div class="cell">
-              <p>
-                <input
-                  type="number"
-                  v-model="total"
-                  placeholder="Total"
-                  disabled
-                />
-              </p>
-            </div>
-            <div class="cell">
-              <!-- button to update the cell  will be visible when the button add clicked-->
-              <img
-                src="../assets/floppy-disk.png"
-                alt="add"
-                width="20"
-                height="20"
-                v-if="update"
-                @click="updateRawMaterial()"
-                class="img-update"
-              />
-            </div>
-            <div class="cell"></div>
-          </div>
-          <div
-            class="row"
-            v-for="rawMaterial in rawMaterials"
-            :key="rawMaterial.id"
-          >
-            <div class="cell"></div>
-            <div class="cell">{{ rawMaterial.id }}</div>
-            <div class="cell">{{ rawMaterial.quantity }}</div>
-            <div class="cell">{{ rawMaterial.value }}</div>
-            <div class="cell">{{ rawMaterial.total }}</div>
-            <!-- Delete and edit rawMaterial -->
-            <div class="cell">
-              <p class="delete-btn">
-                <img
-                  src="../assets/deleteRed.png"
-                  alt="delete"
-                  width="20"
-                  height="20"
-                  @click="deleteRawMaterial(rawMaterial.id)"
-                />
-              </p>
-              <p class="edit-btn">
-                <img
-                  src="../assets/edit.png"
-                  alt="edit"
-                  width="20"
-                  height="20"
-                  @click="editRawMaterial(rawMaterial.id)"
-                />
-              </p>
+            <div
+              class="row"
+              v-for="rawMaterial in rawMaterials"
+              :key="rawMaterial.id"
+            >
+              <div class="cell"></div>
+              <div class="cell">{{ rawMaterial.id }}</div>
+              <div class="cell">{{ rawMaterial.quantity }}</div>
+              <div class="cell">{{ rawMaterial.value }}</div>
+              <div class="cell">{{ rawMaterial.total }}</div>
+              <!-- Delete and edit rawMaterial -->
+              <div class="cell">
+                <p class="delete-btn">
+                  <img
+                    src="../assets/deleteRed.png"
+                    alt="delete"
+                    width="20"
+                    height="20"
+                    @click="deleteRawMaterial(rawMaterial.id)"
+                  />
+                </p>
+                <p class="edit-btn">
+                  <img
+                    src="../assets/edit.png"
+                    alt="edit"
+                    width="20"
+                    height="20"
+                    @click="editRawMaterial(rawMaterial.id)"
+                  />
+                </p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <!-- variable cost table -->
-      <div class="containerVariable">
-        <h4>Variable Costs</h4>
-        <div class="table">
-          <div class="row-header">
-            <div class="cell"></div>
-            <div class="cell">Name/Value</div>
-            <div class="cell"></div>
-          </div>
-          <div class="row">
-            <!-- Add Variable costs -->
-            <div class="cell">
-              <p class="add-btn" v-if="!updateVariableCosts">
-                <img
-                  src="../assets/plus.png"
-                  alt="add"
-                  width="20"
-                  height="20"
-                  @click="addVariableCosts()"
-                />
-              </p>
+        <!-- variable cost table -->
+        <div class="containerVariable">
+          <h4>Variable Costs</h4>
+          <div class="table">
+            <div class="row-header">
+              <div class="cell"></div>
+              <div class="cell">Name/Value</div>
+              <div class="cell"></div>
             </div>
-            <div class="cell">
-              <!-- TODO: Add dropdown here -->
-              <!-- dropdown with the variable costs type -->
-              <select v-model="selectedVariableCosts">
-                <option
-                  v-for="variableCosts in dropdownVariableCosts"
-                  :value="variableCosts.variableCostId"
-                  :key="variableCosts.variableCostId"
-                >
-                  {{ variableCosts.description }} ({{
-                    variableCosts.value.toFixed(2)
-                  }})
-                </option>
-              </select>
+            <div class="row">
+              <!-- Add Variable costs -->
+              <div class="cell">
+                <p class="add-btn" v-if="!updateVariableCosts">
+                  <img
+                    src="../assets/plus.png"
+                    alt="add"
+                    width="20"
+                    height="20"
+                    @click="addVariableCosts()"
+                  />
+                </p>
+              </div>
+              <div class="cell">
+                <!-- TODO: Add dropdown here -->
+                <!-- dropdown with the variable costs type -->
+                <select v-model="selectedVariableCosts">
+                  <option
+                    v-for="variableCosts in dropdownVariableCosts"
+                    :value="variableCosts.variableCostId"
+                    :key="variableCosts.variableCostId"
+                  >
+                    {{ variableCosts.description }} ({{
+                      variableCosts.value.toFixed(2)
+                    }})
+                  </option>
+                </select>
+              </div>
+              <div class="cell"></div>
             </div>
-            <div class="cell"></div>
-          </div>
-          <div
-            class="row"
-            v-for="item in variableCosts"
-            :key="item.variableCostId"
-          >
-            <div class="cell"></div>
-            <div class="cell">
-              {{ item.description }} {{ item.value.toFixed(2) }}
-            </div>
-            <!-- Delete and edit rawMaterial -->
-            <div class="cell">
-              <p class="delete-btn">
-                <img
-                  src="../assets/deleteRed.png"
-                  alt="delete"
-                  width="20"
-                  height="20"
-                  @click="deleteVariableCosts(item.variableCostId)"
-                />
-              </p>
+            <div
+              class="row"
+              v-for="item in variableCosts"
+              :key="item.variableCostId"
+            >
+              <div class="cell"></div>
+              <div class="cell">
+                {{ item.description }} {{ item.value.toFixed(2) }}
+              </div>
+              <!-- Delete and edit rawMaterial -->
+              <div class="cell">
+                <p class="delete-btn">
+                  <img
+                    src="../assets/deleteRed.png"
+                    alt="delete"
+                    width="20"
+                    height="20"
+                    @click="deleteVariableCosts(item.variableCostId)"
+                  />
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -258,10 +260,11 @@
         </div>
       </div>
       <!-- submit button for the api -->
-      <div class="submit">
-        <button type="submit" @click="submit">Submit</button>
+      <div>
+        <button class="submit" type="submit" @click="submit">Submit</button>
       </div>
-
+      <p class="success-msg" v-if="success">{{ success }}</p>
+      <p class="error-msg" v-if="error">{{ error }}</p>
       <BaseFooter />
     </div>
   </div>
@@ -302,6 +305,8 @@ export default {
       totalVarCosts: 0,
       update: false,
       updateVariableCosts: false,
+      success: "",
+      error: "",
     };
   },
   methods: {
@@ -337,7 +342,7 @@ export default {
 
         console.log(this.rawMaterials);
       } else {
-        alert("Please fill all the fields");
+        this.error = "Please fill all the fields";
         return;
       }
     },
@@ -390,7 +395,7 @@ export default {
         this.value = "";
         this.total = "";
       } catch (error) {
-        alert("You cant change the id");
+        this.error = "You can't modify the id";
       }
     },
 
@@ -424,7 +429,7 @@ export default {
 
         console.log(this.variableCosts);
       } else {
-        alert("Please fill all the fields");
+        this.error = "Please fill all the fields";
         return;
       }
     },
@@ -454,8 +459,8 @@ export default {
           picture: this.description.picture,
           size: this.description.size,
           totalMaterialCost: this.totalRawMaterials,
-          variableCosts: this.variableCosts,
-          rawMaterials: this.rawMaterials,
+          variableCosts: JSON.parse(JSON.stringify(this.variableCosts)),
+          rawMaterials: JSON.parse(JSON.stringify(this.rawMaterials)),
           netCost: this.description.netcost,
           totalvariableCosts: this.totalVarCosts,
         };
@@ -465,14 +470,14 @@ export default {
         ProductDataService.post(product)
           .then((response) => {
             console.log(response);
-            // alert("Product created successfully");
-            // this.$router.push("/products");
+            this.success = "Product added successfully";
+            this.$router.push("/products");
           })
           .catch((error) => {
-            console.log(error);
+            this.error = "Error adding product -> " + error;
           });
       } else {
-        alert("Please fill all the fields");
+        this.error = "Please fill all the fields";
         return;
       }
     },
@@ -487,6 +492,29 @@ export default {
 
 <style scoped>
 h1 {
+  text-align: center;
+}
+
+.containerMain {
+  margin-top: 10px;
+  display: flex;
+}
+
+.containerRaw {
+  overflow: auto;
+  height: 30vh;
+  width: 65vw;
+  float: left;
+}
+
+.containerVariable {
+  overflow: auto;
+  height: 30vh;
+  width: 20vw;
+  float: right;
+}
+
+h4 {
   text-align: center;
 }
 .table {
@@ -527,5 +555,47 @@ h1 {
 .edit-btn:hover,
 .add-btn:hover {
   cursor: pointer;
+}
+
+.submit {
+  float: right;
+  color: black;
+  text-align: center;
+  padding: 12px;
+  font-size: 18px;
+  line-height: 25px;
+  border-radius: 4px;
+  font-weight: bold;
+  margin-right: 3rem;
+  cursor: pointer;
+}
+
+.submit:hover {
+  background-color: black;
+  color: white;
+}
+
+/* error message */
+.error-msg {
+  color: red;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* success message */
+.success-msg {
+  color: green;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* for small screens */
+@media screen and (max-width: 600px) {
+  .containerMain {
+    /* smaller to fit */
+    flex-direction: column;
+  }
 }
 </style>
