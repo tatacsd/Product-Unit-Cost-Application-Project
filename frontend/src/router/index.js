@@ -33,7 +33,7 @@ const routes = [
     component: UserSuppliers,
   },
   {
-    path: "/vendorinvoices",
+    path: "/invoices",
     name: "VendorInvoices",
     component: VendorInvoices,
   },
@@ -61,17 +61,17 @@ const routes = [
     path: "/dashboard",
     name: "Dashboard",
     component: MainDashboard,
-
   },
   {
     path: "/products",
     name: "Products",
     component: UserProducts,
   },
-
-
-  // TODO: Invoice
-  // TODO: Reports
+  {
+    path: "/reports",
+    name: "Reports",
+    component: VendorInvoices,
+  },
 ];
 
 const router = createRouter({
