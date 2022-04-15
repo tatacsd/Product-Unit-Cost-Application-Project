@@ -12,9 +12,9 @@
     <div class="main-background">
       <a href="/invoices" class="logo">Invoices</a>
       <a href="/products" class="logo">Products</a>
-      <a href="/rawmaterials" class="logo">Raw Materials</a>
+      <a href="/rawmaterials" class="logo2">Raw Materials</a>
       <a href="/suppliers" class="logo">Suppliers</a>
-      <a href="/variablecosts" class="logo">Variable Costs</a>
+      <a href="/variablecosts" class="logo2">Variable Costs</a>
       <a href="/report" class="logo">Report</a>
     </div>
     <BaseFooter />
@@ -84,6 +84,12 @@ export default {
 .main-background a.logo {
   font-weight: bold;
   width: 15vw;
+  padding-top: 24vh;
+}
+.main-background a.logo2 {
+  font-weight: bold;
+  width: 15vw;
+  padding-top: 22vh;
 }
 .main-background a:hover {
   background-color: rgb(83, 83, 83);
@@ -104,7 +110,7 @@ export default {
   border-radius: 4px;
   font-weight: bold;
 }
-.header a.logo {
+.header a.logo, .header a.logo2 {
   font-size: 25px;
   font-weight: bold;
 }

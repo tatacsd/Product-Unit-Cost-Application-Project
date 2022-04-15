@@ -13,7 +13,7 @@
         <div class="image">
           <img
             src="../assets/LandingPagePicTeam.jpeg"
-            height="450px"
+            height="400px"
             width="500px"
           />
         </div>
@@ -46,7 +46,8 @@ export default {
 <style scoped>
 .landingPage {
   background-color: #f2f2f2;
-  height: 100vh;
+  margin: 0 auto;
+  padding: 0;
 }
 template {
   background-color: #f2f2f2;
@@ -62,11 +63,9 @@ template {
   display: flex;
   background-color: beige;
   text-align: center;
-  margin-top: 150px;
-  margin-left: 5%;
-  margin-right: 5%;
+  margin: 0 auto;
   width: 90%;
-  height: 500px;
+  height: 78vh;
   padding: 10px;
   justify-content: space-around;
   align-items: center;
