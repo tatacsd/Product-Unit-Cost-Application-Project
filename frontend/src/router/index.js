@@ -23,11 +23,11 @@ const routes = [
     name: "Login",
     component: MyLogin,
   },
-  {
-    path: "/signup",
-    name: "Signup",
-    component: SignUp,
-  },
+  // {
+  //   path: "/signup",
+  //   name: "Signup",
+  //   component: SignUp,
+  // },
   {
     path: "/suppliers",
     name: "Suppliers",

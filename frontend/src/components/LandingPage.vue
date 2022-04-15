@@ -3,8 +3,7 @@
     <header class="header">
       <a href="/" class="logo">PCU</a>
       <div class="header-right">
-        <!-- if login display dashboard and logout -->
-        <a href="signup">Sign up</a>
+        <!-- <a href="signup">Sign up</a> -->
         <a href="login">Log in</a>
       </div>
     </header>
