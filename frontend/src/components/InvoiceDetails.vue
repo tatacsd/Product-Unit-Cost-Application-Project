@@ -98,7 +98,7 @@
             <div class="cell">
               <p>
                 <input
-                  type="text"
+                  type="date"
                   v-model="dateTimeinput"
                   placeholder="yyyy-mm-dd"
                   required

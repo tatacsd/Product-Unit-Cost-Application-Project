@@ -3,17 +3,27 @@
     <header class="header">
       <a href="/" class="logo">PCU</a>
       <div class="header-right">
+        <!-- if login display dashboard and logout -->
         <a href="signup">Sign up</a>
         <a href="login">Log in</a>
       </div>
-  </header>
+    </header>
     <body>
       <div class="body">
         <div class="image">
-      <img src="../assets/LandingPagePicTeam.jpeg" height="450px" width="500px">
-      </div>
-      <p>Bring solutions to support small and medium businesses manufacturing management with specific tools to calculate their product unit cost and generate customized reports.
-         The proposed software will fit any kind of manufacturing industry such as textiles, automotive, electronics, food and beverages, pharmaceuticals etc.</p>
+          <img
+            src="../assets/LandingPagePicTeam.jpeg"
+            height="450px"
+            width="500px"
+          />
+        </div>
+        <p>
+          Bring solutions to support small and medium businesses manufacturing
+          management with specific tools to calculate their product unit cost
+          and generate customized reports. The proposed software will fit any
+          kind of manufacturing industry such as textiles, automotive,
+          electronics, food and beverages, pharmaceuticals etc.
+        </p>
       </div>
     </body>
     <BaseFooter />
@@ -21,42 +31,38 @@
 </template>
 
 <script>
-
 import BaseFooter from "./Base/BaseFooter.vue";
 export default {
   components: {
-    BaseFooter
+    BaseFooter,
   },
-  name: 'LandingPage',
+  name: "LandingPage",
   props: {
-    msg: String
-  }
-}
-
+    msg: String,
+  },
+};
 </script>
 
 <style scoped>
-.landingPage{
- background-color: #f2f2f2;
- height: 100vh;
- 
-}
-template{
+.landingPage {
   background-color: #f2f2f2;
-  
+  height: 100vh;
+}
+template {
+  background-color: #f2f2f2;
 }
 .footer {
-   position:absolute;
-   bottom:0;
-   width:100%;
-   height:20px;   /* Height of the footer */
-   background:rgb(177, 172, 172);
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 20px; /* Height of the footer */
+  background: rgb(177, 172, 172);
 }
-.body{
+.body {
   display: flex;
   background-color: beige;
   text-align: center;
-  margin-top:150px;
+  margin-top: 150px;
   margin-left: 5%;
   margin-right: 5%;
   width: 90%;
@@ -65,20 +71,20 @@ template{
   justify-content: space-around;
   align-items: center;
 }
-.body p{
+.body p {
   font-size: 28px;
   text-align: justify;
   width: 150%;
-  padding-right:3%;
+  padding-right: 3%;
   padding-left: 3%;
 }
-.image{
-  padding-left:0px;
+.image {
+  padding-left: 0px;
   float: left;
   width: 80%;
   border-radius: 10px;
 }
-.image img{
+.image img {
   border-radius: 10px;
 }
 .header {
@@ -92,7 +98,7 @@ template{
   text-align: center;
   padding: 12px;
   text-decoration: none;
-  font-size: 18px; 
+  font-size: 18px;
   line-height: 25px;
   border-radius: 4px;
   font-weight: bold;
