@@ -10,6 +10,7 @@ import UserRawMaterial from "../components/UserRawMaterial";
 import UserVariableCosts from "../components/UserVariableCosts";
 import MainDashboard from "../components/MainDashboard";
 import UserProducts from "../components/UserProducts";
+import UserReport from "../components/UserReport";
 
 const routes = [
   {
@@ -68,9 +69,9 @@ const routes = [
     component: UserProducts,
   },
   {
-    path: "/reports",
+    path: "/report",
     name: "Reports",
-    component: VendorInvoices,
+    component: UserReport,
   },
 ];
 
