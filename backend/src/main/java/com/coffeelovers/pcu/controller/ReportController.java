@@ -52,7 +52,7 @@ public class ReportController {
 		try {
 			// product part
 				productCount = productRepository.findAll().stream().count();
-				reportArray.add(new Report("number of products",productCount)); // number of products
+				reportArray.add(new Report("Number of products",productCount)); // number of products
 				reportArray.add(new Report("Avarage cost of products", productRepository.findAll().stream().mapToDouble(productValue -> productValue.getNetCost()).average()));
 				//
 				productCostStandardDeviation = calculateSD(productRepository.findAll().stream().mapToDouble(productValue -> productValue.getNetCost()).sum(),
@@ -73,13 +73,13 @@ public class ReportController {
 				reportArray.add(new Report("Most Expensive Product in term of Net value-Code",productRepository.findAll().stream().filter(productValue ->productValue.getNetCost()== ((OptionalDouble) productMaxValue).getAsDouble()).findFirst().map(c->c.getCode())));// most  expensive  product's code
 				//
 				productMinValue = productRepository.findAll().stream().mapToDouble(productValue -> productValue.getNetCost()).min(); // the cheapest product
-				reportArray.add(new Report("cheapest Product in term of Net value",productMinValue));
-				reportArray.add(new Report("cheapest Product in term of Net value-Code",productRepository.findAll().stream().filter(productValue ->productValue.getNetCost()== ((OptionalDouble) productMinValue).getAsDouble()).findFirst().map(c->c.getCode())));// most  cheapest  product's code
+				reportArray.add(new Report("Cheapest Product in term of Net value",productMinValue));
+				reportArray.add(new Report("Cheapest Product in term of Net value-Code",productRepository.findAll().stream().filter(productValue ->productValue.getNetCost()== ((OptionalDouble) productMinValue).getAsDouble()).findFirst().map(c->c.getCode())));// most  cheapest  product's code
 				
 				// most expensive product in term of raw materials
 				rawMaterialMaxValue = productRepository.findAll().stream().mapToDouble(productValue -> productValue.getTotalMaterialCost()).min(); 
-				reportArray.add(new Report("most expensive product in term of raw materials",rawMaterialMaxValue));
-				reportArray.add(new Report("most expensive product in term of raw materials code",productRepository.findAll().stream().filter(productValue ->productValue.getTotalMaterialCost()== ((OptionalDouble) rawMaterialMaxValue).getAsDouble()).findFirst().map(c->c.getCode())));// most  cheapest  product's code
+				reportArray.add(new Report("Most expensive product in term of raw materials",rawMaterialMaxValue));
+				reportArray.add(new Report("Most expensive product in term of raw materials code",productRepository.findAll().stream().filter(productValue ->productValue.getTotalMaterialCost()== ((OptionalDouble) rawMaterialMaxValue).getAsDouble()).findFirst().map(c->c.getCode())));// most  cheapest  product's code
 				// most cheapest product in term of variable cost
 				varaiableMaxValue = productRepository.findAll().stream().mapToDouble(productValue -> productValue.getTotalvariableCost()).min(); 
 				reportArray.add(new Report("The Cheapest product in term of Varaible Cost ",varaiableMaxValue));
