@@ -56,10 +56,10 @@
           <div class="secondCell">Total</div>
         </div>
         <div class="row" >
-          <div class="cell">TEST</div>
-          <div class="cell">TEST</div>
-          <div class="cell">TEST</div>
-          <div class="cell">TEST</div>
+          <div class="cell">dropdown</div>
+          <div class="cell">from dropdown</div>
+          <div class="cell"><input type="number"></div>
+          <div class="cell">{{this.totalRaw}}</div>
           <div class="cell">
           </div>
         </div>
@@ -72,15 +72,24 @@
           <div class="secondCell">Cost</div>
         </div>
         <div class="row" >
-          <div class="cell">TEST</div>
-          <div class="cell">TEST</div>
-          <div class="cell">TEST</div>
+          <div class="cell">dropdown</div>
+          <div class="cell">from dropdown</div>
+          <div class="cell">from dropdown</div>
           <div class="cell">
         </div>
         </div>
         </div>
     </div>
-    
+    <div class="totals">
+        <div class="row">
+            <div class="cell">Total raw materials</div>
+            <div class="cell">{{totalRawMaterials}}</div>
+        </div>
+        <div class="row">
+            <div class="cell">Total variable costs</div>
+            <div class="cell">{{totalVarCosts}}</div>
+        </div>
+    </div>
     
     
 
@@ -143,42 +152,10 @@ export default {
     display: table-cell;
     padding: 5px 4vw;
 }
-
-
-/* .container{
-    display:flex;
-    flex-direction: column;
+.totals{
+    display: table;
+    float: left;
+    margin-top: 2vh;
 }
-
-h1 {
-  text-align: center;
-  padding: 25px;
-}
-.table {
-  display: flex;
-  float:left;
-}
-.column .firstRaw{
-    margin:5px;
-}
-.column input{
-    margin:5px;
-}
-.row-header{
-    display: flex;
-    margin-top: 10px;
-    margin-left: 12vw;
-    margin-right: 12vw;
-}
-
-.row-header .cell{
-    margin-top: 1vh;
-    padding-right: 4vw;
-}
-.secondTable{
-    display:flex;
-} */
-
-
 
 </style>
