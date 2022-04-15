@@ -6,6 +6,7 @@
     <h1>Products</h1>
     <div class="container">
       <div class="table">
+        <div class="addButton"><a href="" @click="$router.push('/createproduct')">Add</a></div>
         <div class="row-header">
           <div class="cell">ID</div>
           <div class="cell">Code</div>
@@ -282,7 +283,35 @@ h1 {
   display: table;
   justify-content: top;
 }
+.addButton{
+  display: table-caption;
+}
+.addButton a {
+  float: right;
+  color: black;
+  text-align: center;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px;
+  line-height: 25px;
+  border-radius: 4px;
+  font-weight: bold;
+}
 
+.addButton a.logo {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.addButton a:hover {
+  background-color: #000;
+  color: white;
+}
+
+.addButton a.active {
+  background-color: dodgerblue;
+  color: white;
+}
 .row-header {
   display: table-row;
   background-color: black;
