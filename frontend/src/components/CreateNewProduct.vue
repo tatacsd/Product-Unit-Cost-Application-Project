@@ -5,8 +5,69 @@
     <h1>Create Product</h1>
     <div class="container">
       <!-- Description table -->
+      <div class="containerDescription">
+        <div class="table">
+          <div class="column">
+            <div class="row">
+              <div class="cell">Code</div>
+              <div class="cell">
+                <input
+                  type="text"
+                  v-model="description.code"
+                  placeholder="Code"
+                  required
+                />
+              </div>
+            </div>
+            <div class="row">
+              <div class="cell">Description</div>
+              <div class="cell">
+                <input
+                  type="text"
+                  v-model="description.discription"
+                  placeholder="Description"
+                  required
+                />
+              </div>
+            </div>
+            <div class="row">
+              <div class="cell">Picture</div>
+              <div class="cell">
+                <input
+                  type="text"
+                  v-model="description.picture"
+                  placeholder="Picture"
+                  required
+                />
+              </div>
+            </div>
+            <div class="row">
+              <div class="cell">Size</div>
+              <div class="cell">
+                <input
+                  type="text"
+                  v-model="description.size"
+                  placeholder="Size"
+                  required
+                />
+              </div>
+            </div>
+            <div class="row">
+              <div class="cell">Net Cost</div>
+              <div class="cell">
+                <input
+                  type="text"
+                  v-model="description.netcost"
+                  placeholder="Netcost"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <!-- Raw materials table -->
-      <div class="containerOne">
+      <div class="containerRaw">
         <h4>Raw Materials</h4>
         <div class="table">
           <div class="row-header">
@@ -122,7 +183,7 @@
         </div>
       </div>
       <!-- variable cost table -->
-      <div class="containerTwo">
+      <div class="containerVariable">
         <h4>Variable Costs</h4>
         <div class="table">
           <div class="row-header">
@@ -158,19 +219,6 @@
                 </option>
               </select>
             </div>
-
-            <div class="cell">
-              <!-- button to update the cell  will be visible when the button add clicked-->
-              <img
-                src="../assets/floppy-disk.png"
-                alt="add"
-                width="20"
-                height="20"
-                v-if="update"
-                @click="updateVariableCosts()"
-                class="img-update"
-              />
-            </div>
             <div class="cell"></div>
           </div>
           <div
@@ -193,31 +241,25 @@
                   @click="deleteVariableCosts(item.variableCostId)"
                 />
               </p>
-              <p class="edit-btn">
-                <img
-                  src="../assets/edit.png"
-                  alt="edit"
-                  width="20"
-                  height="20"
-                  @click="editVariableCosts(rawMaterial.id)"
-                />
-              </p>
             </div>
           </div>
         </div>
       </div>
 
       <!-- Totals table -->
-      <!-- submit button for the api -->
       <div class="totals">
         <div class="row">
-          <div class="cell">Total raw materials</div>
-          <div class="cell">{{ totalRawMaterials }}</div>
+          <div class="cell">Total raw materials: $</div>
+          <div class="cell">{{ totalRawMaterials.toFixed(2) }}</div>
         </div>
         <div class="row">
-          <div class="cell">Total variable costs</div>
-          <div class="cell">{{ totalVarCosts }}</div>
+          <div class="cell">Total variable costs: $</div>
+          <div class="cell">{{ totalVarCosts.toFixed(2) }}</div>
         </div>
+      </div>
+      <!-- submit button for the api -->
+      <div class="submit">
+        <button type="submit" @click="submit">Submit</button>
       </div>
 
       <BaseFooter />
@@ -238,6 +280,13 @@ export default {
   },
   data() {
     return {
+      description: {
+        code: "",
+        description: "",
+        picture: "",
+        size: "",
+        netcost: "",
+      },
       selected: "",
       quantity: "",
       value: "",
@@ -276,14 +325,13 @@ export default {
           total: this.quantity * this.value,
         });
 
+        this.totalRawMaterials += this.quantity * this.value;
+
         // clear fields
         this.selected = "";
         this.quantity = "";
         this.value = "";
         this.total = "";
-
-        // update total
-        this.updateRawMaterials();
 
         console.log(this.rawMaterials);
       } else {
@@ -350,13 +398,13 @@ export default {
       // check if the fields are not empty
       if (this.selectedVariableCosts != "") {
         console.log(this.selectedVariableCosts);
-        // using the this.selectedVariableCosts to find the variable costs
-        let variableCostsSelection = this.dropdownVariableCosts.find(
-          (variableCosts) => {
-            return variableCosts.id == this.selectedVariableCosts;
-          }
-        );
-        this.variableCosts.push(variableCostsSelection);
+        // find in the dropdown the selected variable costs
+        let variableCosts = this.dropdownVariableCosts.find((variableCosts) => {
+          return variableCosts.variableCostId == this.selectedVariableCosts;
+        });
+        this.variableCosts.push(variableCosts);
+
+        this.totalVarCosts += variableCosts.value;
 
         // clear fields
         this.selectedVariableCosts = "";
@@ -371,35 +419,42 @@ export default {
     deleteVariableCosts(id) {
       // delete the variable costs from the array
       this.variableCosts = this.variableCosts.filter((variableCosts) => {
-        return variableCosts.id != id;
+        this.totalVarCosts -= variableCosts.value;
+        return variableCosts.variableCostId != id;
       });
-    },
-    editVariableCosts(id) {
-      // find the variable costs in the array
-      let variableCosts = this.variableCosts.find((variableCosts) => {
-        return variableCosts.id == id;
-      });
-      // set the values to the fields
-      this.selectedVariableCosts = variableCosts.id;
-      this.valueVariableCosts = variableCosts.value;
-      // set the update to true
-      this.update = true;
     },
   },
+  submit() {
+    console.log(this.rawMaterials);
+    console.log(this.variableCosts);
 
-  updateTotalRawMaterials() {
-    // calculate the total raw materials
-    this.totalRawMaterials = 0;
-    this.rawMaterials.forEach((rawMaterial) => {
-      this.totalRawMaterials += rawMaterial.total;
-    });
-  },
-  updateTotalVarCosts() {
-    // calculate the total variable costs
-    this.totalVarCosts = 0;
-    this.variableCosts.forEach((variableCosts) => {
-      this.totalVarCosts += variableCosts.value;
-    });
+    // creat a product json
+    let product = {
+      productID: Math.floor(Math.random() * 100),
+      code: this.description.code,
+      discription: this.description.description,
+      picture: this.description.picture,
+      size: this.description.size,
+      totalMaterialCost: this.totalRawMaterials,
+      variableCosts: [
+        {
+          description: "canada",
+          value: 32.0,
+          dateTime: "2022-04-15",
+          variableCostId: 38,
+        },
+      ],
+      rawMaterials: [
+        {
+          name: "Flat Waxed Thread",
+          id: 32,
+        },
+      ],
+      netCost: this.description.netcost,
+      totalvariableCosts: this.totalVarCosts,
+    };
+
+    console.log(product);
   },
 
   mounted() {
@@ -410,6 +465,9 @@ export default {
 </script>
 
 <style scoped>
+h1 {
+  text-align: center;
+}
 .table {
   display: table;
   justify-content: top;
