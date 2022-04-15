@@ -49,7 +49,7 @@ const routes = [
     component: NewInvoiceDetails,
   },
   {
-    path: "/rawmaterial",
+    path: "/rawmaterials",
     name: "RawMaterial",
     component: UserRawMaterial,
   },
